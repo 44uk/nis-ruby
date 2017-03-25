@@ -5,7 +5,7 @@ require "nis/endpoint"
 class Nis
   extend Forwardable
 
-  def_delegators('@client', 'request')
+  def_delegators :@client, :request
 
   # @param [hash] options HTTP Client connection information
   # @option options [Symbol] :url URL
