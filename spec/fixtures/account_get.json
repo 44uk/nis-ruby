@@ -1,0 +1,17 @@
+{
+    "account": {
+        "address": "TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS",
+        "balance": 124446551689680,
+        "vestedBalance": 104443451691625,
+        "importance": 0.010263666447108395,
+        "publicKey": "a11a1a6c17a24252e674d151713cdf51991ad101751e4af02a20c61b59f1fe1a",
+        "label": null,
+        "harvestedBlocks": 645
+    },
+    "meta": {
+        "cosignatoryOf": [ ],
+        "cosignatories": [ ],
+        "status": "LOCKED",
+        "remoteStatus": "ACTIVE"
+    }
+}

@@ -1,0 +1,83 @@
+heartbeat:
+  method: get
+
+status:
+  method: get
+
+account/generate:
+  method: get
+
+account/get:
+  method: get
+  params:
+    address: TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS
+
+account/get/from-public-key:
+  method: get
+  stub: account/get
+  params:
+    publicKey: f9bd190dd0c364261f5c8a74870cc7f7374e631352293c62ecc437657e5de2cd
+
+# account/get/forwarded:
+# account/get/forwarded/from-public-key:
+# account/status:
+# account/transfers/incoming:
+# account/transfers/outgoing:
+# account/transfers/all:
+# account/unconfirmedTransactions:
+
+local/account/transfers/incoming:
+  method: post
+
+local/account/transfers/outgoing:
+  method: post
+
+local/account/transfers/all:
+  method: post
+
+account/harvests:
+  method: get
+  params:
+    address: TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS
+    hash: 81d52a7df4abba8bb1613bcc42b6b93cf3114524939035d88ae8e864cd2c34c8
+
+# account/importances:
+# account/namespace/page:
+# account/mosaic/definition/page:
+# account/mosaic/owned:
+
+account/unlock:
+  method: post
+  params:
+    privateKey: 00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda
+
+account/lock:
+  method: post
+  params:
+    privateKey: 00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda
+
+# account/unlocked/info:
+# account/historical/get:
+# chain/height:
+# chain/score:
+# chain/last-block:
+# block/get:
+# block/at/public:
+# local/chain/blocks-after:
+# node/info:
+# node/extended-info:
+# node/peer-list/all:
+# node/peer-list/reachable:
+# node/peer-list/active:
+# node/active-peers/max-chain-height:
+# node/experiences:
+# node/boot:
+# namespace/root/page:
+# namespace:
+# namespace/mosaic/definition/page:
+# transaction/prepare-announce:
+# transaction/announce:
+# debug/time-synchronization:
+# debug/connections/incoming:
+# debug/connections/outgoing:
+# debug/connections/timers:
