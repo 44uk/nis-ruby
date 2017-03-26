@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'nis/version'
 
 Gem::Specification.new do |spec|
-  spec.name        = 'nis'
+  spec.name        = 'nis-ruby'
   spec.version     = Nis::VERSION
   spec.authors     = ['Yoshiyuki Ieyama']
   spec.email       = ['yukku0423@gmail.com']
@@ -13,15 +13,6 @@ Gem::Specification.new do |spec|
   spec.description = %q{Ruby client library for the NEM Infrastructure Server API}
   spec.homepage    = 'https://github.com/44uk/nis-ruby'
   spec.license     = 'MIT'
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise 'RubyGems 2.0 or newer is required to protect against ' \
-      'public gem pushes.'
-  end
 
   spec.metadata['yard.run'] = 'yri'
 
@@ -32,7 +23,6 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  # spec.add_development_dependency 'bundler', '~> 1.14'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'yard', '~> 0.9'
