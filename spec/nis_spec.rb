@@ -7,11 +7,13 @@ describe Nis do
   subject { nis }
 
   describe '#heartbeat' do
-    it { expect(subject.heartbeat).to eq hash_stub_from_json 'heartbeat' }
+    it { expect(subject.heartbeat)
+      .to be_a Nis::Struct::NemRequestResult }
   end
 
   describe '#status' do
-    it { expect(subject.status).to eq hash_stub_from_json 'status' }
+    it { expect(subject.status)
+      .to be_a Nis::Struct::NemRequestResult }
   end
 
   describe '#request' do
