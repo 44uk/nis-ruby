@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'webmock_helper'
 
 describe Nis do
   let(:nis) { Nis.new }
