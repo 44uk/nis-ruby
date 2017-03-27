@@ -1,0 +1,35 @@
+{
+    "data": [
+        {
+            "meta": {
+                "id": 3541
+            },
+            "mosaic": {
+                "creator": "10cfe522fe23c015b8ab24ef6a0c32c5de78eb55b2152ed07b6a092121187100",
+                "id": {
+                    "namespaceId": "makoto.metal.coins",
+                    "name": "silver coin"
+                },
+                "description": "Real silver coins, pure silver",
+                "properties": [
+                    {
+                        "name": "divisibility",
+                        "value": "0"
+                    },
+                    {
+                        "name": "initialSupply",
+                        "value": "1000"
+                    },
+                    {
+                        "name": "supplyMutable",
+                        "value": "false"
+                    },
+                    {
+                        "name": "transferable",
+                        "value": "true"
+                    }
+                ]
+            }
+        }
+    ]
+}
