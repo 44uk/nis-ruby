@@ -54,8 +54,16 @@ nis.request(:post, '/account/unlock',
 )
 # => Nothing
 # See http://bob.nem.ninja/docs/#locking-and-unlocking-accounts
-
 ```
+
+
+## Commandline
+
+```bash
+$ nis status # => {"code":6,"type":4,"message":"status"}
+$ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
+```
+
 
 ## TODO
 
