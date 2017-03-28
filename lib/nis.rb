@@ -4,6 +4,7 @@ require "nis/client"
 require "nis/endpoint"
 require "nis/struct"
 require "nis/unit"
+require "nis/error"
 
 class Nis
   extend Forwardable
