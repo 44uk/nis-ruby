@@ -27,9 +27,10 @@ class Nis::Client
   # @param [String] path API Path
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
-  def request(method, path, params = nil)
+  def request(method, path, params = nil, &block)
     body = connection.send(method, path, params).body
-    parse_body(body) unless body.size == 0
+    hash = parse_body(body) unless body.size == 0
+    block_given? ? yield(hash) : hash
   end
 
   private
