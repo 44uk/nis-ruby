@@ -12,5 +12,9 @@ module Nis::Util
         hash[var.to_s.delete("@").to_sym] = instance_variable_get(var)
       end
     end
+
+    def to_json
+      to_hash.to_json
+    end
   end
 end
