@@ -1,0 +1,27 @@
+{
+    "outstanding": [
+        {
+            "path": "/debug/connections/incoming",
+            "start-time": 9317306,
+            "host": "127.0.0.1",
+            "elapsed-time": 0,
+            "id": 4070
+        }
+    ],
+    "most-recent": [
+        {
+            "path": "/debug/connections/incoming",
+            "start-time": 9317306,
+            "host": "127.0.0.1",
+            "elapsed-time": 0,
+            "id": 4070
+        },
+        {
+            "path": "/chain/score",
+            "start-time": 9317303,
+            "host": "95.16.203.168",
+            "elapsed-time": 3,
+            "id": 4069
+        }
+    ]
+}

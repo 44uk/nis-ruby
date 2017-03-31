@@ -27,13 +27,10 @@ class Nis::Client
   # @param [String] path API Path
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
-  def request(method, path, params = nil)
+  def request(method, path, params = nil, &block)
     body = connection.send(method, path, params).body
-    begin
-      JSON.parse(body, symbolize_names: true) unless body.size == 0
-    rescue
-      return body
-    end
+    hash = parse_body(body) unless body.size == 0
+    block_given? ? yield(hash) : hash
   end
 
   private
@@ -47,6 +44,10 @@ class Nis::Client
       #   logger.filter(/(privateKey=)(\w+)/,'\1[FILTERED]')
       # end
     end
+  end
+
+  def parse_body(body)
+    JSON.parse(body, symbolize_names: true)
   end
 
   def parse_options(options = {})

@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "address": "TCYGT6GHZPNASMAXV7YCFCU5R5XTJKNNT66R4A4T",
+            "importance": {
+                "isSet": 0
+            }
+        },
+        {
+            "address": "TD2JJJVPKDZFXWK3N3ZJLN7A5TGNOTM3J5EVSTIG",
+            "importance": {
+                "score": 0.001222376902598832,
+                "ev": 0.004252356221747241,
+                "isSet": 1,
+                "height": 40926
+            }
+        }
+    ]
+}

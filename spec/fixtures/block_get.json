@@ -1,0 +1,13 @@
+{
+    "timeStamp": 9232942,
+    "signature": "005f91b8908fc173a428ff8e8c4a0ee0d69e4004aed0d08f27690b6b6672ef74ccc6b89695bed5f29b0f4a812cb84bfa459f52a4e14a11e574793969f0e1a30f",
+    "prevBlockHash": {
+      "data": "f721e563b4431594c5af6f6be0a913f47f0aca6c3b8ee6a703bfe175ee54babf"
+    },
+    "type": 1,
+    "transactions": [
+    ],
+    "version": 1744830465,
+    "signer": "78e121cc1cf63424651ec64251e78efda81386c9f5e9eb4cb08b2a2192c9dce5",
+    "height": 42803
+}

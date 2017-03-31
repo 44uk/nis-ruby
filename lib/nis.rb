@@ -1,11 +1,15 @@
 require "nis/version"
+require "nis/util"
 require "nis/client"
 require "nis/endpoint"
+require "nis/struct"
+require "nis/unit"
+require "nis/error"
 
 class Nis
   extend Forwardable
 
-  def_delegators('@client', 'request')
+  def_delegators :@client, :request
 
   # @param [hash] options HTTP Client connection information
   # @option options [Symbol] :url URL
@@ -17,15 +21,6 @@ class Nis
     @client = Client.new(options)
   end
 
-  # @return [hash] NIS Heartbeat
-  # @see http://bob.nem.ninja/docs/#heart-beat-request
-  def heartbeat
-    Nis::Endpoint::Heartbeat.new(@client).request
-  end
-
-  # @return [hash] NIS status
-  # @see http://bob.nem.ninja/docs/#status-request
-  def status
-    Nis::Endpoint::Status.new(@client).request
-  end
+  include Nis::Endpoint::Heartbeat
+  include Nis::Endpoint::Status
 end

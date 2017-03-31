@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "meta":{
+                "id": 26264
+            },
+            "namespace":{
+                "fqn": "makoto.metal.coins",
+                "owner": "TD3RXTHBLK6J3UD2BH2PXSOFLPWZOTR34WCG4HXH",
+                "height": 13465
+            }
+        },
+        {
+            "meta":{
+                "id": 25421
+            },
+            "namespace":{
+                "fqn": "gimre.vouchers",
+                "owner": "TDGIMREMR5NSRFUOMPI5OOHLDATCABNPC5ID2SVA",
+                "height": 12392
+            }
+        }
+    ]
+}

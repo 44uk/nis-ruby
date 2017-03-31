@@ -1,0 +1,18 @@
+{
+    "data": [
+        {
+            "mosaicId": {
+                "namespaceId": "alice.drinks",
+                "name": "orange juice"
+            },
+            "quantity": 123
+        },
+        {
+            "mosaicId": {
+                "namespaceId": "makoto.metal.coins",
+                "name": "silver coin"
+            },
+            "quantity": 8
+        }
+    ]
+}

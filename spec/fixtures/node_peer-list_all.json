@@ -1,0 +1,154 @@
+{
+    "inactive": [
+        {
+            "metaData": {
+                "features": 1,
+                "networkId": 104,
+                "application": "NIS",
+                "version": "0.4.30-BETA",
+                "platform": "Oracle Corporation (1.8.0_05) on Windows 8.1"
+            },
+            "endpoint": {
+                "protocol": "http",
+                "port": 7890,
+                "host": "85.25.36.97"
+            },
+            "identity": {
+                "name": "Hi, I am Alice2",
+                "public-key": "3302e7703ee9f364c25bbfebb9c12ac91fa9dcd69e09a5d4f3830d71505a2350"
+            }
+        },
+        {
+            "metaData": {
+                "features": 1,
+                "networkId": 104,
+                "application": "NIS",
+                "version": "0.4.30-BETA",
+                "platform": "Oracle Corporation (1.8.0_05) on Windows 8.1"
+            },
+            "endpoint": {
+                "protocol": "http",
+                "port": 7890,
+                "host": "85.25.36.97"
+            },
+            "identity": {
+                "name": "Hi, I am Alice2",
+                "public-key": "3302e7703ee9f364c25bbfebb9c12ac91fa9dcd69e09a5d4f3830d71505a2350"
+            }
+        }
+    ],
+    "active": [
+        {
+            "metaData": {
+                "features": 1,
+                "networkId": 104,
+                "application": "NIS",
+                "version": "0.4.30-BETA",
+                "platform": "Oracle Corporation (1.8.0_05) on Windows 8.1"
+            },
+            "endpoint": {
+                "protocol": "http",
+                "port": 7890,
+                "host": "85.25.36.97"
+            },
+            "identity": {
+                "name": "Hi, I am Alice2",
+                "public-key": "3302e7703ee9f364c25bbfebb9c12ac91fa9dcd69e09a5d4f3830d71505a2350"
+            }
+        },
+        {
+            "metaData": {
+                "features": 1,
+                "networkId": 104,
+                "application": "NIS",
+                "version": "0.4.30-BETA",
+                "platform": "Oracle Corporation (1.8.0_05) on Windows 8.1"
+            },
+            "endpoint": {
+                "protocol": "http",
+                "port": 7890,
+                "host": "85.25.36.97"
+            },
+            "identity": {
+                "name": "Hi, I am Alice2",
+                "public-key": "3302e7703ee9f364c25bbfebb9c12ac91fa9dcd69e09a5d4f3830d71505a2350"
+            }
+        }
+    ],
+    "busy": [
+        {
+            "metaData": {
+                "features": 1,
+                "networkId": 104,
+                "application": "NIS",
+                "version": "0.4.30-BETA",
+                "platform": "Oracle Corporation (1.8.0_05) on Windows 8.1"
+            },
+            "endpoint": {
+                "protocol": "http",
+                "port": 7890,
+                "host": "85.25.36.97"
+            },
+            "identity": {
+                "name": "Hi, I am Alice2",
+                "public-key": "3302e7703ee9f364c25bbfebb9c12ac91fa9dcd69e09a5d4f3830d71505a2350"
+            }
+        },
+        {
+            "metaData": {
+                "features": 1,
+                "networkId": 104,
+                "application": "NIS",
+                "version": "0.4.30-BETA",
+                "platform": "Oracle Corporation (1.8.0_05) on Windows 8.1"
+            },
+            "endpoint": {
+                "protocol": "http",
+                "port": 7890,
+                "host": "85.25.36.97"
+            },
+            "identity": {
+                "name": "Hi, I am Alice2",
+                "public-key": "3302e7703ee9f364c25bbfebb9c12ac91fa9dcd69e09a5d4f3830d71505a2350"
+            }
+        }
+    ],
+    "failure": [
+        {
+            "metaData": {
+                "features": 1,
+                "networkId": 104,
+                "application": "NIS",
+                "version": "0.4.30-BETA",
+                "platform": "Oracle Corporation (1.8.0_05) on Windows 8.1"
+            },
+            "endpoint": {
+                "protocol": "http",
+                "port": 7890,
+                "host": "85.25.36.97"
+            },
+            "identity": {
+                "name": "Hi, I am Alice2",
+                "public-key": "3302e7703ee9f364c25bbfebb9c12ac91fa9dcd69e09a5d4f3830d71505a2350"
+            }
+        },
+        {
+            "metaData": {
+                "features": 1,
+                "networkId": 104,
+                "application": "NIS",
+                "version": "0.4.30-BETA",
+                "platform": "Oracle Corporation (1.8.0_05) on Windows 8.1"
+            },
+            "endpoint": {
+                "protocol": "http",
+                "port": 7890,
+                "host": "85.25.36.97"
+            },
+            "identity": {
+                "name": "Hi, I am Alice2",
+                "public-key": "3302e7703ee9f364c25bbfebb9c12ac91fa9dcd69e09a5d4f3830d71505a2350"
+            }
+        }
+    ]
+}
