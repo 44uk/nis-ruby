@@ -1,4 +1,6 @@
 module Nis::Unit
+  # @attr [String] value
+  # @attr [String] first_char
   class Address
     attr :value, :first_char
 
@@ -7,14 +9,17 @@ module Nis::Unit
       @first_char = @value[0]
     end
 
+    # @return [Boolean]
     def valid?
       !!(@value =~ /[ABCDEFGHIJKLMNOPQRSTUVWXYZ234567]{40}/)
     end
 
+    # @return [Boolean]
     def mainnet?
       @first_char == 'N'
     end
 
+    # @return [Boolean]
     def testnet?
       @first_char == 'T'
     end

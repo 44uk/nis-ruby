@@ -1,4 +1,5 @@
 class Nis::Struct
+  # @see http://bob.nem.ninja/docs/#nemRequestResult
   class NemRequestResult
     include Nis::Util::Assignable
 
@@ -8,14 +9,17 @@ class Nis::Struct
       new(json)
     end
 
+    # @return [Boolean]
     def validation?
       @type == 1
     end
 
+    # @return [Boolean]
     def heartbeat?
       @type == 2
     end
 
+    # @return [Boolean]
     def status?
       @type == 4
     end

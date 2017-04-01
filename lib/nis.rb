@@ -6,6 +6,7 @@ require "nis/struct"
 require "nis/unit"
 require "nis/error"
 
+# API Ruby Wrapper for NEM Infrastructure Server
 class Nis
   extend Forwardable
 
