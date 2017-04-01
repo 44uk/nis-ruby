@@ -38,4 +38,7 @@ class Nis
   include Nis::Endpoint::Account::Lock
   include Nis::Endpoint::Account::Unlocked
   include Nis::Endpoint::Account::Historical
+
+  include Nis::Endpoint::Transaction::PrepareAnnounce
+  include Nis::Endpoint::Transaction::Announce
 end

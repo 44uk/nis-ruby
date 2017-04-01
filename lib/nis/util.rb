@@ -1,4 +1,10 @@
 module Nis::Util
+  NEM_EPOCH = Time.utc(2015, 3, 29, 0, 6, 25, 0)
+
+  def self.timestamp
+    (Time.now - NEM_EPOCH).to_i
+  end
+
   def self.error_handling(hash)
     error_klass = case hash[:error]
                   when 'Bad Request' then Nis::BadRequestError
