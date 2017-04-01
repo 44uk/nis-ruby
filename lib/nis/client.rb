@@ -35,6 +35,16 @@ class Nis::Client
     block_given? ? yield(hash) : hash
   end
 
+  # @param [Symbol] method HTTP Method(GET or POST)
+  # @param [String] path API Path
+  # @param [Hash] params API Parameters
+  # @return [Hash] Hash converted API Response
+  def request!(method, path, params = nil, &block)
+    hash = request(method, path, params)
+    raise Nis::Util.error_handling(hash) if hash.has_key?(:error)
+    block_given? ? yield(hash) : hash
+  end
+
   private
 
   def connection
