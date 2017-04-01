@@ -10,7 +10,9 @@ class Nis::Struct
     attr_accessor :creator, :id, :description, :properties, :levy
 
     def self.build(attrs)
+      attrs[:id] = MosaicId.build(attrs[:id])
       attrs[:properties] = attrs[:properties].map { |p| MosaicProperties.build(p) }
+      attrs[:levy] = MosaicLevy.build(attrs[:levy]) if attrs[:levy]
       new(attrs)
     end
   end
