@@ -1,6 +1,7 @@
 module Nis::Endpoint
   module Status
-    # @return [hash] NIS status
+    # Determines the status of NIS.
+    # @return [Nis::Struct::NemRequestResult] NIS status
     # @see http://bob.nem.ninja/docs/#status-request
     def status
       Nis::Struct::NemRequestResult.build request(:get, '/status')

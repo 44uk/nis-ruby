@@ -1,4 +1,5 @@
 module Nis::Unit
+  # @attr [String] value
   class Status
     attr :value
 

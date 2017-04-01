@@ -1,4 +1,5 @@
 module Nis::Unit
+  # @attr [String] value
   class Hash
     attr :value
 
@@ -6,6 +7,7 @@ module Nis::Unit
       @value = value
     end
 
+    # @return [Boolean]
     def valid?
       !!(@value =~ /[0-9a-f]{64}/)
     end

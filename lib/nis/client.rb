@@ -2,6 +2,7 @@ require 'faraday'
 require 'json'
 require 'uri'
 
+# @attr [Hash] options connection options
 class Nis::Client
   DEFAULTS = {
     url:     -> {ENV['NIS_URL']},

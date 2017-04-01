@@ -6,6 +6,11 @@ describe Nis::Struct::NemRequestResult do
 
   subject { result }
 
+  describe '#[]' do
+    it { expect(subject[:type]).to eq ret[:type] }
+    it { expect(subject['type']).to eq ret[:type] }
+  end
+
   describe '#to_hash' do
     it { expect(subject.to_hash).to eq ret }
   end

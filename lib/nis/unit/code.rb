@@ -1,4 +1,6 @@
 module Nis::Unit
+  # @attr [String] value
+  # @attr [String] message
   class Code
     attr :value, :message
 

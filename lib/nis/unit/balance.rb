@@ -1,4 +1,6 @@
 module Nis::Unit
+  # @attr [String] value
+  # @attr [String] value_in_nem
   class Balance
     attr :value
 
@@ -6,6 +8,7 @@ module Nis::Unit
       @value = value.to_i
     end
 
+    # @return [Float]
     def in_nem
       @value_in_nem ||= @value.to_f / 1_000_000
     end
