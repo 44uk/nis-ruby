@@ -124,6 +124,21 @@ describe Nis do
       .to eq hash_stub_from_json 'account_unlocked_info' }
   end
 
+  describe '#chain_height' do
+    it { expect(subject.chain_height)
+      .to be_a Nis::Struct::BlockHeight }
+  end
+
+  describe '#chain_last_block' do
+    it { expect(subject.chain_last_block)
+      .to be_a Nis::Struct::Block }
+  end
+
+  describe '#chain_score' do
+    it { expect(subject.chain_score)
+      .to be_a Nis::Struct::BlockScore }
+  end
+
   describe '#debug_connections_incoming' do
     it { expect(subject.debug_connections_incoming)
       .to be_a Nis::Struct::AuditCollection }
