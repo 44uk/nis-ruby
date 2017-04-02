@@ -1,0 +1,6 @@
+{
+    "timeStamp": 9108808,
+    "error": "Bad Request",
+    "message": "address must be valid",
+    "status": 400
+}
