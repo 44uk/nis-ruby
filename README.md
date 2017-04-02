@@ -15,22 +15,14 @@ Ruby client library for the NEM Infrastructure Server API
 
 ## Installation
 
-Add this line to your application's Gemfile:
+```bash
+$ gem install nis-ruby
+```
+
+Or add this line to your application's Gemfile:
 
 ```ruby
 gem 'nis-ruby'
-```
-
-And then execute:
-
-```bash
-$ bundle install
-```
-
-Or install it yourself as:
-
-```bash
-$ gem specific_install -l 'git://github.com/44uk/nis-ruby.git'
 ```
 
 
@@ -59,6 +51,11 @@ nis.request(:post, '/account/unlock',
 # => Nothing
 # See http://bob.nem.ninja/docs/#locking-and-unlocking-accounts
 ```
+
+
+## Documentation
+
+Available at [rubydoc.info](http://www.rubydoc.info/gems/nis-ruby).
 
 
 ## Commandline
