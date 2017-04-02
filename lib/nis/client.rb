@@ -76,7 +76,7 @@ class Nis::Client
 
     if url
       uri = URI(url)
-      if uri.scheme == "http"
+      if uri.scheme == 'http'
         defaults[:scheme] = uri.scheme
         defaults[:host]   = uri.host
         defaults[:port]   = uri.port
