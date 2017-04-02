@@ -2,7 +2,7 @@ module Nis::Unit
   # @attr [String] value
   # @attr [String] first_char
   class Address
-    attr :value, :first_char
+    attr_accessor :value, :first_char
 
     def initialize(value)
       @value = value

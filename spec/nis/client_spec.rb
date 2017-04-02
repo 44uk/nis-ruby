@@ -29,4 +29,12 @@ describe Nis::Client do
       )).to eq nil }
     end
   end
+
+  describe '#request!' do
+    context '/account/get with invalid address' do
+      it { expect {  subject.request!(:get, '/account/get',
+        address: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+      ) }.to raise_error(Nis::BadRequestError) }
+    end
+  end
 end

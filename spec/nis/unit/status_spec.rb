@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Nis::Unit::Status do
-  let(:value){ 'ACTIVE' }
-  let(:status){ described_class.new(value) }
-  let(:other){ described_class.new(value) }
+  let(:value) { 'ACTIVE' }
+  let(:status) { described_class.new(value) }
+  let(:other) { described_class.new(value) }
 
   subject { status }
 
@@ -12,12 +12,12 @@ describe Nis::Unit::Status do
   end
 
   describe '#remote?' do
-    let(:value){ 'REMOTE' }
+    let(:value) { 'REMOTE' }
     it { expect(subject.remote?).to eq true }
   end
 
   describe '#locked??' do
-    let(:value){ 'LOCKED' }
+    let(:value) { 'LOCKED' }
     it { expect(subject.locked?).to eq true }
   end
 

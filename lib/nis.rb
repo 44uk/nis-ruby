@@ -1,16 +1,16 @@
-require "nis/version"
-require "nis/util"
-require "nis/client"
-require "nis/endpoint"
-require "nis/struct"
-require "nis/unit"
-require "nis/error"
+require 'nis/version'
+require 'nis/util'
+require 'nis/client'
+require 'nis/endpoint'
+require 'nis/struct'
+require 'nis/unit'
+require 'nis/error'
 
 # API Ruby Wrapper for NEM Infrastructure Server
 class Nis
   extend Forwardable
 
-  def_delegators :@client, :request
+  def_delegators :@client, :request, :request!
 
   # @param [hash] options HTTP Client connection information
   # @option options [Symbol] :url URL

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Nis::Unit::Balance do
-  let(:value){ 123456789 }
-  let(:balance){ described_class.new(value) }
-  let(:other){ described_class.new(value) }
+  let(:value) { 123_456_789 }
+  let(:balance) { described_class.new(value) }
+  let(:other) { described_class.new(value) }
 
   subject { balance }
 
