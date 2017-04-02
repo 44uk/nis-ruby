@@ -1,13 +1,13 @@
 module Nis::Unit
   # @attr [String] value
   class Status
-    attr :value
+    attr_accessor :value
 
     def initialize(value)
       @value = value
     end
 
-    %w[
+    %w(
       UNKNOWN
       LOCKED
       UNLOCKED
@@ -16,16 +16,18 @@ module Nis::Unit
       ACTIVE
       DEACTIVATING
       INACTIVE
-    ].each do |status|
+    ).each do |status|
       define_method "#{status.downcase}?" do
         instance_variable_get(:@value) == status
       end
     end
 
+    # @return [String]
     def to_s
       @value
     end
 
+    # @return [Boolean]
     def ==(other)
       @value == other.value
     end

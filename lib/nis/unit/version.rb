@@ -1,10 +1,10 @@
 module Nis::Unit
   # @attr [String] value
   class Version
-    MAINNET =  1744830465
-    TESTNET = -1744830463
+    MAINNET =  1_744_830_465
+    TESTNET = -1_744_830_463
 
-    attr :value
+    attr_accessor :value
 
     def initialize(value)
       @value = value
@@ -20,12 +20,14 @@ module Nis::Unit
       @value == TESTNET
     end
 
+    # @return [String]
     def to_s
       testnet? ? 'testnet' :
         mainnet? ? 'mainnet' :
           'unexpected'
     end
 
+    # @return [Boolean]
     def ==(other)
       @value == other.value
     end

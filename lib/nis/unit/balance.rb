@@ -1,8 +1,7 @@
 module Nis::Unit
   # @attr [String] value
-  # @attr [String] value_in_nem
   class Balance
-    attr :value
+    attr_accessor :value
 
     def initialize(value)
       @value = value.to_i
@@ -13,14 +12,17 @@ module Nis::Unit
       @value_in_nem ||= @value.to_f / 1_000_000
     end
 
+    # @return [String]
     def to_s
       @value.to_s
     end
 
+    # @return [Integer]
     def to_i
       @value
     end
 
+    # @return [Boolean]
     def ==(other)
       @value == other.value
     end
