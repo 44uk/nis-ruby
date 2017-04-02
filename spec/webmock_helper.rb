@@ -42,9 +42,3 @@ routes.each do |path, opts|
     end
   end
 end
-
-WebMock.stub_request(:post, "#{NIS_URL}/api/post").to_return(
-  body:    'post',
-  status:  200,
-  headers: {'Content-Type' => 'application/json'}
-).with(body: {'hoge' => '100'})
