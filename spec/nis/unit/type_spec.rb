@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Nis::Unit::Type do
-  let(:value){ 1744830465 }
-  let(:type){ described_class.new(value) }
-  let(:other){ described_class.new(value) }
+  let(:value) { 1_744_830_465 }
+  let(:type) { described_class.new(value) }
+  let(:other) { described_class.new(value) }
 
   subject { type }
 
@@ -15,7 +15,7 @@ describe Nis::Unit::Type do
   #   it { expect(subject.mainnet?).to eq true }
   #
   #   context 'with testnet version' do
-  #     let(:value){ -1744830463 }
+  #     let(:value) { -1744830463 }
   #     it { expect(subject.mainnet?).to eq false }
   #   end
   # end
@@ -24,7 +24,7 @@ describe Nis::Unit::Type do
   #   it { expect(subject.testnet?).to eq false }
   #
   #   context 'with testnet version' do
-  #     let(:value){ -1744830463 }
+  #     let(:value) { -1744830463 }
   #     it { expect(subject.testnet?).to eq true }
   #   end
   # end
