@@ -9,7 +9,7 @@ module Nis::Unit
 
     # @return [Float]
     def in_nem
-      @value_in_nem ||= @value.to_f / 1_000_000
+      @value.to_f / 1_000_000
     end
 
     # @return [String]
