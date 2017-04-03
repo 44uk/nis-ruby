@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'webmock_helper'
 
 describe Nis::Client do
-  let(:client){ described_class.new }
+  let(:client) { described_class.new }
 
   subject { client }
 
