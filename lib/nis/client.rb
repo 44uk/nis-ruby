@@ -39,6 +39,7 @@ class Nis::Client
   # @param [String] path API Path
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
+  # @raise [Nis::Error] NIS error
   def request!(method, path, params = nil)
     hash = request(method, path, params)
     raise Nis::Util.error_handling(hash) if hash.key?(:error)
