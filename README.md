@@ -66,6 +66,26 @@ $ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
 ```
 
 
+## Connection
+
+### Environment Variable
+
+```bash
+$ export NIS_URL=http://bigalice3.nem.ninja:7890
+$ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
+```
+
+### Hash
+
+```ruby
+# Passing hostname
+Nis.new(host: 'bigalice3.nem.ninja')
+
+# Passing url
+Nis.new(url: 'http://bigalice3.nem.ninja:7890')
+```
+
+
 ## TODO
 
 - Do more improvements.
