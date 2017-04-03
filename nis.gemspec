@@ -1,4 +1,5 @@
 # coding: utf-8
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'nis/version'
@@ -9,15 +10,15 @@ Gem::Specification.new do |spec|
   spec.authors     = ['Yoshiyuki Ieyama']
   spec.email       = ['yukku0423@gmail.com']
 
-  spec.summary     = %q{Ruby client library for the NEM Infrastructure Server API}
-  spec.description = %q{Ruby client library for the NEM Infrastructure Server API}
+  spec.summary     = 'Ruby client library for the NEM Infrastructure Server API'
+  spec.description = 'Ruby client library for the NEM Infrastructure Server API'
   spec.homepage    = 'https://github.com/44uk/nis-ruby'
   spec.license     = 'MIT'
 
   spec.required_ruby_version = '>= 2.2'
   spec.metadata['yard.run'] = 'yri'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
+  spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
   spec.bindir        = 'bin'
