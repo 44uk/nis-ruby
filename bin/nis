@@ -30,8 +30,9 @@ class Nis
     end
 
     desc 'request', 'Send request to NIS'
-    def request(method, path, params = nil)
-      puts Nis.new.request(method, path, params)
+    option :params, type: :hash
+    def request(method, path)
+      puts Nis.new.request(method, path, options['params'])
       setting_debug_mode
     rescue => e
       output_error_if_debug_mode(e)
