@@ -28,9 +28,10 @@ class Nis::Client
   # @param [String] path API Path
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
-  def request(method, path, params = nil)
-    params.reject! { |_, value| value.nil? } unless params.nil?
-    body = connection.send(method, path, params).body
+  def request(method, path, params = {})
+    params.reject! { |_, value| value.nil? } unless params.empty?
+    res = connection.send(method, path, params)
+    body = res.body
     hash = parse_body(body) unless body.empty?
     block_given? ? yield(hash) : hash
   end
@@ -40,7 +41,7 @@ class Nis::Client
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
   # @raise [Nis::Error] NIS error
-  def request!(method, path, params = nil)
+  def request!(method, path, params = {})
     hash = request(method, path, params)
     raise Nis::Util.error_handling(hash) if hash.key?(:error)
     block_given? ? yield(hash) : hash
