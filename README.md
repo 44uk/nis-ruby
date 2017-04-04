@@ -63,6 +63,8 @@ Available at [rubydoc.info](http://www.rubydoc.info/gems/nis-ruby).
 ```bash
 $ nis status # => {"code":6,"type":4,"message":"status"}
 $ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
+$ nis request get account/get --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS
+# => [AccountMetaDataPair structure]
 ```
 
 
