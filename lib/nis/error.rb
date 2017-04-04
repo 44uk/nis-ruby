@@ -1,4 +1,4 @@
 class Nis
   class Error < StandardError; end
-  class BadRequestError < StandardError; end
+  class BadRequestError < Error; end
 end
