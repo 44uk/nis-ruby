@@ -1,4 +1,5 @@
 require 'faraday'
+require 'faraday_middleware'
 require 'json'
 require 'uri'
 
@@ -52,11 +53,11 @@ class Nis::Client
   def connection
     @connection ||= Faraday.new(url: @options[:url]) do |f|
       f.options[:timeout] = @options[:timeout]
-      f.request :url_encoded
-      f.adapter Faraday.default_adapter
+      f.request :json
       # f.response :logger do | logger |
       #   logger.filter(/(privateKey=)(\w+)/,'\1[FILTERED]')
       # end
+      f.adapter Faraday.default_adapter
     end
   end
 
