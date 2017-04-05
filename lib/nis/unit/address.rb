@@ -1,8 +1,7 @@
 module Nis::Unit
   # @attr [String] value
-  # @attr [String] first_char
   class Address
-    attr_accessor :value, :first_char
+    attr_accessor :value
 
     def initialize(value)
       @value = value
@@ -24,10 +23,12 @@ module Nis::Unit
       @first_char == 'T'
     end
 
+    # @return [String]
     def to_s
       @value
     end
 
+    # @return [Boolean]
     def ==(other)
       @value == other.value
     end

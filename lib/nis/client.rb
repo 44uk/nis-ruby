@@ -1,18 +1,19 @@
 require 'faraday'
+require 'faraday_middleware'
 require 'json'
 require 'uri'
 
 # @attr [Hash] options connection options
 class Nis::Client
   DEFAULTS = {
-    url:     -> {ENV['NIS_URL']},
+    url:     -> { ENV['NIS_URL'] },
     scheme:  'http',
     host:    '127.0.0.1',
     port:    7890,
     timeout: 5
-  }
+  }.freeze
 
-  attr :options
+  attr_reader :options
 
   # @param [hash] options HTTP Client connection information
   # @option options [Symbol] :url URL
@@ -28,10 +29,11 @@ class Nis::Client
   # @param [String] path API Path
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
-  def request(method, path, params = nil, &block)
-    params.reject! { |_, value| value.nil? } unless params.nil?
-    body = connection.send(method, path, params).body
-    hash = parse_body(body) unless body.size == 0
+  def request(method, path, params = {})
+    params.reject! { |_, value| value.nil? } unless params.empty?
+    res = connection.send(method, path, params)
+    body = res.body
+    hash = parse_body(body) unless body.empty?
     block_given? ? yield(hash) : hash
   end
 
@@ -39,9 +41,10 @@ class Nis::Client
   # @param [String] path API Path
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
-  def request!(method, path, params = nil, &block)
+  # @raise [Nis::Error] NIS error
+  def request!(method, path, params = {})
     hash = request(method, path, params)
-    raise Nis::Util.error_handling(hash) if hash.has_key?(:error)
+    raise Nis::Util.error_handling(hash) if hash.key?(:error)
     block_given? ? yield(hash) : hash
   end
 
@@ -50,11 +53,11 @@ class Nis::Client
   def connection
     @connection ||= Faraday.new(url: @options[:url]) do |f|
       f.options[:timeout] = @options[:timeout]
-      f.request :url_encoded
-      f.adapter Faraday.default_adapter
+      f.request :json
       # f.response :logger do | logger |
       #   logger.filter(/(privateKey=)(\w+)/,'\1[FILTERED]')
       # end
+      f.adapter Faraday.default_adapter
     end
   end
 
@@ -69,7 +72,7 @@ class Nis::Client
     defaults[:url] = defaults[:url].call if defaults[:url].respond_to?(:call)
 
     defaults.keys.each do |key|
-      options[key] = options[key.to_s] if options.has_key?(key.to_s)
+      options[key] = options[key.to_s] if options.key?(key.to_s)
     end
 
     url = options[:url] || defaults[:url]

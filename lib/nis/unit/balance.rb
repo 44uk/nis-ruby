@@ -1,6 +1,8 @@
 module Nis::Unit
   # @attr [String] value
   class Balance
+    include Comparable
+
     attr_accessor :value
 
     def initialize(value)
@@ -9,7 +11,7 @@ module Nis::Unit
 
     # @return [Float]
     def in_nem
-      @value_in_nem ||= @value.to_f / 1_000_000
+      @value.to_f / 1_000_000
     end
 
     # @return [String]
@@ -23,8 +25,16 @@ module Nis::Unit
     end
 
     # @return [Boolean]
-    def ==(other)
-      @value == other.value
+    def <=>(other)
+      @value <=> other.to_i
+    end
+
+    %w(+ -).each do |op|
+      define_method op do |other|
+        a = instance_variable_get('@value')
+        b = other.to_i
+        self.class.new(a.send(op, b))
+      end
     end
   end
 end

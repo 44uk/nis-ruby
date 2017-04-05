@@ -33,7 +33,8 @@ routes.each do |path, opts|
   unless stub_params.nil?
     if stub_method == :post
       webmock.with(
-        body: stub_params
+        body: stub_params,
+        headers: { 'Content-Type' => 'application/json' }
       )
     else
       webmock.with(

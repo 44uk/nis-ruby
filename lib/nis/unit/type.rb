@@ -8,8 +8,6 @@ module Nis::Unit
       @value = value
     end
 
-    attr_reader :message
-
     # @return [String]
     def to_s
       @message

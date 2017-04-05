@@ -50,23 +50,46 @@ nis.request(:post, '/account/unlock',
 )
 # => Nothing
 # See http://bob.nem.ninja/docs/#locking-and-unlocking-accounts
+
+t = {
+  amount: 10_000_000,
+  fee:     3_000_000,
+  recipient: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS',
+  signer: 'a1aaca6c17a24252e674d155713cdf55996ad00175be4af02a20c67b59f9fe8a',
+  message: {
+    payload: '',
+    type: 1
+  },
+  type: 0x0101, # 257
+  timeStamp: (Time.now.to_i - 1_427_587_585),
+  deadline: (Time.now.to_i - 1_427_587_585) + 43_200,
+  version: -1_744_830_463 # testnet version 1
+}
+puts nis.request! :post, 'transaction/prepare-announce', {
+  transaction: t,
+  privateKey: '68e4f79f886927de698df4f857de2aada41ccca6617e56bb0d61623b35b08cc0'
+}
+# => {innerTransactionHash: {}, code: 1, type: 1, message: "SUCCESS", transactionHash: {data: "9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde"}}
+# See http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
 ```
-
-
-## Documentation
-
-Available at [rubydoc.info](http://www.rubydoc.info/gems/nis-ruby).
 
 
 ## Commandline
 
 ```bash
-$ nis status # => {"code":6,"type":4,"message":"status"}
-$ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
+$ nis status
+# => {"code":6,"type":4,"message":"status"}
+
+$ nis heartbeat
+# => {"code":1,"type":2,"message":"ok"}
+
 $ nis request get account/get --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS
 # => [AccountMetaDataPair structure]
+
 $ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS hash:81d52a7df4abba8bb1613bcc42b6b93cf3114524939035d88ae8e864cd2c34c8
 # => [Array <HervestInfo structure>]
+
+
 ```
 
 
@@ -93,6 +116,11 @@ Nis.new(url: 'http://bigalice3.nem.ninja:7890')
 ## TODO
 
 - Do more improvements.
+
+
+## Documentation
+
+Available at [rubydoc.info](http://www.rubydoc.info/gems/nis-ruby).
 
 
 ## Contributing

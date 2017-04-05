@@ -1,12 +1,14 @@
 class Nis::Struct
+  # @attr [Integer] type
+  # @attr [String] code
+  # @attr [String] message
   # @see http://bob.nem.ninja/docs/#nemRequestResult
   class NemRequestResult
     include Nis::Util::Assignable
-
     attr_accessor :type, :code, :message
 
-    def self.build(json)
-      new(json)
+    def self.build(attrs)
+      new(attrs)
     end
 
     # @return [Boolean]
@@ -24,6 +26,7 @@ class Nis::Struct
       @type == 4
     end
 
+    # @return [String]
     def to_s
       @message
     end
