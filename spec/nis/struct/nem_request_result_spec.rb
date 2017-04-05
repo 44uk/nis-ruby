@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Nis::Struct::NemRequestResult do
-  let(:attrs) { {type: 1, code: 1, message: 'status'} }
+  let(:attrs) { { type: 1, code: 1, message: 'status' } }
   let(:struct) { described_class.new(attrs) }
 
   subject { struct }
@@ -20,12 +20,12 @@ describe Nis::Struct::NemRequestResult do
   end
 
   describe '#heartbeat?' do
-    let(:attrs){ {type: 2, code: 1, message: 'status'} }
-    it { expect(subject.heartbeat?).to be true  }
+    let(:attrs) { { type: 2, code: 1, message: 'status' } }
+    it { expect(subject.heartbeat?).to be true }
   end
 
   describe '#status?' do
-    let(:attrs){ {type: 4, code: 1, message: 'status'} }
-    it { expect(subject.status?).to be true  }
+    let(:attrs) { { type: 4, code: 1, message: 'status' } }
+    it { expect(subject.status?).to be true }
   end
 end
