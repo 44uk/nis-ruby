@@ -65,6 +65,8 @@ $ nis status # => {"code":6,"type":4,"message":"status"}
 $ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
 $ nis request get account/get --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS
 # => [AccountMetaDataPair structure]
+$ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS hash:81d52a7df4abba8bb1613bcc42b6b93cf3114524939035d88ae8e864cd2c34c8
+# => [Array <HervestInfo structure>]
 ```
 
 
