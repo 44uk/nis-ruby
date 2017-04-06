@@ -30,7 +30,9 @@ class Nis::Client
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
   def request(method, path, params = {})
-    params.reject! { |_, value| value.nil? } unless params.empty?
+    if params.is_a?(Hash) and !params.empty?
+      params.reject! { |_, value| value.nil? }
+    end
     res = connection.send(method, path, params)
     body = res.body
     hash = parse_body(body) unless body.empty?
