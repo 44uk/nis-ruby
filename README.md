@@ -74,6 +74,8 @@ puts nis.request! :post, 'transaction/prepare-announce', {
 # See http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
 ```
 
+More specific demonstrations are in demo/ directory.
+
 
 ## Commandline
 
@@ -89,8 +91,6 @@ $ nis request get account/get --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E
 
 $ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS hash:81d52a7df4abba8bb1613bcc42b6b93cf3114524939035d88ae8e864cd2c34c8
 # => [Array <HervestInfo structure>]
-
-
 ```
 
 
@@ -132,3 +132,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
