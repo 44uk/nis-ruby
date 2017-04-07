@@ -11,6 +11,7 @@ Ruby client library for the NEM Infrastructure Server API
 
 - [NEM \- Distributed Ledger Technology \(Blockchain\)](https://www.nem.io/)
 - [NEM NIS API Documentation](http://bob.nem.ninja/docs/)
+- [NEM Forum](https://forum.nem.io/)
 
 
 ## Installation
