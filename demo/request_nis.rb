@@ -12,9 +12,13 @@ puts nis.heartbeat.inspect
 puts nis.status.inspect
 
 # Also call Nis#request method.
+# The method receive [HTTP Method], [API Path], [Parameters]
 # It returns hash which converted API JSON response.
-# Nis#request always returns hash,
-# Nis#request! may raise Error when NIS returns error.
+
+# Nis#request returns hash,
 puts nis.request :get, 'heartbeat'
 puts nis.request :get, 'status'
+
+# Nis#request! can raise Error when NIS returns error.
+puts nis.request! :get, 'account/get', address: 'INVALID_ADDRESS'
 
