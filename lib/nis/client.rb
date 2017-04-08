@@ -2,6 +2,7 @@ require 'faraday'
 require 'faraday_middleware'
 require 'json'
 require 'uri'
+require 'time'
 
 # @attr [Hash] options connection options
 class Nis::Client

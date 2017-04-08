@@ -41,4 +41,7 @@ class Nis
 
   include Nis::Endpoint::Transaction::PrepareAnnounce
   include Nis::Endpoint::Transaction::Announce
+
+  include Nis::Endpoint::Debug::Connections
+  include Nis::Endpoint::Debug::TimeSynchronization
 end
