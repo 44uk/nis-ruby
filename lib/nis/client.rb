@@ -47,7 +47,7 @@ class Nis::Client
   # @raise [Nis::Error] NIS error
   def request!(method, path, params = {})
     hash = request(method, path, params)
-    raise Nis::Util.error_handling(hash) if hash.key?(:error)
+    raise Nis::Util.error_handling(hash) if hash && hash.key?(:error)
     block_given? ? yield(hash) : hash
   end
 
