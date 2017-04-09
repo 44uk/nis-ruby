@@ -1,13 +1,13 @@
 class Nis::Struct
-  # @attr [String] mosaicId
+  # @attr [String] namespaceId
   # @attr [String] name
   # @see http://bob.nem.ninja/docs/#mosaicId
   class MosaicId
     include Nis::Util::Assignable
-    attr_accessor :type, :recipient, :mosaicId, :fee
+    attr_accessor :namespaceId, :name
 
-    alias :mosaic_id :mosaicId
-    alias :mosaic_id= :mosaicId=
+    alias :namespace_id :namespaceId
+    alias :namespace_id= :namespaceId=
 
     def self.build(attrs)
       new(attrs)

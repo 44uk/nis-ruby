@@ -7,6 +7,7 @@ module Nis::Endpoint
       request!(:post, '/account/lock',
         privateKey: private_key
       )
+      nil
     end
   end
 end
