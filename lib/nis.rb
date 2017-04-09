@@ -24,4 +24,24 @@ class Nis
 
   include Nis::Endpoint::Heartbeat
   include Nis::Endpoint::Status
+
+  include Nis::Endpoint::Account::Generate
+  include Nis::Endpoint::Account::Get
+  include Nis::Endpoint::Account::Status
+  include Nis::Endpoint::Account::Transfers
+  include Nis::Endpoint::Account::UnconfirmedTransactions
+  include Nis::Endpoint::Account::Harvests
+  include Nis::Endpoint::Account::Importances
+  include Nis::Endpoint::Account::Namespace
+  include Nis::Endpoint::Account::Mosaic
+  include Nis::Endpoint::Account::Unlock
+  include Nis::Endpoint::Account::Lock
+  include Nis::Endpoint::Account::Unlocked
+  include Nis::Endpoint::Account::Historical
+
+  include Nis::Endpoint::Transaction::PrepareAnnounce
+  include Nis::Endpoint::Transaction::Announce
+
+  include Nis::Endpoint::Debug::Connections
+  include Nis::Endpoint::Debug::TimeSynchronization
 end

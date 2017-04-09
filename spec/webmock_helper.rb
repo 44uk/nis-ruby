@@ -6,7 +6,7 @@ FIXTURES_PATH = File.expand_path('../fixtures', __FILE__)
 
 def load_stub_from_json(path)
   file_path = File.join(FIXTURES_PATH, "#{path}.json")
-  File.exist?(file_path) ? File.read(file_path) : nil
+  File.exist?(file_path) ? File.read(file_path) : raise("#{file_path} is not found.")
 end
 
 def hash_stub_from_json(path)

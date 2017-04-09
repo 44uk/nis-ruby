@@ -203,7 +203,7 @@ debug/connections/incoming:
 debug/connections/outgoing:
   method: get
 
-debug/connections/timers:
+debug/timers:
   method: get
 
 account/get?address=ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890:

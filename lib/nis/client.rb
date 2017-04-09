@@ -2,6 +2,7 @@ require 'faraday'
 require 'faraday_middleware'
 require 'json'
 require 'uri'
+require 'time'
 
 # @attr [Hash] options connection options
 class Nis::Client
@@ -30,7 +31,9 @@ class Nis::Client
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
   def request(method, path, params = {})
-    params.reject! { |_, value| value.nil? } unless params.empty?
+    if params.is_a?(Hash) and !params.empty?
+      params.reject! { |_, value| value.nil? }
+    end
     res = connection.send(method, path, params)
     body = res.body
     hash = parse_body(body) unless body.empty?
@@ -44,7 +47,7 @@ class Nis::Client
   # @raise [Nis::Error] NIS error
   def request!(method, path, params = {})
     hash = request(method, path, params)
-    raise Nis::Util.error_handling(hash) if hash.key?(:error)
+    raise Nis::Util.error_handling(hash) if hash && hash.key?(:error)
     block_given? ? yield(hash) : hash
   end
 
