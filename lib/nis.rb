@@ -56,6 +56,13 @@ class Nis
   include Nis::Endpoint::Local::Account::Transfers
   include Nis::Endpoint::Local::Chain
 
+  include Nis::Endpoint::Node::ActivePeers
+  include Nis::Endpoint::Node::Boot
+  include Nis::Endpoint::Node::Experiences
+  include Nis::Endpoint::Node::ExtendedInfo
+  include Nis::Endpoint::Node::Info
+  include Nis::Endpoint::Node::PeerList
+
   include Nis::Endpoint::Debug::Connections
   include Nis::Endpoint::Debug::TimeSynchronization
 end
