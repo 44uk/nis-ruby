@@ -11,7 +11,7 @@ module Nis::Endpoint
         parent: parent,
         id: id,
       ) do |res|
-        res[:data].map{|md| Nis::Struct::MosaicDefinition.build(md) }
+        res[:data].map { |md| Nis::Struct::MosaicDefinition.build(md) }
       end
     end
 
@@ -20,7 +20,7 @@ module Nis::Endpoint
     # @see http://bob.nem.ninja/docs/#retrieving-mosaics-that-an-account-owns
     def account_mosaic_owned(address:)
       request!(:get, '/account/mosaic/owned', address: address) do |res|
-        res[:data].map{|mo| Nis::Struct::Mosaic.build(mo) }
+        res[:data].map { |mo| Nis::Struct::Mosaic.build(mo) }
       end
     end
   end

@@ -11,7 +11,6 @@ class Nis::Struct
 
     def self.build(attrs)
       attrs[:properties] = attrs[:properties].map { |p| MosaicProperties.build(p) }
-      attrs[:levy] = MosaicLevy.build attrs[:levy]
       new(attrs)
     end
   end
