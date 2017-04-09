@@ -39,6 +39,10 @@ class Nis
   include Nis::Endpoint::Account::Unlocked
   include Nis::Endpoint::Account::Historical
 
+  include Nis::Endpoint::Chain::Height
+  include Nis::Endpoint::Chain::LastBlock
+  include Nis::Endpoint::Chain::Score
+
   include Nis::Endpoint::Transaction::PrepareAnnounce
   include Nis::Endpoint::Transaction::Announce
 
