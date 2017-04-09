@@ -1,6 +1,6 @@
 module Nis::Endpoint
   module Transaction::Announce
-    # @option options [Nis::Struct::RequestAnnounce]
+    # @param [Nis::Struct::RequestAnnounce]
     # @return [Nis::Struct::NodeInfo]
     # @see http://bob.nem.ninja/docs/#sending-the-data-to-NIS
     def transaction_announce(request_announce:)
