@@ -1,5 +1,5 @@
 class Nis::Struct
-  # @attr [Integer] timestamp
+  # @attr [Integer] timeStamp
   # @attr [String] error
   # @attr [String] message
   # @attr [Integer] status

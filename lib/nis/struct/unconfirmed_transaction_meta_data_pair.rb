@@ -1,6 +1,6 @@
 class Nis::Struct
-  # @attr []
-  # @attr []
+  # @attr [Nis::Struct::UnconfirmedTransactionMetaData] meta
+  # @attr [Nis::Struct::Transaction] transaction
   # @see http://bob.nem.ninja/docs/#unconfirmedTransactionMetaDataPair
   class UnconfirmedTransactionMetaDataPair
     include Nis::Util::Assignable

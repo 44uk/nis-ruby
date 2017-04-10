@@ -1,9 +1,6 @@
 class Nis::Struct
-  # @attr []
-  # @attr []
-  # @attr []
-  # @attr []
-  # @attr []
+  # @attr [Nis::Struct::TransactionMetaData] meta
+  # @attr [Nis::Struct::Transaction] transaction
   # @see http://bob.nem.ninja/docs/#transactionMetaDataPair
   class TransactionMetaDataPair
     include Nis::Util::Assignable

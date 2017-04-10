@@ -9,6 +9,7 @@ class Nis::Struct
       new(attrs)
     end
 
+    # @return [String]
     def to_s
       @score
     end

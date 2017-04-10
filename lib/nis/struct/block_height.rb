@@ -9,10 +9,12 @@ class Nis::Struct
       new(attrs)
     end
 
+    # @return [Integer]
     def to_i
       @height
     end
 
+    # @return [String]
     def to_s
       @height.to_s
     end

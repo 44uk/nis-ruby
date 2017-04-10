@@ -1,8 +1,8 @@
 class Nis::Struct
-  # @attr [Integer] timestamp
+  # @attr [Integer] timeStamp
   # @attr [String] id
   # @attr [Integer] difficulty
-  # @attr [Integer] total_fee
+  # @attr [Integer] totalFee
   # @attr [Integer] height
   # @see http://bob.nem.ninja/docs/#harvestInfo
   class HarvestInfo
