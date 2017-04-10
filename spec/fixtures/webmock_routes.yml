@@ -56,20 +56,26 @@ account/unconfirmedTransactions:
   params:
     address: TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS
 
-# local/account/transfers/incoming:
-#   method: post
-#   params:
-#     page:
-#
-# local/account/transfers/outgoing:
-#   method: post
-#   params:
-#     page:
-#
-# local/account/transfers/all:
-#   method: post
-#   params:
-#     page:
+local/account/transfers/incoming:
+  method: post
+  params:
+    value: 68e4f79f886927de698df4f857de2aada41ccca6617e56bb0d61623b35b08cc0
+    hash: 44e4968e5aa35fe182d4def5958e23cf941c4bf809364afb4431ebbf6a18c039
+    id: 12345
+
+local/account/transfers/outgoing:
+  method: post
+  params:
+    value: 68e4f79f886927de698df4f857de2aada41ccca6617e56bb0d61623b35b08cc0
+    hash: 44e4968e5aa35fe182d4def5958e23cf941c4bf809364afb4431ebbf6a18c039
+    id: 12345
+
+local/account/transfers/all:
+  method: post
+  params:
+    value: 68e4f79f886927de698df4f857de2aada41ccca6617e56bb0d61623b35b08cc0
+    hash: 44e4968e5aa35fe182d4def5958e23cf941c4bf809364afb4431ebbf6a18c039
+    id: 12345
 
 account/harvests:
   method: get
@@ -140,7 +146,7 @@ block/at/public:
 local/chain/blocks-after:
   method: post
   params:
-    blockHash: 58efa578aea719b644e8d7c731852bb26d8505257e03a897c8102e8c894a99d6
+    height: 2649
 
 node/info:
   method: get
