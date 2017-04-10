@@ -9,7 +9,7 @@ module Nis::Endpoint
         address: address,
         hash: hash
       ) do |res|
-        res[:data].map{|hvst| Nis::Struct::HarvestInfo.build(hvst) }
+        res[:data].map { |hvst| Nis::Struct::HarvestInfo.build(hvst) }
       end
     end
   end

@@ -13,7 +13,7 @@ module Nis::Endpoint
         endHeight: end_height,
         increment: increment
       ) do |res|
-        res[:data].map{|ahdvm| Nis::Struct::AccountHistoricalDataViewModel(ahdvm) }
+        res[:data].map { |ahdvm| Nis::Struct::AccountHistoricalDataViewModel(ahdvm) }
       end
     end
   end

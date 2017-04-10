@@ -11,7 +11,7 @@ module Nis::Endpoint
         hash: hash,
         id: id
       ) do |res|
-        res[:data].map{|tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
+        res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
       end
     end
 
@@ -26,7 +26,7 @@ module Nis::Endpoint
         hash: hash,
         id: id
       ) do |res|
-        res[:data].map{|tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
+        res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
       end
     end
 
@@ -41,7 +41,7 @@ module Nis::Endpoint
         hash: hash,
         id: id
       ) do |res|
-        res[:data].map{|tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
+        res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
       end
     end
   end

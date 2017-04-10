@@ -6,10 +6,10 @@ class Nis::Struct
     include Nis::Util::Assignable
     attr_accessor :meta, :transaction
 
-    def self.build(attrs)
+    def self.build(meta:, transaction:)
       new(
-        meta: UnconfirmedTransactionMetaData.build(attrs[:meta]),
-        transaction: Transaction.build(attrs[:transaction])
+        meta: UnconfirmedTransactionMetaData.build(meta),
+        transaction: Transaction.build(transaction)
       )
     end
   end
