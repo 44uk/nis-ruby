@@ -139,6 +139,25 @@ describe Nis do
       .to be_a Nis::Struct::BlockScore }
   end
 
+  describe '#namespace/root/page' do
+    it { expect(subject.namespace_root_page(
+      id: 26754,
+      page_size: 35
+    )).to be_a Array }
+  end
+
+  describe '#namespace' do
+    it { expect(subject.namespace(
+      namespace: 'makoto.metal.coins'
+    )).to be_a Nis::Struct::Namespace }
+  end
+
+  describe '#namespace_mosaic_definition_page' do
+    it { expect(subject.namespace_mosaic_definition_page(
+      namespace: 'makoto.metal.coins'
+    )).to be_a Array }
+  end
+
   describe '#debug_connections_incoming' do
     it { expect(subject.debug_connections_incoming)
       .to be_a Nis::Struct::AuditCollection }
