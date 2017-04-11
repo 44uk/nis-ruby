@@ -47,6 +47,9 @@ class Nis
   include Nis::Endpoint::Namespace::Mosaic
   include Nis::Endpoint::Namespace::Root
 
+  include Nis::Endpoint::Block::At
+  include Nis::Endpoint::Block::Get
+
   include Nis::Endpoint::Transaction::PrepareAnnounce
   include Nis::Endpoint::Transaction::Announce
 

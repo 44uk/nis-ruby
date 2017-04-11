@@ -141,7 +141,7 @@ block/get:
 block/at/public:
   method: post
   params:
-    blockHash: 58efa578aea719b644e8d7c731852bb26d8505257e03a897c8102e8c894a99d6
+    height: 2649
 
 local/chain/blocks-after:
   method: post
