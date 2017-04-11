@@ -158,6 +158,18 @@ describe Nis do
     )).to be_a Array }
   end
 
+  describe '#block_get' do
+    it { expect(subject.block_get(
+      block_hash: '58efa578aea719b644e8d7c731852bb26d8505257e03a897c8102e8c894a99d6'
+    )).to be_a Nis::Struct::Block }
+  end
+
+  describe '#block_at_public' do
+    it { expect(subject.block_at_public(
+      block_height: 2649
+    )).to be_a Nis::Struct::Block }
+  end
+
   describe '#local_account_transfers_incoming' do
     let(:page) do
       Nis::Struct::AccountPrivateKeyTransactionsPage.new(
