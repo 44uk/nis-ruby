@@ -39,8 +39,29 @@ class Nis
   include Nis::Endpoint::Account::Unlocked
   include Nis::Endpoint::Account::Historical
 
+  include Nis::Endpoint::Chain::Height
+  include Nis::Endpoint::Chain::LastBlock
+  include Nis::Endpoint::Chain::Score
+
+  include Nis::Endpoint::Namespace
+  include Nis::Endpoint::Namespace::Mosaic
+  include Nis::Endpoint::Namespace::Root
+
+  include Nis::Endpoint::Block::At
+  include Nis::Endpoint::Block::Get
+
   include Nis::Endpoint::Transaction::PrepareAnnounce
   include Nis::Endpoint::Transaction::Announce
+
+  include Nis::Endpoint::Local::Account::Transfers
+  include Nis::Endpoint::Local::Chain
+
+  include Nis::Endpoint::Node::ActivePeers
+  include Nis::Endpoint::Node::Boot
+  include Nis::Endpoint::Node::Experiences
+  include Nis::Endpoint::Node::ExtendedInfo
+  include Nis::Endpoint::Node::Info
+  include Nis::Endpoint::Node::PeerList
 
   include Nis::Endpoint::Debug::Connections
   include Nis::Endpoint::Debug::TimeSynchronization

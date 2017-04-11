@@ -1,6 +1,6 @@
 module Nis::Endpoint
   module Transaction::PrepareAnnounce
-    # @option options [Nis::Struct::RequestPrepareAnnounce]
+    # @param [Nis::Struct::RequestPrepareAnnounce] request_prepare_announce
     # @return [Nis::Struct::NodeInfo]
     # @see http://bob.nem.ninja/docs/#initiating-a-transaction
     def transaction_prepare_announce(request_prepare_announce:)

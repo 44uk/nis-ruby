@@ -1,10 +1,7 @@
 class Nis::Struct
-  # @attr []
-  # @attr []
-  # @attr []
-  # @attr []
-  # @attr []
-  # @attr []
+  # @attr [Integer] height
+  # @attr [Integer] id
+  # @attr [Hash] hash
   # @see http://bob.nem.ninja/docs/#transactionMetaData
   class TransactionMetaData
     include Nis::Util::Assignable

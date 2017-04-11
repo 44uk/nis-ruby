@@ -1,7 +1,7 @@
 class Nis::Struct
   # @attr [String] status
   # @attr [String] remoteStatus
-  # @attr [Array <Nis::Struct::AccountInfo>] cosignatory_of
+  # @attr [Array <Nis::Struct::AccountInfo>] cosignatoryOf
   # @attr [Array <Nis::Struct::AccountInfo>] cosignatories
   # @see http://bob.nem.ninja/docs/#accountMetaData
   class AccountMetaData

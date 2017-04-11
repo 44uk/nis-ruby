@@ -21,4 +21,3 @@ puts nis.request :get, 'status'
 
 # Nis#request! can raise Error when NIS returns error.
 puts nis.request! :get, 'account/get', address: 'INVALID_ADDRESS'
-

@@ -124,6 +124,97 @@ describe Nis do
       .to eq hash_stub_from_json 'account_unlocked_info' }
   end
 
+  describe '#chain_height' do
+    it { expect(subject.chain_height)
+      .to be_a Nis::Struct::BlockHeight }
+  end
+
+  describe '#chain_last_block' do
+    it { expect(subject.chain_last_block)
+      .to be_a Nis::Struct::Block }
+  end
+
+  describe '#chain_score' do
+    it { expect(subject.chain_score)
+      .to be_a Nis::Struct::BlockScore }
+  end
+
+  describe '#namespace/root/page' do
+    it { expect(subject.namespace_root_page(
+      id: 26754,
+      page_size: 35
+    )).to be_a Array }
+  end
+
+  describe '#namespace' do
+    it { expect(subject.namespace(
+      namespace: 'makoto.metal.coins'
+    )).to be_a Nis::Struct::Namespace }
+  end
+
+  describe '#namespace_mosaic_definition_page' do
+    it { expect(subject.namespace_mosaic_definition_page(
+      namespace: 'makoto.metal.coins'
+    )).to be_a Array }
+  end
+
+  describe '#block_get' do
+    it { expect(subject.block_get(
+      block_hash: '58efa578aea719b644e8d7c731852bb26d8505257e03a897c8102e8c894a99d6'
+    )).to be_a Nis::Struct::Block }
+  end
+
+  describe '#block_at_public' do
+    it { expect(subject.block_at_public(
+      block_height: 2649
+    )).to be_a Nis::Struct::Block }
+  end
+
+  describe '#local_account_transfers_incoming' do
+    let(:page) do
+      Nis::Struct::AccountPrivateKeyTransactionsPage.new(
+        value: '68e4f79f886927de698df4f857de2aada41ccca6617e56bb0d61623b35b08cc0',
+        hash: '44e4968e5aa35fe182d4def5958e23cf941c4bf809364afb4431ebbf6a18c039',
+        id: 12345
+      )
+    end
+    it { expect(subject.local_account_transfers_incoming(
+      page: page
+    )).to be_a Array }
+  end
+
+  describe '#local_account_transfers_outgoing' do
+    let(:page) do
+      Nis::Struct::AccountPrivateKeyTransactionsPage.new(
+        value: '68e4f79f886927de698df4f857de2aada41ccca6617e56bb0d61623b35b08cc0',
+        hash: '44e4968e5aa35fe182d4def5958e23cf941c4bf809364afb4431ebbf6a18c039',
+        id: 12345
+      )
+    end
+    it { expect(subject.local_account_transfers_outgoing(
+      page: page
+    )).to be_a Array }
+  end
+
+  describe '#local_account_transfers_all' do
+    let(:page) do
+      Nis::Struct::AccountPrivateKeyTransactionsPage.new(
+        value: '68e4f79f886927de698df4f857de2aada41ccca6617e56bb0d61623b35b08cc0',
+        hash: '44e4968e5aa35fe182d4def5958e23cf941c4bf809364afb4431ebbf6a18c039',
+        id: 12345
+      )
+    end
+    it { expect(subject.local_account_transfers_all(
+      page: page
+    )).to be_a Array }
+  end
+
+  describe '#local_chain_blocks_after' do
+    it { expect(subject.local_chain_blocks_after(
+      block_height: 2649
+    )).to be_a Array }
+  end
+
   describe '#debug_connections_incoming' do
     it { expect(subject.debug_connections_incoming)
       .to be_a Nis::Struct::AuditCollection }

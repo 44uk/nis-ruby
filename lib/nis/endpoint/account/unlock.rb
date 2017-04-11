@@ -1,6 +1,6 @@
 module Nis::Endpoint
   module Account::Unlock
-    # @option options [String] private_key
+    # @param [String] private_key
     # @return [nil]
     # @see http://bob.nem.ninja/docs/#locking-and-unlocking-accounts
     def account_unlock(private_key:)

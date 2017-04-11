@@ -7,10 +7,11 @@ module Nis::Util
 
   def self.error_handling(hash)
     error_klass = case hash[:error]
+                  when 'Not Found' then Nis::NotFoundError
                   when 'Bad Request' then Nis::BadRequestError
                   when 'Internal Server Error' then Nis::InternalServerError
                   else Nis::Error
-                  end
+    end
     error_klass.new(hash[:message])
   end
 end
