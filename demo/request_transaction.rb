@@ -1,6 +1,5 @@
 require 'nis'
-require 'pry'
-_hr = '-' * 64
+hr = '-' * 64
 
 # Account A (Source)
 A_ADDRESS = 'TAH4MBR6MNLZKJAVW5ZJCMFAL7RS5U2YODUQKLCT'.freeze
@@ -36,14 +35,14 @@ rpa = Nis::Struct::RequestPrepareAnnounce.new(
 nis = Nis.new
 
 # check banalces before sending XEM.
-puts "Account A => balance: %d" %
+puts 'Account A => balance: %d' %
   (nis.account_get address: A_ADDRESS)[:account][:balance]
-puts "Account B => balance: %d" %
+puts 'Account B => balance: %d' %
   (nis.account_get address: B_ADDRESS)[:account][:balance]
-puts _hr
+puts hr
 
 # Send XEM request.
-# res = nis.transaction_prepare_announce(request_prepare_announce: rpa)
-# puts res.message
+res = nis.transaction_prepare_announce(request_prepare_announce: rpa)
+puts res.message
 
 # After several minutes, check to see Account B received XEM.

@@ -13,7 +13,7 @@ module Nis::Endpoint
         id: id,
         pageSize: page_size
       ) do |res|
-        res[:data].map{|ns| Nis::Struct::Namespace.build(ns) }
+        res[:data].map { |ns| Nis::Struct::Namespace.build(ns) }
       end
     end
   end

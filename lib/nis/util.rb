@@ -10,7 +10,7 @@ module Nis::Util
                   when 'Bad Request' then Nis::BadRequestError
                   when 'Internal Server Error' then Nis::InternalServerError
                   else Nis::Error
-                  end
+    end
     error_klass.new(hash[:message])
   end
 end
