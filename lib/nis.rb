@@ -43,6 +43,10 @@ class Nis
   include Nis::Endpoint::Chain::LastBlock
   include Nis::Endpoint::Chain::Score
 
+  include Nis::Endpoint::Namespace
+  include Nis::Endpoint::Namespace::Mosaic
+  include Nis::Endpoint::Namespace::Root
+
   include Nis::Endpoint::Transaction::PrepareAnnounce
   include Nis::Endpoint::Transaction::Announce
 
