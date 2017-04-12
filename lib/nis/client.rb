@@ -14,6 +14,14 @@ class Nis::Client
     timeout: 5
   }.freeze
 
+  LOCAL_ONLY_PATHES = [
+    '/local/account/transfers/incoming',
+    '/local/account/transfers/outgoing',
+    '/local/account/transfers/all',
+    '/node/boot',
+    '/transaction/prepare-announce'
+  ]
+
   attr_reader :options
 
   # @param [hash] options HTTP Client connection information
@@ -31,6 +39,9 @@ class Nis::Client
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
   def request(method, path, params = {})
+    if connection.remote? && local_only?(path)
+      raise Nis::Error, "The request (#{method} #{path}) is only permitted to local NIS."
+    end
     if params.is_a?(Hash) && !params.empty?
       params.reject! { |_, value| value.nil? }
     end
@@ -53,6 +64,10 @@ class Nis::Client
 
   private
 
+  def local_only?(path)
+    LOCAL_ONLY_PATHES.include?(path)
+  end
+
   def connection
     @connection ||= Faraday.new(url: @options[:url]) do |f|
       f.options[:timeout] = @options[:timeout]
@@ -61,7 +76,7 @@ class Nis::Client
       #   logger.filter(/(privateKey=)(\w+)/,'\1[FILTERED]')
       # end
       f.adapter Faraday.default_adapter
-    end
+    end.tap { |c| c.extend(Local) }
   end
 
   def parse_body(body)
@@ -102,5 +117,15 @@ class Nis::Client
     ).to_s
 
     options
+  end
+
+  module Local
+    def local?
+      host == '127.0.0.1' || host == 'localhost'
+    end
+
+    def remote?
+      !local?
+    end
   end
 end
