@@ -1,6 +1,6 @@
 class Nis::Struct
   # @attr [Nis::Struct::NodeInfo] node
-  # @attr [Nis::Struct::NodeInfo] nis_info
+  # @attr [Nis::Struct::NodeInfo] nisInfo
   # @see http://bob.nem.ninja/docs/#nisNodeInfo
   class NisNodeInfo
     include Nis::Util::Assignable
@@ -11,8 +11,8 @@ class Nis::Struct
 
     def self.build(attrs)
       new(
-        node: Nis::Struct::NodeInfo.build(attrs[:node]),
-        nisInfo: Nis::Struct::NodeInfo.build(attrs[:nisInfo])
+        node: Nis::Struct::Node.build(attrs[:node]),
+        nisInfo: Nis::Struct::ApplicationMetaData.build(attrs[:nisInfo])
       )
     end
   end
