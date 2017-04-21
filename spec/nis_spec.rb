@@ -139,25 +139,6 @@ describe Nis do
       .to be_a Nis::Struct::BlockScore }
   end
 
-  describe '#namespace/root/page' do
-    it { expect(subject.namespace_root_page(
-      id: 26754,
-      page_size: 35
-    )).to be_a Array }
-  end
-
-  describe '#namespace' do
-    it { expect(subject.namespace(
-      namespace: 'makoto.metal.coins'
-    )).to be_a Nis::Struct::Namespace }
-  end
-
-  describe '#namespace_mosaic_definition_page' do
-    it { expect(subject.namespace_mosaic_definition_page(
-      namespace: 'makoto.metal.coins'
-    )).to be_a Array }
-  end
-
   describe '#block_get' do
     it { expect(subject.block_get(
       block_hash: '58efa578aea719b644e8d7c731852bb26d8505257e03a897c8102e8c894a99d6'
@@ -214,6 +195,85 @@ describe Nis do
       block_height: 2649
     )).to be_a Array }
   end
+
+  describe '#node_info' do
+    it { expect(subject.node_info).to be_a Nis::Struct::Node }
+  end
+
+  describe '#node_extended_info' do
+    it { expect(subject.node_extended_info).to be_a Nis::Struct::NisNodeInfo }
+  end
+
+  describe '#node_peer_list_all' do
+    it { expect(subject.node_peerlist_all).to be_a Nis::Struct::NodeCollection }
+  end
+
+  describe '#node_peer_list_reachable' do
+    it { expect(subject.node_peerlist_reachable).to be_a Array }
+  end
+
+  describe '#node_peer_list_active' do
+    it { expect(subject.node_peerlist_active).to be_a Array }
+  end
+
+  describe '#node_active_peers_max_chain_height' do
+    it { expect(subject.node_active_peers_max_chain_height).to be_a Nis::Struct::BlockHeight }
+  end
+
+  describe '#node_experiences' do
+    it { expect(subject.node_experiences).to be_a Nis::Struct::ExtendedNodeExperiencePair }
+  end
+
+  # describe '#node_boot' do
+  #   it { expect(subject.node_boot(
+  #   )).to be_a nil }
+  # end
+
+  describe '#namespace_root_page' do
+    it { expect(subject.namespace_root_page(
+      id: 26754,
+      page_size: 35
+    )).to be_a Array }
+  end
+
+  describe '#namespace' do
+    it { expect(subject.namespace(
+      namespace: 'makoto.metal.coins'
+    )).to be_a Nis::Struct::Namespace }
+  end
+
+  describe '#namespace_mosaic_definition_page' do
+    it { expect(subject.namespace_mosaic_definition_page(
+      namespace: 'makoto.metal.coins'
+    )).to be_a Array }
+  end
+
+  # describe '#transaction_prepare_announce' do
+  #   let(:tx) do
+  #     Nis::Struct::Transaction.new(
+  #       amount:  1_000_000,
+  #       fee:     1_000_000,
+  #       recipient: 'TAFPFQOTRYEKMKWWKLLLMYA3I5SCFDGYFACCOFWS',
+  #       signer: '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a002258673519',
+  #       message: {
+  #         payload: '',
+  #         type: 1
+  #       },
+  #       type: Nis::Struct::Transaction::TRANSFER,
+  #       timeStamp: Nis::Util.timestamp,
+  #       deadline:  Nis::Util.timestamp + 43_200,
+  #       version:   Nis::Struct::Transaction::TESTNET_VERSION_1
+  #     )
+  #   end
+  #   let(:rpa) do
+  #     Nis::Struct::RequestPrepareAnnounce.new(
+  #       transaction: tx,
+  #       privateKey: '00b4a68d16dc505302e9631b860664ba43a8183f0903bc5782a2403b2f9eb3c8a1'
+  #     )
+  #   end
+  #   it { expect(subject.transaction_prepare_announce(request_prepare_announce: rpa))
+  #     .to be_a Nis::Struct::NemRequestResult }
+  # end
 
   describe '#debug_connections_incoming' do
     it { expect(subject.debug_connections_incoming)

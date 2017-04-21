@@ -29,6 +29,10 @@ gem 'nis-ruby'
 
 ## Usage
 
+More specific demonstrations are in samples/ directory.
+
+### Methods
+
 ```ruby
 nis = Nis.new
 
@@ -39,6 +43,12 @@ nis.heartbeat
 nis.status
 # => {code: 6, type: 4, message: "status"}
 # See http://bob.nem.ninja/docs/#status-request
+```
+
+### Requesting
+
+```ruby
+nis = Nis.new
 
 nis.request(:get, '/account/get',
   address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'
@@ -52,7 +62,7 @@ nis.request(:post, '/account/unlock',
 # => Nothing
 # See http://bob.nem.ninja/docs/#locking-and-unlocking-accounts
 
-t = {
+tx = {
   amount: 10_000_000,
   fee:     3_000_000,
   recipient: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS',
@@ -67,14 +77,12 @@ t = {
   version: -1_744_830_463 # testnet version 1
 }
 puts nis.request! :post, 'transaction/prepare-announce', {
-  transaction: t,
+  transaction: tx,
   privateKey: '68e4f79f886927de698df4f857de2aada41ccca6617e56bb0d61623b35b08cc0'
 }
 # => {innerTransactionHash: {}, code: 1, type: 1, message: "SUCCESS", transactionHash: {data: "9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde"}}
 # See http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
 ```
-
-More specific demonstrations are in demo/ directory.
 
 
 ## Commandline
@@ -116,8 +124,10 @@ Nis.new(url: 'http://bigalice3.nem.ninja:7890')
 
 ## TODO
 
-- Do more improvements.
-
+* Do more improvements.
+  * Implementation Apostille
+  * Implementation Mosaic
+  * Implementation Encryption
 
 ## Documentation
 

@@ -10,10 +10,10 @@ class Nis::Struct
 
     def self.build(attrs)
       new(
-        inactive: attrs[:inactive].map { |n| NodeInfo.build(n) },
-        active:   attrs[:active].map { |n| NodeInfo.build(n) },
-        busy:     attrs[:busy].map { |n| NodeInfo.build(n) },
-        failure:  attrs[:failure].map { |n| NodeInfo.build(n) }
+        inactive: attrs[:inactive].map { |n| Node.build(n) },
+        active:   attrs[:active].map { |n| Node.build(n) },
+        busy:     attrs[:busy].map { |n| Node.build(n) },
+        failure:  attrs[:failure].map { |n| Node.build(n) }
       )
     end
   end

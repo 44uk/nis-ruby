@@ -13,6 +13,8 @@ class Nis::Struct
     alias :inner_transaction_hash :innerTransactionHash
 
     def self.build(attrs)
+      attrs[:transactionHash] = Nis::Unit::Hash.new(attrs[:transactionHash][:data])
+      attrs[:innerTransactionHash] = Nis::Unit::Hash.new(attrs[:innerTransactionHash][:data])
       new(attrs)
     end
   end
