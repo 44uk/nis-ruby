@@ -1,5 +1,5 @@
 class Nis::Struct
-  # @attr [Nis::Struct::NodeInfo] node
+  # @attr [Nis::Struct::Node] node
   # @attr [Integer] syncs
   # @attr [Nis::Struct::NodeExperience] experience
   # @see http://bob.nem.ninja/docs/#extendedNodeExperiencePair
