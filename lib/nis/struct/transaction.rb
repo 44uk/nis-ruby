@@ -5,7 +5,7 @@ class Nis::Struct
   # @attr [String]  recipient
   # @attr [Integer] type
   # @attr [Integer] deadline
-  # @attr [String]  message
+  # @attr [Nis::Struct::Message] message
   # @attr [Integer] version
   # @attr [String]  signer
   # @attr [Array <Nis::Struct::MosaicId>] mosaics
