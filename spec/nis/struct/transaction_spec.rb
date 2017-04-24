@@ -5,7 +5,7 @@ describe Nis::Struct::Transaction do
   let(:fee)     { nil }
   let(:message) { Nis::Struct::Message.new }
   let(:struct) do
-    described_class.build(
+    described_class.new(
       amount:  amount,
       fee:     fee,
       message: message,
@@ -18,6 +18,10 @@ describe Nis::Struct::Transaction do
   context 'amount: 100XEM, message: empty' do
     describe '#fee' do
       it { expect(subject.fee).to eq 1_000_000 }
+    end
+
+    describe '#to_hash' do
+      it { expect(subject.to_hash[:fee]).to eq 1_000_000 }
     end
   end
 

@@ -69,6 +69,13 @@ class Nis::Struct
       @mosaics ||= []
     end
 
+    alias to_hash_old to_hash
+
+    def to_hash
+      fee
+      to_hash_old
+    end
+
     # @return [Integer]
     def calculate_fee
       if mosaics.empty?
