@@ -8,7 +8,7 @@ class Nis::Struct
     TYPE_PLAIN     = 1
     TYPE_ENCRYPTED = 2
 
-    def initialize(value)
+    def initialize(value = '')
       @value = value
       @type  = TYPE_PLAIN
     end
@@ -47,8 +47,6 @@ class Nis::Struct
     def ==(other)
       @value == other.value
     end
-
-    private
 
     def payload
       @payload ||= value.unpack('H*').join
