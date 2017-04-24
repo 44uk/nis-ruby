@@ -41,8 +41,6 @@ class Nis::Struct
     MAINNET_VERSION_1 = MAINNET | VERSION_1 # 0x68000001 =  1744830465
     MAINNET_VERSION_2 = MAINNET | VERSION_2 # 0x68000002 =  1744830466
 
-    @mosaics = []
-
     def self.build(attrs)
       new(attrs)
     end
@@ -60,6 +58,33 @@ class Nis::Struct
     # @return [Boolean]
     def mainnet?
       (0x0000000F & @version) == MAINNET
+    end
+
+    # @return [Integer]
+    def fee
+      @fee ||= calculate_fee
+    end
+
+    def mosaics
+      @mosaics ||= []
+    end
+
+    # @return [Integer]
+    def calculate_fee
+      if mosaics.empty?
+        tmp_fee = [1, amount / 1_000_000 / 10000].max
+        fee = (tmp_fee > 25 ? 25 : tmp_fee)
+      else
+        # TODO: calc mosaics fee
+        raise NotImplementedError, 'not implemented calculation mosaic fee.'
+        fee = 25
+      end
+
+      if message.bytesize > 0
+        fee += [1, (message.bytesize / 2 / 32) + 1].max
+      end
+
+      fee * 1_000_000
     end
   end
 end
