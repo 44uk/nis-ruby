@@ -12,7 +12,7 @@ B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'.freeze
 # build Transaction Object
 tx = Nis::Struct::Transaction.new(
   amount:  1_000_000,
-  fee:     3_000_000,
+  # fee:     3_000_000, # see below.
   recipient: B_ADDRESS,
   signer: A_PUBLIC_KEY,
   message: Nis::Struct::Message.new('Hello'),
@@ -21,6 +21,9 @@ tx = Nis::Struct::Transaction.new(
   deadline:  Nis::Util.timestamp + 43_200,
   version:   Nis::Struct::Transaction::TESTNET_VERSION_1
 )
+
+# automatically calculate minimum fee if fee is not set.
+puts 'Fee: %d' % tx.fee
 
 # build RequestPrepareAnnounce Object
 rpa = Nis::Struct::RequestPrepareAnnounce.new(
@@ -42,4 +45,4 @@ puts hr
 res = nis.transaction_prepare_announce(request_prepare_announce: rpa)
 puts res.message
 
-# After several minutes, check to see Account B received XEM.
+# After several minutes, check Account A and B Balance.
