@@ -224,10 +224,25 @@ describe Nis do
     it { expect(subject.node_experiences).to be_a Nis::Struct::ExtendedNodeExperiencePair }
   end
 
-  # describe '#node_boot' do
-  #   it { expect(subject.node_boot(
-  #   )).to be_a nil }
-  # end
+  describe '#node_boot' do
+    let(:bnr) do
+      {
+        metaData: {
+          application: 'NIS'
+        },
+        endpoint: {
+          protocol: 'http',
+          port: 7890,
+          host: 'localhost'
+        },
+        identity: {
+          'private-key': 'a6cbd01d04edecfaef51df9486c111abb6299c764a00206eb1d01f4587491b3f',
+          name: 'Alice'
+        }
+      }
+    end
+    it { expect(subject.node_boot(boot_node_request: bnr)).to be nil }
+  end
 
   describe '#namespace_root_page' do
     it { expect(subject.namespace_root_page(
