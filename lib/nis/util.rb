@@ -12,6 +12,24 @@ module Nis::Util
 
   NEM_EPOCH = Time.utc(2015, 3, 29, 0, 6, 25, 0)
 
+  #
+  # @see http://www.nem.ninja/docs/#namespaces
+  NAMESPACE_SINK = {
+    testnet: 'TAMESPACEWH4MKFMBCVFERDPOOP4FK7MTDJEYP35',
+    mainnet: 'NAMESPACEWH4MKFMBCVFERDPOOP4FK7MTBXDPZZA'
+  }
+
+  # @see http://www.nem.ninja/docs/#mosaics
+  MOSAIC_SINK = {
+    testnet: 'TBMOSAICOD4F54EE5CDMR23CCBGOAM2XSJBR5OLC',
+    mainnet: 'NBMOSAICOD4F54EE5CDMR23CCBGOAM2XSIUX6TRS'
+  }
+
+  APOSTILLE_SINK = {
+    testnet: 'TC7MCY5AGJQXZQ4BN3BOPNXUVIGDJCOHBPGUM2GE',
+    mainnet: 'NCZSJHLTIMESERVBVKOW6US64YDZG2PFGQCSV23J'
+  }
+
   def self.timestamp
     (Time.now - NEM_EPOCH).to_i
   end
