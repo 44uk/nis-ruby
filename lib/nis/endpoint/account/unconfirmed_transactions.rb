@@ -8,7 +8,7 @@ module Nis::Endpoint
         res[:data].map do |utmdp|
           Nis::Struct::UnconfirmedTransactionMetaDataPair.build(
             meta: utmdp[:meta],
-            transaction: utmdp[:data]
+            transaction: utmdp[:transaction]
           )
         end
       end

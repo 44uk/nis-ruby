@@ -8,5 +8,9 @@ class Nis::Struct
     def self.build(attrs)
       new(attrs)
     end
+
+    def to_s
+      @data
+    end
   end
 end
