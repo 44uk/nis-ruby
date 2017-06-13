@@ -35,8 +35,12 @@ describe Nis::Unit::Address do
     end
   end
 
-  describe '#to_s?' do
+  describe '#to_s' do
     it { expect(subject.to_s).to eq value }
+  end
+
+  describe '#to_hexadecimal' do
+    it { expect(subject.to_hexadecimal).to eq '4e434b4d4e4355335354425742523745335844324c523757534958463549564a49444248425a5154' }
   end
 
   describe '#==' do

@@ -28,6 +28,11 @@ module Nis::Unit
       @value
     end
 
+    # @return [String]
+    def to_hexadecimal
+      @value.each_byte.map { |b| b.to_s(16) }.join
+    end
+
     # @return [Boolean]
     def ==(other)
       @value == other.value

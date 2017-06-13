@@ -1,5 +1,4 @@
 class Nis::Struct
-  # @attr [Array] properties
   # @attr [Integer] divisibility
   # @attr [Integer] initialSupply
   # @attr [Boolean] supplyMutable
@@ -26,6 +25,22 @@ class Nis::Struct
     # @return [Boolean]
     def transferable?
       @transferable == 'true'
+    end
+
+    def to_hash
+      [{
+        name: 'divisibility',
+        value: divisibility.to_s
+      },{
+        name: 'initialSupply',
+        value: initial_supply.to_s
+      },{
+        name: 'supplyMutable',
+        value: supply_mutable ? 'true' : 'false'
+      },{
+        name: 'transferable',
+        value: transferable ? 'true' : 'false'
+      }]
     end
   end
 end

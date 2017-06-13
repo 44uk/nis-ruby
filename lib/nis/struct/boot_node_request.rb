@@ -1,17 +1,11 @@
 class Nis::Struct
-  # @attr [String] metaData
-  # @attr [String] application
-  # @attr [String] endpoint
-  # @attr [String] protocol
-  # @attr [String] port
-  # @attr [String] host
-  # @attr [String] identity
-  # @attr [String] private_key
-  # @attr [String] name
+  # @attr [Hash] metaData
+  # @attr [Hash] endpoint
+  # @attr [Hash] identity
   # @see http://bob.nem.ninja/docs/#bootNodeRequest
   class BootNodeRequest
     include Nis::Util::Assignable
-    attr_accessor :metaData, :application, :endpoint, :protocol, :port, :host, :identity, :private_key, :name
+    attr_accessor :metaData, :endpoint, :identity
 
     alias metadata metaData
     alias metadata= metaData=

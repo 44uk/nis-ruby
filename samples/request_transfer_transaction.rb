@@ -10,16 +10,16 @@ A_PUBLIC_KEY  = '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a00225867351
 B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'.freeze
 
 # build Transaction Object
-tx = Nis::Struct::Transaction.new(
+tx = Nis::Struct::TransferTransaction.new(
   amount:  1_000_000,
   # fee:     3_000_000, # see below.
   recipient: B_ADDRESS,
+  type: Nis::Struct::TransferTransaction::TYPE,
   signer: A_PUBLIC_KEY,
   message: Nis::Struct::Message.new('Hello'),
-  type: Nis::Struct::Transaction::TRANSFER,
   timeStamp: Nis::Util.timestamp,
   deadline:  Nis::Util.timestamp + 43_200,
-  version:   Nis::Struct::Transaction::TESTNET_VERSION_1
+  version:   Nis::Util::TESTNET_VERSION_1
 )
 
 # automatically calculate minimum fee if fee is not set.
