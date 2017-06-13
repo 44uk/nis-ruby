@@ -29,7 +29,7 @@ gem 'nis-ruby'
 
 ## Usage
 
-More specific demonstrations are in samples/ directory.
+More specific sample codes are in **samples/** directory.
 
 ### Methods
 
@@ -125,9 +125,10 @@ Nis.new(url: 'http://bigalice3.nem.ninja:7890')
 ## TODO
 
 * Do more improvements.
-  * Implementation Apostille
-  * Implementation Mosaic
+  * Refactoring
   * Implementation Encryption
+  * Implementation Apostille
+
 
 ## Documentation
 
