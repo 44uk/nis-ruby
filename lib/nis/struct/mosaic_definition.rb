@@ -1,6 +1,6 @@
 class Nis::Struct
   # @attr [String] creator
-  # @attr [String] id
+  # @attr [Nis::Struct::MosaicId] id
   # @attr [String] description
   # @attr [Nis::Struct::MosaicProperties] properties
   # @attr [Nis::Struct::MosaicLevy] levy
