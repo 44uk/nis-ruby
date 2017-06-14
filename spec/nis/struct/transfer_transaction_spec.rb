@@ -15,6 +15,10 @@ describe Nis::Struct::TransferTransaction do
 
   subject { struct }
 
+  describe '#type' do
+    it { expect(subject.type).to eq 0x0101 }
+  end
+
   context 'amount: 100XEM, message: empty' do
     describe '#fee' do
       it { expect(subject.fee).to eq 1_000_000 }

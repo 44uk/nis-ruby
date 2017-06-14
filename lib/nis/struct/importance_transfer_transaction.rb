@@ -19,12 +19,23 @@ class Nis::Struct
     alias remote_account= remoteAccount=
 
     TYPE = 0x0801 # 2049 (importance transfer transaction)
+    FEE  = 6_000_000
 
     ACTIVATE   = 0x0001
     DEACTIVATE = 0x0002
 
     def self.build(attrs)
       new(attrs)
+    end
+
+    # @return [Integer]
+    def type
+      TYPE
+    end
+
+    # @return [Integer]
+    def fee
+      FEE
     end
 
     # @return [Integer]

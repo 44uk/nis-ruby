@@ -22,6 +22,7 @@ class Nis::Struct
     alias :timestamp= :timeStamp=
 
     TYPE = 0x0101 # 257 (transfer transaction)
+    FEE  = 25
 
     def self.build(attrs)
       new(attrs)
@@ -62,11 +63,11 @@ class Nis::Struct
     def calculate_fee
       if mosaics.empty?
         tmp_fee = [1, amount / 1_000_000 / 10_000].max
-        fee = (tmp_fee > 25 ? 25 : tmp_fee)
+        fee = (tmp_fee > FEE ? FEE : tmp_fee)
       else
         # TODO: calc mosaics fee
         raise NotImplementedError, 'not implemented calculation mosaic fee.'
-        fee = 25
+        fee = FEE
       end
 
       if message.bytesize > 0
