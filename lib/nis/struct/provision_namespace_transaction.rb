@@ -33,6 +33,11 @@ class Nis::Struct
     end
 
     # @return [Integer]
+    def type
+      TYPE
+    end
+
+    # @return [Integer]
     def _version
       (0xFFFFFFF0 & @version)
     end
