@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Nis::Struct::MultisigTransaction do
+describe Nis::Transaction::Multisig do
   let(:struct) do
     described_class.new
   end

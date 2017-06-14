@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Nis::Struct::TransferTransaction do
+describe Nis::Transaction::Transfer do
   let(:amount)  { 100_000_000 }
   let(:fee)     { nil }
   let(:message) { Nis::Struct::Message.new }
@@ -8,8 +8,7 @@ describe Nis::Struct::TransferTransaction do
     described_class.new(
       amount:  amount,
       fee:     fee,
-      message: message,
-      type: Nis::Struct::Transaction::TRANSFER
+      message: message
     )
   end
 

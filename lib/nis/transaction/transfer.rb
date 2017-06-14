@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timestamp
   # @attr [Integer] amount
   # @attr [Integer] fee
@@ -13,7 +13,7 @@ class Nis::Struct
   # @see http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
   # @see http://bob.nem.ninja/docs/#version-1-transfer-transactions
   # @see http://bob.nem.ninja/docs/#version-2-transfer-transactions
-  class TransferTransaction
+  class Transfer
     include Nis::Util::Assignable
     attr_accessor :timeStamp, :amount, :fee, :recipient, :type, :deadline, :message, :version, :signer,
                   :mosaics
@@ -26,6 +26,11 @@ class Nis::Struct
 
     def self.build(attrs)
       new(attrs)
+    end
+
+    # @return [Integer]
+    def type
+      TYPE
     end
 
     # @return [Integer]

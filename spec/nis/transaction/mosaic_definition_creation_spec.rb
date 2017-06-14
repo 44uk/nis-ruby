@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Nis::Struct::ImportanceTransferTransaction do
+describe Nis::Transaction::MosaicDefinitionCreation do
   let(:struct) do
     described_class.new
   end
@@ -8,10 +8,10 @@ describe Nis::Struct::ImportanceTransferTransaction do
   subject { struct }
 
   describe '#type' do
-    it { expect(subject.type).to eq 0x0801 }
+    it { expect(subject.type).to eq 0x4001 }
   end
 
   describe '#fee' do
-    it { expect(subject.fee).to eq 6_000_000 }
+    it { expect(subject.fee).to eq 20_000_000 }
   end
 end

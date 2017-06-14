@@ -1,24 +1,28 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timeStamp
+  # @attr [Integer] signature
   # @attr [Integer] fee
   # @attr [Integer] type
   # @attr [Integer] deadline
   # @attr [Integer] version
   # @attr [String] signer
-  # @attr [Nis::Struct::TransferTransaction] otherTrans
-  # @see http://bob.nem.ninja/docs/#multisigTransaction
-  class MultisigTransaction
+  # @see http://bob.nem.ninja/docs/#mosaicSupplyChangeTransaction
+  class MosaicSupplyChange
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :fee, :type, :deadline, :version, :signer,
-                  :otherTrans
+    attr_accessor :timeStamp, :signature, :fee, :type, :deadline, :version, :signer,
+                  :supplyType, :delta, :mosaicId
 
     alias timestamp timeStamp
     alias timestamp= timeStamp=
-    alias other_trans otherTrans
-    alias other_trans= otherTrans=
+    alias supply_type supplyType
+    alias supply_type= supplyType=
+    alias mosaid_id mosaicId
+    alias mosaid_id= mosaicId=
 
-    TYPE = 0x1004 # 4099 (multisig transaction)
-    FEE  = 6_000_000
+    TYPE = 0x4002 # 16386 (mosaic supply change transaction)
+    FEE  = 20_000_000
+    INCREASE = 1
+    DECREASE = 2
 
     def self.build(attrs)
       new(attrs)
@@ -47,10 +51,6 @@ class Nis::Struct
     # @return [Integer]
     def fee
       @fee ||= calculate_fee
-    end
-
-    def mosaics
-      @mosaics ||= []
     end
 
     alias to_hash_old to_hash

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Nis::Struct::MosaicSupplyChangeTransaction do
+describe Nis::Transaction::ProvisionNamespace do
   let(:struct) do
     described_class.new
   end
@@ -8,7 +8,7 @@ describe Nis::Struct::MosaicSupplyChangeTransaction do
   subject { struct }
 
   describe '#type' do
-    it { expect(subject.type).to eq 0x4002 }
+    it { expect(subject.type).to eq 0x2001 }
   end
 
   describe '#fee' do

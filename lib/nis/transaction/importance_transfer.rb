@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timeStamp
   # @attr [String]  signature
   # @attr [Integer] fee
@@ -9,7 +9,7 @@ class Nis::Struct
   # @attr [Integer] version
   # @attr [String]  signer
   # @see http://bob.nem.ninja/docs/#importanceTransferTransaction
-  class ImportanceTransferTransaction
+  class ImportanceTransfer
     include Nis::Util::Assignable
     attr_accessor :timeStamp, :signature, :fee, :mode, :remoteAccount, :type, :deadline, :version, :signer
 

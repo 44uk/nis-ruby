@@ -3,6 +3,7 @@ require 'nis/util'
 require 'nis/client'
 require 'nis/endpoint'
 require 'nis/struct'
+require 'nis/transaction'
 require 'nis/unit'
 require 'nis/error'
 

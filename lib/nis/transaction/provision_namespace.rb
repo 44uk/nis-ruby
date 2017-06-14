@@ -1,26 +1,32 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timeStamp
   # @attr [String]  signature
   # @attr [Integer] fee
   # @attr [Integer] type
   # @attr [Integer] deadline
   # @attr [Integer] version
-  # @attr [String] signer
-  # @attr [Array <Nis::Struct::MultisigCosignatoryModification>] modifications
-  # @attr [Hash] minCosignatories
-  # @see http://bob.nem.ninja/docs/#multisigAggregateModificationTransaction
-  class MultisigAggregateModificationTransaction
+  # @attr [String]  signer
+  # @attr [String]  rentalFeeSink
+  # @attr [Integer] rentalFee
+  # @attr [String]  newPart
+  # @attr [String]  parent
+  # @see http://bob.nem.ninja/docs/#provisionNamespaceTransaction
+  class ProvisionNamespace
     include Nis::Util::Assignable
     attr_accessor :timeStamp, :signature, :fee, :type, :deadline, :version, :signer,
-                  :modifications, :minCosignatories
+                  :rentalFeeSink, :rentalFee, :newPart, :parent
 
     alias timestamp timeStamp
     alias timestamp= timeStamp=
-    alias min_cosignatories minCosignatories
-    alias min_cosignatories= minCosignatories=
+    alias rental_fee_sink rentalFeeSink
+    alias rental_fee_sink= rentalFeeSink=
+    alias rental_fee rentalFee
+    alias rental_fee= rentalFee=
+    alias new_part newPart
+    alias new_part= newPart=
 
-    TYPE = 0x1001 # 4097 (multisig aggregate modification transfer transaction)
-    FEE  = 16_000_000
+    TYPE = 0x2001 # 8193 (provision namespace transaction)
+    FEE  = 20_000_000
 
     def self.build(attrs)
       new(attrs)
@@ -46,6 +52,7 @@ class Nis::Struct
       (0x0000000F & @version) == Nis::Util::MAINNET
     end
 
+    # @return [Integer]
     def fee
       @fee ||= calculate_fee
     end

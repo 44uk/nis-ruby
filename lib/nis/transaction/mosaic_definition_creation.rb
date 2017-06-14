@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timeStamp
   # @attr [Integer] signature
   # @attr [Integer] fee
@@ -10,7 +10,7 @@ class Nis::Struct
   # @attr [Integer] creationFeeSink
   # @attr [Nis::Struct::MosaicDefinition] mosaicDefinition
   # @see http://bob.nem.ninja/docs/#mosaicDefinitionCreationTransaction
-  class MosaicDefinitionCreationTransaction
+  class MosaicDefinitionCreation
     include Nis::Util::Assignable
     attr_accessor :timeStamp, :signature, :fee, :type, :deadline, :version, :signer,
       :creationFee, :creationFeeSink, :mosaicDefinition

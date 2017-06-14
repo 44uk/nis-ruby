@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timeStamp
   # @attr [String]  signature
   # @attr [Integer] fee
@@ -9,7 +9,7 @@ class Nis::Struct
   # @attr [String]  otherHash
   # @attr [String]  otherAccount
   # @see http://bob.nem.ninja/docs/#multisigSignatureTransaction
-  class MultisigSignatureTransaction
+  class MultisigSignature
     include Nis::Util::Assignable
     attr_accessor :timeStamp, :signature, :fee, :type, :deadline, :version, :signer,
                   :otherHash, :otherAccount
