@@ -20,7 +20,7 @@ tx = Nis::Struct::Transaction.new(
   type: Nis::Struct::Transaction::TRANSFER,
   timeStamp: Nis::Util.timestamp,
   deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Struct::Transaction::TESTNET_VERSION_1
+  version: Nis::Util::TESTNET_VERSION_1
 )
 
 mtx = Nis::Struct::MultisigTransaction.new(
@@ -28,7 +28,7 @@ mtx = Nis::Struct::MultisigTransaction.new(
   signer: B_PUBLIC_KEY,
   type: Nis::Struct::MultisigTransaction::TYPE,
   deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Struct::Transaction::TESTNET_VERSION_1,
+  version: Nis::Util::TESTNET_VERSION_1,
   otherTrans: tx
 )
 
