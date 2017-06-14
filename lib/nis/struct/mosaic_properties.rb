@@ -31,13 +31,13 @@ class Nis::Struct
       [{
         name: 'divisibility',
         value: divisibility.to_s
-      },{
+      }, {
         name: 'initialSupply',
         value: initial_supply.to_s
-      },{
+      }, {
         name: 'supplyMutable',
         value: supply_mutable ? 'true' : 'false'
-      },{
+      }, {
         name: 'transferable',
         value: transferable ? 'true' : 'false'
       }]

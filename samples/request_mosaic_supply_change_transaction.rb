@@ -8,7 +8,7 @@ A_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a003
 
 mosaic_id = Nis::Struct::MosaicId.new(
   namespaceId: 'kon',
-  name: "teas"
+  name: 'teas'
 )
 
 # build Transaction Object
