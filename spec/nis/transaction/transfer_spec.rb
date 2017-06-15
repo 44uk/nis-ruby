@@ -4,8 +4,10 @@ describe Nis::Transaction::Transfer do
   let(:amount)  { 100_000_000 }
   let(:fee)     { nil }
   let(:message) { Nis::Struct::Message.new }
+  let(:version) { Nis::Util::TESTNET_VERSION_1 }
   let(:struct) do
     described_class.new(
+      version: version,
       amount:  amount,
       fee:     fee,
       message: message
@@ -16,6 +18,18 @@ describe Nis::Transaction::Transfer do
 
   describe '#type' do
     it { expect(subject.type).to eq 0x0101 }
+  end
+
+  describe '#testnet?' do
+    it { expect(subject.testnet?).to be true }
+  end
+
+  describe '#mainnet?' do
+    it { expect(subject.mainnet?).to be false }
+  end
+
+  describe '#version' do
+    it { expect(subject.version).to be 1 }
   end
 
   context 'amount: 100XEM, message: empty' do

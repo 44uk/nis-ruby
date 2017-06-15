@@ -10,8 +10,11 @@ class Nis::Transaction
   # @attr [String]  signer
   # @see http://bob.nem.ninja/docs/#importanceTransferTransaction
   class ImportanceTransfer
+    include Nis::Mixin::Network
+    attr_writer :version, :fee
+
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :fee, :mode, :remoteAccount, :type, :deadline, :version, :signer
+    attr_accessor :timeStamp, :signature, :mode, :remoteAccount, :type, :deadline, :signer
 
     alias timestamp timeStamp
     alias timestamp= timeStamp=
@@ -36,21 +39,6 @@ class Nis::Transaction
     # @return [Integer]
     def fee
       FEE
-    end
-
-    # @return [Integer]
-    def _version
-      (0xFFFFFFF0 & @version)
-    end
-
-    # @return [Boolean]
-    def testnet?
-      (0x0000000F & @version) == Nis::Util::TESTNET
-    end
-
-    # @return [Boolean]
-    def mainnet?
-      (0x0000000F & @version) == Nis::Util::MAINNET
     end
   end
 end

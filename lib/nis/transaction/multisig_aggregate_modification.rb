@@ -10,8 +10,11 @@ class Nis::Transaction
   # @attr [Hash] minCosignatories
   # @see http://bob.nem.ninja/docs/#multisigAggregateModificationTransaction
   class MultisigAggregateModification
+    include Nis::Mixin::Network
+    attr_writer :version, :fee
+
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :fee, :type, :deadline, :version, :signer,
+    attr_accessor :timeStamp, :signature, :type, :deadline, :signer,
                   :modifications, :minCosignatories
 
     alias timestamp timeStamp
@@ -29,21 +32,6 @@ class Nis::Transaction
     # @return [Integer]
     def type
       TYPE
-    end
-
-    # @return [Integer]
-    def _version
-      (0xFFFFFFF0 & @version)
-    end
-
-    # @return [Boolean]
-    def testnet?
-      (0x0000000F & @version) == Nis::Util::TESTNET
-    end
-
-    # @return [Boolean]
-    def mainnet?
-      (0x0000000F & @version) == Nis::Util::MAINNET
     end
 
     def fee

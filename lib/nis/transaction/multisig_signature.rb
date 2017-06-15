@@ -10,8 +10,11 @@ class Nis::Transaction
   # @attr [String]  otherAccount
   # @see http://bob.nem.ninja/docs/#multisigSignatureTransaction
   class MultisigSignature
+    include Nis::Mixin::Network
+    attr_writer :version, :fee
+
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :fee, :type, :deadline, :version, :signer,
+    attr_accessor :timeStamp, :signature, :type, :deadline, :signer,
                   :otherHash, :otherAccount
 
     alias timestamp timeStamp
@@ -30,21 +33,6 @@ class Nis::Transaction
     # @return [Integer]
     def type
       TYPE
-    end
-
-    # @return [Integer]
-    def _version
-      (0xFFFFFFF0 & @version)
-    end
-
-    # @return [Boolean]
-    def testnet?
-      (0x0000000F & @version) == Nis::Util::TESTNET
-    end
-
-    # @return [Boolean]
-    def mainnet?
-      (0x0000000F & @version) == Nis::Util::MAINNET
     end
   end
 end
