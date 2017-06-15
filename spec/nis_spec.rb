@@ -265,7 +265,7 @@ describe Nis do
 
   # describe '#transaction_prepare_announce' do
   #   let(:tx) do
-  #     Nis::Struct::Transaction.new(
+  #     Nis::Struct::TransferTransaction.new(
   #       amount:  1_000_000,
   #       fee:     1_000_000,
   #       recipient: 'TAFPFQOTRYEKMKWWKLLLMYA3I5SCFDGYFACCOFWS',
@@ -277,7 +277,7 @@ describe Nis do
   #       type: Nis::Struct::Transaction::TRANSFER,
   #       timeStamp: Nis::Util.timestamp,
   #       deadline:  Nis::Util.timestamp + 43_200,
-  #       version:   Nis::Struct::Transaction::TESTNET_VERSION_1
+  #       version:   Nis::Util::TESTNET_VERSION_1
   #     )
   #   end
   #   let(:rpa) do
