@@ -43,6 +43,23 @@ nis.heartbeat
 nis.status
 # => {code: 6, type: 4, message: "status"}
 # See http://bob.nem.ninja/docs/#status-request
+
+tx = Nis::Transaction::Transfer.new(
+  amount: 10_000_000,
+  recipient: RECIPIENT_ADDRESS,
+  signer: SENDER_PUBLIC_KEY,
+  message: Nis::Struct::Message.new('Hello'),
+  timeStamp: Nis::Util.timestamp,
+  deadline: Nis::Util.timestamp + 43_200,
+  version: Nis::Util::TESTNET_VERSION_1
+)
+
+rpa = Nis::Struct::RequestPrepareAnnounce.new(
+  transaction: tx,
+  privateKey: SENDER_PRIVATE_KEY
+)
+
+nis.transaction_prepare_announce(request_prepare_announce: rpa)
 ```
 
 ### Requesting
@@ -64,7 +81,7 @@ nis.request(:post, '/account/unlock',
 
 tx = {
   amount: 10_000_000,
-  fee:     3_000_000,
+  fee:     1_000_000,
   recipient: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS',
   signer: 'a1aaca6c17a24252e674d155713cdf55996ad00175be4af02a20c67b59f9fe8a',
   message: {
@@ -72,9 +89,9 @@ tx = {
     type: 1
   },
   type: 0x0101, # 257
-  timeStamp: (Time.now.to_i - 1_427_587_585),
-  deadline: (Time.now.to_i - 1_427_587_585) + 43_200,
-  version: -1_744_830_463 # testnet version 1
+  timeStamp: Nis::Util.timestamp,
+  deadline: Nis::Util.timestamp + 43_200,
+  version: Nis::Util::TESTNET_VERSION_1
 }
 puts nis.request! :post, 'transaction/prepare-announce', {
   transaction: tx,
@@ -124,10 +141,10 @@ Nis.new(url: 'http://bigalice3.nem.ninja:7890')
 
 ## TODO
 
-* Do more improvements.
-  * Refactoring
-  * Implementation Encryption
-  * Implementation Apostille
+* Do more improvements
+  * Mosaic transferring
+  * Encryption message
+  * Remote transaction
 
 
 ## Documentation
