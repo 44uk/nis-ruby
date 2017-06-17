@@ -1,11 +1,12 @@
 require 'nis'
 hr = '-' * 64
 
-# create NIS instance
 nis = Nis.new
 
-puts nis.namespace_mosaic_definition_page(namespace: 'alice.misc')
+ns_mosaics = nis.namespace_mosaic_definition_page(namespace: 'alice.misc')
+puts ns_mosaics.first.to_hash
 puts hr
 
-puts nis.namespace_root_page
+ns_root = nis.namespace_root_page
+puts ns_root.first.to_hash
 puts hr
