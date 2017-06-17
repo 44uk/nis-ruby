@@ -10,4 +10,12 @@ describe Nis::Transaction::MultisigSignature do
   describe '#type' do
     it { expect(subject.type).to eq 0x1002 }
   end
+
+  describe '#to_hash' do
+    it do
+      expect(subject.to_hash).to a_hash_including(
+        type: 0x1002
+      )
+    end
+  end
 end
