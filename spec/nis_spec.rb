@@ -221,7 +221,7 @@ describe Nis do
   end
 
   describe '#node_experiences' do
-    it { expect(subject.node_experiences).to be_a Nis::Struct::ExtendedNodeExperiencePair }
+    it { expect(subject.node_experiences).to be_a Array }
   end
 
   describe '#node_boot' do
