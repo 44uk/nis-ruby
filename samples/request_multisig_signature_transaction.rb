@@ -16,8 +16,6 @@ C_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'.freeze
 C_PRIVATE_KEY = '1d13af2c31ee6fb0c3c7aaaea818d9b305dcadba130ba663fc42d9f25b24ded1'.freeze
 C_PUBLIC_KEY  = '9e7ab2924cd1a3482df784db190614cfc8a33671f5d80a5b15a9c9e8b4d13933'.freeze
 
-require 'pry'
-
 nis = Nis.new
 txes = nis.account_unconfirmed_transactions(address: C_ADDRESS)
 
@@ -32,17 +30,13 @@ puts "Unconfirmed Transaction Hash: #{hash}"
 puts hr
 
 # build Transaction Object
-tx = Nis::Struct::MultisigSignatureTransaction.new(
-  timeStamp: Nis::Util.timestamp,
-  type: Nis::Struct::MultisigSignatureTransaction::TYPE,
-  deadline: Nis::Util.timestamp + 43_200,
-  version:  Nis::Util::TESTNET_VERSION_1,
+tx = Nis::Transaction::MultisigSignature.new(
+  otherHash: { data: hash },
+  otherAccount: A_ADDRESS,
   signer: C_PUBLIC_KEY,
-  fee:  6_000_000,
-  otherHash: {
-    data: hash
-  },
-  otherAccount: A_ADDRESS
+  timeStamp: Nis::Util.timestamp,
+  deadline: Nis::Util.timestamp + 43_200,
+  version: Nis::Util::TESTNET_VERSION_1
 )
 
 # build RequestPrepareAnnounce Object

@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timestamp
   # @attr [Integer] amount
   # @attr [Integer] fee
@@ -13,9 +13,12 @@ class Nis::Struct
   # @see http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
   # @see http://bob.nem.ninja/docs/#version-1-transfer-transactions
   # @see http://bob.nem.ninja/docs/#version-2-transfer-transactions
-  class TransferTransaction
+  class Transfer
+    include Nis::Mixin::Network
+    attr_writer :version, :fee
+
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :amount, :fee, :recipient, :type, :deadline, :message, :version, :signer,
+    attr_accessor :timeStamp, :amount, :recipient, :type, :deadline, :message, :signer,
                   :mosaics
 
     alias :timestamp :timeStamp
@@ -29,18 +32,8 @@ class Nis::Struct
     end
 
     # @return [Integer]
-    def _version
-      (0xFFFFFFF0 & @version)
-    end
-
-    # @return [Boolean]
-    def testnet?
-      (0x0000000F & @version) == Nis::Util::TESTNET
-    end
-
-    # @return [Boolean]
-    def mainnet?
-      (0x0000000F & @version) == Nis::Util::MAINNET
+    def type
+      @type ||= TYPE
     end
 
     # @return [Integer]
@@ -55,6 +48,7 @@ class Nis::Struct
     alias to_hash_old to_hash
 
     def to_hash
+      type
       fee
       to_hash_old
     end

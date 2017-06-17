@@ -17,18 +17,17 @@ mcm = Nis::Struct::MultisigCosignatoryModification.new(
 )
 
 # build Transaction Object
-tx = Nis::Struct::MultisigAggregateModificationTransaction.new(
-  timeStamp: Nis::Util.timestamp,
-  type: Nis::Struct::MultisigAggregateModificationTransaction::TYPE,
-  deadline: Nis::Util.timestamp + 43_200,
-  version:  Nis::Util::TESTNET_VERSION_1,
-  signer: A_PUBLIC_KEY,
+tx = Nis::Transaction::MultisigAggregateModification.new(
   modifications: [
     mcm
   ],
   minCosignatories: {
     relativeChange: 1
-  }
+  },
+  signer: A_PUBLIC_KEY,
+  timeStamp: Nis::Util.timestamp,
+  deadline: Nis::Util.timestamp + 43_200,
+  version: Nis::Util::TESTNET_VERSION_1
 )
 
 # build RequestPrepareAnnounce Object

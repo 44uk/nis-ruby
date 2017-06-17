@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Nis::Struct::ImportanceTransferTransaction do
+describe Nis::Transaction::ImportanceTransfer do
   let(:struct) do
     described_class.new
   end
@@ -13,5 +13,14 @@ describe Nis::Struct::ImportanceTransferTransaction do
 
   describe '#fee' do
     it { expect(subject.fee).to eq 6_000_000 }
+  end
+
+  describe '#to_hash' do
+    it do
+      expect(subject.to_hash).to a_hash_including(
+        type: 0x0801,
+        fee: 6_000_000
+      )
+    end
   end
 end

@@ -12,24 +12,22 @@ B_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b83421
 B_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033'.freeze
 
 # build Transaction Object
-tx = Nis::Struct::Transaction.new(
-  amount: 10_000_000,
+tx = Nis::Transaction::Transfer.new(
+  amount: 1_000_000,
   recipient: B_ADDRESS,
-  signer: A_PUBLIC_KEY,
   message: Nis::Struct::Message.new('Hello'),
-  type: Nis::Struct::Transaction::TRANSFER,
+  signer: A_PUBLIC_KEY,
   timeStamp: Nis::Util.timestamp,
   deadline: Nis::Util.timestamp + 43_200,
   version: Nis::Util::TESTNET_VERSION_1
 )
 
-mtx = Nis::Struct::MultisigTransaction.new(
-  timeStamp: Nis::Util.timestamp,
+mtx = Nis::Transaction::Multisig.new(
+  otherTrans: tx,
   signer: B_PUBLIC_KEY,
-  type: Nis::Struct::MultisigTransaction::TYPE,
+  timeStamp: Nis::Util.timestamp,
   deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1,
-  otherTrans: tx
+  version: Nis::Util::TESTNET_VERSION_1
 )
 
 # automatically calculate minimum fee if fee is not set.

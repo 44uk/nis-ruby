@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timeStamp
   # @attr [String]  signature
   # @attr [Integer] fee
@@ -9,9 +9,12 @@ class Nis::Struct
   # @attr [Array <Nis::Struct::MultisigCosignatoryModification>] modifications
   # @attr [Hash] minCosignatories
   # @see http://bob.nem.ninja/docs/#multisigAggregateModificationTransaction
-  class MultisigAggregateModificationTransaction
+  class MultisigAggregateModification
+    include Nis::Mixin::Network
+    attr_writer :version, :fee
+
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :fee, :type, :deadline, :version, :signer,
+    attr_accessor :timeStamp, :signature, :type, :deadline, :signer,
                   :modifications, :minCosignatories
 
     alias timestamp timeStamp
@@ -28,38 +31,20 @@ class Nis::Struct
 
     # @return [Integer]
     def type
-      TYPE
+      @type ||= TYPE
     end
 
     # @return [Integer]
-    def _version
-      (0xFFFFFFF0 & @version)
-    end
-
-    # @return [Boolean]
-    def testnet?
-      (0x0000000F & @version) == Nis::Util::TESTNET
-    end
-
-    # @return [Boolean]
-    def mainnet?
-      (0x0000000F & @version) == Nis::Util::MAINNET
-    end
-
     def fee
-      @fee ||= calculate_fee
+      @fee ||= FEE
     end
 
     alias to_hash_old to_hash
 
     def to_hash
+      type
       fee
       to_hash_old
-    end
-
-    # @return [Integer]
-    def calculate_fee
-      FEE
     end
   end
 end

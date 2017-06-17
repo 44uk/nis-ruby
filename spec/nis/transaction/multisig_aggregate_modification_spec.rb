@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Nis::Struct::MultisigAggregateModificationTransaction do
+describe Nis::Transaction::MultisigAggregateModification do
   let(:struct) do
     described_class.new
   end
@@ -13,5 +13,14 @@ describe Nis::Struct::MultisigAggregateModificationTransaction do
 
   describe '#fee' do
     it { expect(subject.fee).to eq 16_000_000 }
+  end
+
+  describe '#to_hash' do
+    it do
+      expect(subject.to_hash).to a_hash_including(
+        type: 0x1001,
+        fee: 16_000_000
+      )
+    end
   end
 end
