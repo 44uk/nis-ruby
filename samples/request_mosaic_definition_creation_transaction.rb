@@ -37,15 +37,14 @@ definition = Nis::Struct::MosaicDefinition.new(
 )
 
 # build Transaction Object
-tx = Nis::Struct::MosaicDefinitionCreationTransaction.new(
-  timeStamp: Nis::Util.timestamp,
-  type: Nis::Struct::MosaicDefinitionCreationTransaction::TYPE,
-  deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1,
-  signer: A_PUBLIC_KEY,
+tx = Nis::Transaction::MosaicDefinitionCreation.new(
+  mosaicDefinition: definition,
   creationFee: 500_000_000,
   creationFeeSink: Nis::Util::MOSAIC_SINK[:testnet],
-  mosaicDefinition: definition
+  signer: A_PUBLIC_KEY,
+  timeStamp: Nis::Util.timestamp,
+  deadline: Nis::Util.timestamp + 43_200,
+  version: Nis::Util::TESTNET_VERSION_1
 )
 
 # build RequestPrepareAnnounce Object
