@@ -33,12 +33,20 @@ class Nis::Transaction
 
     # @return [Integer]
     def type
-      TYPE
+      @type ||= TYPE
     end
 
     # @return [Integer]
     def fee
-      FEE
+      @fee ||= FEE
+    end
+
+    alias to_hash_old to_hash
+
+    def to_hash
+      type
+      fee
+      to_hash_old
     end
   end
 end

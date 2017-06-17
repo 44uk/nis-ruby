@@ -14,4 +14,13 @@ describe Nis::Transaction::ImportanceTransfer do
   describe '#fee' do
     it { expect(subject.fee).to eq 6_000_000 }
   end
+
+  describe '#to_hash' do
+    it do
+      expect(subject.to_hash).to a_hash_including(
+        type: 0x0801,
+        fee: 6_000_000
+      )
+    end
+  end
 end
