@@ -10,11 +10,10 @@ A_PUBLIC_KEY  = '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a00225867351
 B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'.freeze
 
 # build Transaction Object
-tx = Nis::Struct::TransferTransaction.new(
+tx = Nis::Transaction::Transfer.new(
   amount:  1_000_000,
   # fee:     3_000_000, # see below.
   recipient: B_ADDRESS,
-  type: Nis::Struct::TransferTransaction::TYPE,
   signer: A_PUBLIC_KEY,
   message: Nis::Struct::Message.new('Hello'),
   timeStamp: Nis::Util.timestamp,

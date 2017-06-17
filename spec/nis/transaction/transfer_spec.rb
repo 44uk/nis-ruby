@@ -32,6 +32,15 @@ describe Nis::Transaction::Transfer do
     it { expect(subject.version).to be 1 }
   end
 
+  describe '#to_hash' do
+    it do
+      expect(subject.to_hash).to a_hash_including(
+        type: 0x0101,
+        fee: 1_000_000
+      )
+    end
+  end
+
   context 'amount: 100XEM, message: empty' do
     describe '#fee' do
       it { expect(subject.fee).to eq 1_000_000 }
