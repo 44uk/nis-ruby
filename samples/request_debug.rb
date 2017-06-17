@@ -2,7 +2,6 @@ require 'pp'
 require 'nis'
 hr = '-' * 64
 
-# create NIS instance
 nis = Nis.new
 
 incoming = nis.debug_connections_incoming

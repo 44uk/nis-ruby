@@ -8,6 +8,7 @@ class Nis::Struct
     attr_accessor :node, :syncs, :experiences
 
     def self.build(attrs)
+      attrs[:node] = Node.build(attrs[:node])
       new(attrs)
     end
   end

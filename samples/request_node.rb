@@ -1,25 +1,30 @@
 require 'nis'
 hr = '-' * 64
 
-# create NIS instance
 nis = Nis.new
 
-puts nis.node_info
+node_info = nis.node_info
+puts node_info.to_hash
 puts hr
 
-puts nis.node_extended_info
+ext_node_info = nis.node_extended_info
+puts ext_node_info.to_hash
 puts hr
 
-puts nis.node_experiences
+node_exp = nis.node_experiences
+puts node_exp.first.to_hash
 puts hr
 
-puts nis.node_peerlist_all
+peer_all = nis.node_peerlist_all
+puts peer_all.to_hash
 puts hr
 
-puts nis.node_peerlist_reachable
+reachables = nis.node_peerlist_reachable
+puts reachables.first.to_hash
 puts hr
 
-puts nis.node_peerlist_active
+actives = nis.node_peerlist_active
+puts actives.first.to_hash
 puts hr
 
 puts nis.node_active_peers_max_chain_height
@@ -39,5 +44,10 @@ bnr = Nis::Struct::BootNodeRequest.new(
     name: 'Alice'
   }
 )
-puts nis.node_boot(boot_node_request: bnr)
+
+begin
+  puts nis.node_boot(boot_node_request: bnr)
+rescue => ex
+  puts ex
+end
 puts hr
