@@ -18,6 +18,7 @@ class Nis::Struct
     alias :prev_block_hash= :prevBlockHash=
 
     def self.build(attrs)
+      attrs[:transactions] = attrs[:transactions].map {|tx| Transaction.build(tx) }
       new(attrs)
     end
   end

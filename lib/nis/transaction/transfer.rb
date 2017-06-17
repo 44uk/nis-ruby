@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timestamp
   # @attr [Integer] amount
   # @attr [Integer] fee
@@ -13,33 +13,27 @@ class Nis::Struct
   # @see http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
   # @see http://bob.nem.ninja/docs/#version-1-transfer-transactions
   # @see http://bob.nem.ninja/docs/#version-2-transfer-transactions
-  class TransferTransaction
+  class Transfer
+    include Nis::Mixin::Network
+    attr_writer :version, :fee
+
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :amount, :fee, :recipient, :type, :deadline, :message, :version, :signer,
+    attr_accessor :timeStamp, :amount, :recipient, :type, :deadline, :message, :signer,
                   :mosaics
 
     alias :timestamp :timeStamp
     alias :timestamp= :timeStamp=
 
     TYPE = 0x0101 # 257 (transfer transaction)
+    FEE  = 25
 
     def self.build(attrs)
       new(attrs)
     end
 
     # @return [Integer]
-    def _version
-      (0xFFFFFFF0 & @version)
-    end
-
-    # @return [Boolean]
-    def testnet?
-      (0x0000000F & @version) == Nis::Util::TESTNET
-    end
-
-    # @return [Boolean]
-    def mainnet?
-      (0x0000000F & @version) == Nis::Util::MAINNET
+    def type
+      @type ||= TYPE
     end
 
     # @return [Integer]
@@ -54,6 +48,7 @@ class Nis::Struct
     alias to_hash_old to_hash
 
     def to_hash
+      type
       fee
       to_hash_old
     end
@@ -62,11 +57,11 @@ class Nis::Struct
     def calculate_fee
       if mosaics.empty?
         tmp_fee = [1, amount / 1_000_000 / 10_000].max
-        fee = (tmp_fee > 25 ? 25 : tmp_fee)
+        fee = (tmp_fee > FEE ? FEE : tmp_fee)
       else
         # TODO: calc mosaics fee
         raise NotImplementedError, 'not implemented calculation mosaic fee.'
-        fee = 25
+        fee = FEE
       end
 
       if message.bytesize > 0

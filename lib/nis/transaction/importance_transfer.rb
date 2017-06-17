@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timeStamp
   # @attr [String]  signature
   # @attr [Integer] fee
@@ -9,9 +9,12 @@ class Nis::Struct
   # @attr [Integer] version
   # @attr [String]  signer
   # @see http://bob.nem.ninja/docs/#importanceTransferTransaction
-  class ImportanceTransferTransaction
+  class ImportanceTransfer
+    include Nis::Mixin::Network
+    attr_writer :version, :fee
+
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :fee, :mode, :remoteAccount, :type, :deadline, :version, :signer
+    attr_accessor :timeStamp, :signature, :mode, :remoteAccount, :type, :deadline, :signer
 
     alias timestamp timeStamp
     alias timestamp= timeStamp=
@@ -19,6 +22,7 @@ class Nis::Struct
     alias remote_account= remoteAccount=
 
     TYPE = 0x0801 # 2049 (importance transfer transaction)
+    FEE  = 6_000_000
 
     ACTIVATE   = 0x0001
     DEACTIVATE = 0x0002
@@ -28,18 +32,21 @@ class Nis::Struct
     end
 
     # @return [Integer]
-    def _version
-      (0xFFFFFFF0 & @version)
+    def type
+      @type ||= TYPE
     end
 
-    # @return [Boolean]
-    def testnet?
-      (0x0000000F & @version) == Nis::Util::TESTNET
+    # @return [Integer]
+    def fee
+      @fee ||= FEE
     end
 
-    # @return [Boolean]
-    def mainnet?
-      (0x0000000F & @version) == Nis::Util::MAINNET
+    alias to_hash_old to_hash
+
+    def to_hash
+      type
+      fee
+      to_hash_old
     end
   end
 end

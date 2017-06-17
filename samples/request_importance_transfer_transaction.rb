@@ -10,15 +10,13 @@ A_PUBLIC_KEY  = '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a00225867351
 B_PUBLIC_KEY = 'cc6c9485d15b992501e57fe3799487e99de272f79c5442de94eeb998b45e0144'.freeze
 
 # build Transaction Object
-tx = Nis::Struct::ImportanceTransferTransaction.new(
-  timeStamp: Nis::Util.timestamp,
-  fee:  6_000_000,
-  mode: Nis::Struct::ImportanceTransferTransaction::ACTIVATE,
+tx = Nis::Transaction::ImportanceTransfer.new(
+  mode: Nis::Transaction::ImportanceTransfer::ACTIVATE,
   remoteAccount: B_PUBLIC_KEY,
-  type: Nis::Struct::ImportanceTransferTransaction::TYPE,
+  signer: A_PUBLIC_KEY,
+  timeStamp: Nis::Util.timestamp,
   deadline: Nis::Util.timestamp + 43_200,
-  version:  Nis::Util::TESTNET_VERSION_1,
-  signer: A_PUBLIC_KEY
+  version: Nis::Util::TESTNET_VERSION_1
 )
 
 # build RequestPrepareAnnounce Object

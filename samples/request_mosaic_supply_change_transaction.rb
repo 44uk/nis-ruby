@@ -8,19 +8,18 @@ A_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a003
 
 mosaic_id = Nis::Struct::MosaicId.new(
   namespaceId: 'kon',
-  name: "teas"
+  name: 'teas'
 )
 
 # build Transaction Object
-tx = Nis::Struct::MosaicSupplyChangeTransaction.new(
-  timeStamp: Nis::Util.timestamp,
-  type: Nis::Struct::MosaicSupplyChangeTransaction::TYPE,
-  deadline: Nis::Util.timestamp + 43_200,
-  version:  Nis::Util::TESTNET_VERSION_1,
-  signer:   A_PUBLIC_KEY,
-  supplyType: Nis::Struct::MosaicSupplyChangeTransaction::INCREASE,
+tx = Nis::Transaction::MosaicSupplyChange.new(
+  mosaicId: mosaic_id,
+  supplyType: Nis::Transaction::MosaicSupplyChange::INCREASE,
   delta: 1_000,
-  mosaicId: mosaic_id
+  signer: A_PUBLIC_KEY,
+  timeStamp: Nis::Util.timestamp,
+  deadline: Nis::Util.timestamp + 43_200,
+  version: Nis::Util::TESTNET_VERSION_1
 )
 
 # build RequestPrepareAnnounce Object
@@ -29,10 +28,8 @@ rpa = Nis::Struct::RequestPrepareAnnounce.new(
   privateKey: A_PRIVATE_KEY
 )
 
-# Create NIS instance
 nis = Nis.new
 
-# Send XEM request.
 res = nis.transaction_prepare_announce(request_prepare_announce: rpa)
-puts res.inspect
+puts res.to_hash
 puts hr

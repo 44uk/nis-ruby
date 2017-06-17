@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timeStamp
   # @attr [String]  signature
   # @attr [Integer] fee
@@ -9,9 +9,12 @@ class Nis::Struct
   # @attr [String]  otherHash
   # @attr [String]  otherAccount
   # @see http://bob.nem.ninja/docs/#multisigSignatureTransaction
-  class MultisigSignatureTransaction
+  class MultisigSignature
+    include Nis::Mixin::Network
+    attr_writer :version, :fee
+
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :fee, :type, :deadline, :version, :signer,
+    attr_accessor :timeStamp, :signature, :type, :deadline, :signer,
                   :otherHash, :otherAccount
 
     alias timestamp timeStamp
@@ -28,18 +31,15 @@ class Nis::Struct
     end
 
     # @return [Integer]
-    def _version
-      (0xFFFFFFF0 & @version)
+    def type
+      @type ||= TYPE
     end
 
-    # @return [Boolean]
-    def testnet?
-      (0x0000000F & @version) == Nis::Util::TESTNET
-    end
+    alias to_hash_old to_hash
 
-    # @return [Boolean]
-    def mainnet?
-      (0x0000000F & @version) == Nis::Util::MAINNET
+    def to_hash
+      type
+      to_hash_old
     end
   end
 end

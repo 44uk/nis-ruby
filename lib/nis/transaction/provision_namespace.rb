@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timeStamp
   # @attr [String]  signature
   # @attr [Integer] fee
@@ -11,9 +11,12 @@ class Nis::Struct
   # @attr [String]  newPart
   # @attr [String]  parent
   # @see http://bob.nem.ninja/docs/#provisionNamespaceTransaction
-  class ProvisionNamespaceTransaction
+  class ProvisionNamespace
+    include Nis::Mixin::Network
+    attr_writer :version, :fee
+
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :fee, :type, :deadline, :version, :signer,
+    attr_accessor :timeStamp, :signature, :type, :deadline, :signer,
                   :rentalFeeSink, :rentalFee, :newPart, :parent
 
     alias timestamp timeStamp
@@ -33,35 +36,21 @@ class Nis::Struct
     end
 
     # @return [Integer]
-    def _version
-      (0xFFFFFFF0 & @version)
-    end
-
-    # @return [Boolean]
-    def testnet?
-      (0x0000000F & @version) == Nis::Util::TESTNET
-    end
-
-    # @return [Boolean]
-    def mainnet?
-      (0x0000000F & @version) == Nis::Util::MAINNET
+    def type
+      @type ||= TYPE
     end
 
     # @return [Integer]
     def fee
-      @fee ||= calculate_fee
+      @fee ||= FEE
     end
 
     alias to_hash_old to_hash
 
     def to_hash
+      type
       fee
       to_hash_old
-    end
-
-    # @return [Integer]
-    def calculate_fee
-      FEE
     end
   end
 end

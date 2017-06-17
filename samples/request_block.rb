@@ -1,11 +1,11 @@
 require 'nis'
 hr = '-' * 64
 
-# create NIS instance
 nis = Nis.new
 
-puts nis.block_at_public(block_height: 895492)
+block = nis.block_at_public(block_height: 890761)
+puts block.to_hash
 puts hr
 
-puts nis.block_get(block_hash: '74998229fa8a6eebfce9bcc313c552528bf82caac6166ae05e65578b4fb1f2da')
+puts nis.block_get(block_hash: 'fb5e76bf137eb27451926d29fd2b308e672e5d9ec405d9cbcd47cc0f83492cd0')
 puts hr

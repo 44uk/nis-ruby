@@ -1,4 +1,4 @@
-class Nis::Struct
+class Nis::Transaction
   # @attr [Integer] timeStamp
   # @attr [Integer] fee
   # @attr [Integer] type
@@ -7,9 +7,12 @@ class Nis::Struct
   # @attr [String] signer
   # @attr [Nis::Struct::TransferTransaction] otherTrans
   # @see http://bob.nem.ninja/docs/#multisigTransaction
-  class MultisigTransaction
+  class Multisig
+    include Nis::Mixin::Network
+    attr_writer :version, :fee
+
     include Nis::Util::Assignable
-    attr_accessor :timeStamp, :fee, :type, :deadline, :version, :signer,
+    attr_accessor :timeStamp, :type, :deadline, :signer,
                   :otherTrans
 
     alias timestamp timeStamp
@@ -25,23 +28,13 @@ class Nis::Struct
     end
 
     # @return [Integer]
-    def _version
-      (0xFFFFFFF0 & @version)
-    end
-
-    # @return [Boolean]
-    def testnet?
-      (0x0000000F & @version) == TESTNET
-    end
-
-    # @return [Boolean]
-    def mainnet?
-      (0x0000000F & @version) == MAINNET
+    def type
+      @type ||= TYPE
     end
 
     # @return [Integer]
     def fee
-      @fee ||= calculate_fee
+      @fee ||= FEE
     end
 
     def mosaics
@@ -51,13 +44,9 @@ class Nis::Struct
     alias to_hash_old to_hash
 
     def to_hash
+      type
       fee
       to_hash_old
-    end
-
-    # @return [Integer]
-    def calculate_fee
-      FEE
     end
   end
 end
