@@ -26,6 +26,7 @@ class Nis
 
   include Nis::Endpoint::Heartbeat
   include Nis::Endpoint::Status
+  include Nis::Endpoint::Shutdown
 
   include Nis::Endpoint::Account::Generate
   include Nis::Endpoint::Account::Get

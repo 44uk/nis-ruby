@@ -19,7 +19,8 @@ class Nis::Client
     '/local/account/transfers/outgoing',
     '/local/account/transfers/all',
     '/node/boot',
-    '/transaction/prepare-announce'
+    '/transaction/prepare-announce',
+    '/shutdown'
   ]
 
   attr_reader :options
