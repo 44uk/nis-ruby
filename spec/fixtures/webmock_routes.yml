@@ -223,3 +223,6 @@ debug/timers:
 account/get?address=ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890:
   method: get
   stub: error
+
+shutdown:
+  method: get

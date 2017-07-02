@@ -17,6 +17,11 @@ describe Nis::Client do
       )).to eq hash_stub_from_json('status') }
     end
 
+    context '/shutdown' do
+      it { expect(subject.request(:get, '/shutdown'
+      )).to eq nil }
+    end
+
     context '/account/get' do
       it { expect(subject.request(:get, '/account/get',
         address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'
