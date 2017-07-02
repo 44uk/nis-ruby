@@ -29,7 +29,7 @@ gem 'nis-ruby'
 
 ## Usage
 
-More specific sample codes are in **samples/** directory.
+More specific example codes are in **examples/** directory.
 
 ### Methods
 
