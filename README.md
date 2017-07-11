@@ -121,6 +121,10 @@ $ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWP
 
 ## Connection
 
+You can find nodes here.
+- [NEM Node Rewards](https://supernodes.nem.io/)
+
+
 ### Environment Variable
 
 ```bash
