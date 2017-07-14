@@ -1,6 +1,7 @@
 require 'nis/version'
 require 'nis/mixin'
 require 'nis/util'
+require 'nis/fee'
 require 'nis/client'
 require 'nis/endpoint'
 require 'nis/struct'
