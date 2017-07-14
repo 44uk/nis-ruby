@@ -12,23 +12,26 @@ module Nis::Util
 
   NEM_EPOCH = Time.utc(2015, 3, 29, 0, 6, 25, 0)
 
-  #
-  # @see http://www.nem.ninja/docs/#namespaces
-  NAMESPACE_SINK = {
-    testnet: 'TAMESPACEWH4MKFMBCVFERDPOOP4FK7MTDJEYP35',
-    mainnet: 'NAMESPACEWH4MKFMBCVFERDPOOP4FK7MTBXDPZZA'
-  }
-
-  # @see http://www.nem.ninja/docs/#mosaics
-  MOSAIC_SINK = {
-    testnet: 'TBMOSAICOD4F54EE5CDMR23CCBGOAM2XSJBR5OLC',
-    mainnet: 'NBMOSAICOD4F54EE5CDMR23CCBGOAM2XSIUX6TRS'
-  }
-
   APOSTILLE_SINK = {
     testnet: 'TC7MCY5AGJQXZQ4BN3BOPNXUVIGDJCOHBPGUM2GE',
     mainnet: 'NCZSJHLTIMESERVBVKOW6US64YDZG2PFGQCSV23J'
   }
+
+  def self.parse_version(network, version)
+    parse_network(network) | version
+  end
+
+  def self.parse_network(network)
+    case network
+    when :mainnet then MAINNET
+    when :testnet then TESTNET
+      else TESTNET
+    end
+  end
+
+  def self.deadline(seconds = 3600)
+    timestamp + seconds
+  end
 
   def self.timestamp
     (Time.now - NEM_EPOCH).to_i
