@@ -1,34 +1,22 @@
 require 'nis'
-hr = '-' * 64
 
-# Account A (Source)
-A_ADDRESS = 'TAH4MBR6MNLZKJAVW5ZJCMFAL7RS5U2YODUQKLCT'.freeze
-A_PRIVATE_KEY = '00b4a68d16dc505302e9631b860664ba43a8183f0903bc5782a2403b2f9eb3c8a1'.freeze
-A_PUBLIC_KEY  = '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a002258673519'.freeze
+# sender
+A_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'
+A_PUBLIC_KEY  = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'
 
-# Remote Account B (Dist)
-B_PUBLIC_KEY = 'cc6c9485d15b992501e57fe3799487e99de272f79c5442de94eeb998b45e0144'.freeze
+# remote
+B_PUBLIC_KEY = 'cc6c9485d15b992501e57fe3799487e99de272f79c5442de94eeb998b45e0144'
 
-# build Transaction Object
-tx = Nis::Transaction::ImportanceTransfer.new(
-  mode: Nis::Transaction::ImportanceTransfer::ACTIVATE,
-  remoteAccount: B_PUBLIC_KEY,
-  signer: A_PUBLIC_KEY,
-  timeStamp: Nis::Util.timestamp,
-  deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1
-)
+# TODO: public key calculated from private key in future version.
+# it will not need to set public key.
+kp = Nis::Keypair.new(A_PRIVATE_KEY, public_key: A_PUBLIC_KEY)
 
-# build RequestPrepareAnnounce Object
-rpa = Nis::Struct::RequestPrepareAnnounce.new(
-  transaction: tx,
-  privateKey: A_PRIVATE_KEY
-)
+tx = Nis::Transaction::ImportanceTransfer.new(B_PUBLIC_KEY, :activate)
+puts "Fee: #{tx.fee.to_i}"
 
-# Create NIS instance
 nis = Nis.new
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
 
-# Send XEM request.
-res = nis.transaction_prepare_announce(request_prepare_announce: rpa)
-puts res.message
-puts hr
+puts "Message: #{res.message}"
+puts "TransactionHash: #{res.transaction_hash}"

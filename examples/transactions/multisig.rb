@@ -1,54 +1,26 @@
 require 'nis'
-hr = '-' * 64
 
-# Account A (multisig)
-A_ADDRESS = 'TDJNDAQ7F7AQRXKP2YVTH67QYCWWKE6QLSJFWN64'.freeze
-A_PRIVATE_KEY = '00f077782658ae91b77f238ba5fcd7ef110564b5c189072e4d4590d9b17f9d76f3'.freeze
-A_PUBLIC_KEY  = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'.freeze
+# multisig
+# A_PRIVATE_KEY = '9bf8e6fd1a178a3cce39840cda34f80f55fe075c15f48eefad8506f4a70c2b47'
+A_PUBLIC_KEY  = '4b26a75313b747985470977a085ae6f840a0b84ebd96ddf17f4a31a2b580d078'
+# A_ADDRESS = 'TBAOYZS4FGY5XPQ5OD2VL3SY7GQ5FLH66GRCX5DL'
 
-# Account B (cosignatory)
-B_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'.freeze
-B_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'.freeze
-B_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033'.freeze
+# cosignatory
+B_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'
+B_PUBLIC_KEY  = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'
+B_ADDRESS = 'TAWKJTUP4DWKLDKKS534TYP6G324CBNMXKBA4X7B'
 
-# build Transaction Object
-tx = Nis::Transaction::Transfer.new(
-  amount: 1_000_000,
-  recipient: B_ADDRESS,
-  message: Nis::Struct::Message.new('Hello'),
-  signer: A_PUBLIC_KEY,
-  timeStamp: Nis::Util.timestamp,
-  deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1
-)
+# TODO: public key calculated from private key in future version.
+# it will not need to set public key.
+kp = Nis::Keypair.new(B_PRIVATE_KEY, public_key: B_PUBLIC_KEY)
 
-mtx = Nis::Transaction::Multisig.new(
-  otherTrans: tx,
-  signer: B_PUBLIC_KEY,
-  timeStamp: Nis::Util.timestamp,
-  deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1
-)
+ttx = Nis::Transaction::Transfer.new(B_ADDRESS, 1_000_000, 'Good luck!')
+tx = Nis::Transaction::Multisig.new(ttx, A_PUBLIC_KEY)
+puts "Fee: #{tx.fee.to_i}"
 
-# automatically calculate minimum fee if fee is not set.
-puts 'Fee: %d' % tx.fee
-
-# build RequestPrepareAnnounce Object
-rpa = Nis::Struct::RequestPrepareAnnounce.new(
-  transaction: mtx,
-  privateKey: B_PRIVATE_KEY
-)
-
-# Create NIS instance
 nis = Nis.new
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
 
-# check banalces before sending XEM.
-puts 'Account A => balance: %d' %
-  (nis.account_get address: A_ADDRESS)[:account][:balance]
-puts 'Account B => balance: %d' %
-  (nis.account_get address: B_ADDRESS)[:account][:balance]
-puts hr
-
-# Send XEM request.
-res = nis.transaction_prepare_announce(request_prepare_announce: rpa)
-puts res.message
+puts "Message: #{res.message}"
+puts "TransactionHash: #{res.transaction_hash}"

@@ -1,45 +1,28 @@
 require 'nis'
-hr = '-' * 64
 
-# Account A (change to multisig)
-A_ADDRESS = 'TDJNDAQ7F7AQRXKP2YVTH67QYCWWKE6QLSJFWN64'.freeze
-A_PRIVATE_KEY = '00f077782658ae91b77f238ba5fcd7ef110564b5c189072e4d4590d9b17f9d76f3'.freeze
-A_PUBLIC_KEY  = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'.freeze
+# multisig
+A_PRIVATE_KEY = '9bf8e6fd1a178a3cce39840cda34f80f55fe075c15f48eefad8506f4a70c2b47'
+A_PUBLIC_KEY  = '4b26a75313b747985470977a085ae6f840a0b84ebd96ddf17f4a31a2b580d078'
 
-# Account B (cosignatory)
-B_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'.freeze
-B_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'.freeze
-B_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033'.freeze
+# cosignatory
+B_PUBLIC_KEY  = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'
+
+# TODO: public key calculated from private key in future version.
+# it will not need to set public key.
+kp = Nis::Keypair.new(A_PRIVATE_KEY, public_key: A_PUBLIC_KEY)
 
 mcm = Nis::Struct::MultisigCosignatoryModification.new(
-  modificationType: 1, # Add
+  modificationType: 1,
   cosignatoryAccount: B_PUBLIC_KEY
 )
+min_cosigs = 1
 
-# build Transaction Object
-tx = Nis::Transaction::MultisigAggregateModification.new(
-  modifications: [
-    mcm
-  ],
-  minCosignatories: {
-    relativeChange: 1
-  },
-  signer: A_PUBLIC_KEY,
-  timeStamp: Nis::Util.timestamp,
-  deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1
-)
+tx = Nis::Transaction::MultisigAggregateModification.new([mcm], min_cosigs)
+puts "Fee: #{tx.fee.to_i}"
 
-# build RequestPrepareAnnounce Object
-rpa = Nis::Struct::RequestPrepareAnnounce.new(
-  transaction: tx,
-  privateKey: A_PRIVATE_KEY
-)
-
-# Create NIS instance
 nis = Nis.new
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
 
-# Send XEM request.
-res = nis.transaction_prepare_announce(request_prepare_announce: rpa)
-puts res.message
-puts hr
+puts "Message: #{res.message}"
+puts "TransactionHash: #{res.transaction_hash}"

@@ -1,14 +1,17 @@
 require 'nis'
-hr = '-' * 64
 
-# Account A
-A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'.freeze
-A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'.freeze
-A_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033'.freeze
+# owner
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+A_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033'
+A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+# TODO: public key calculated from private key in future version.
+# it will not need to set public key.
+kp = Nis::Keypair.new(A_PRIVATE_KEY, public_key: A_PUBLIC_KEY)
 
 mosaic_id = Nis::Struct::MosaicId.new(
-  namespaceId: 'kon',
-  name: 'teas'
+  namespaceId: 'sushi',
+  name: 'maguro'
 )
 
 properties = Nis::Struct::MosaicProperties.new(
@@ -31,32 +34,17 @@ levy = Nis::Struct::MosaicLevy.new(
 definition = Nis::Struct::MosaicDefinition.new(
   creator: A_PUBLIC_KEY,
   id: mosaic_id,
-  description: 'Ho-kago Tea Time',
+  description: 'Japanese Soul food SHUSHI.',
   properties: properties,
   levy: levy
 )
 
-# build Transaction Object
-tx = Nis::Transaction::MosaicDefinitionCreation.new(
-  mosaicDefinition: definition,
-  creationFee: 500_000_000,
-  creationFeeSink: Nis::Util::MOSAIC_SINK[:testnet],
-  signer: A_PUBLIC_KEY,
-  timeStamp: Nis::Util.timestamp,
-  deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1
-)
+tx = Nis::Transaction::MosaicDefinitionCreation.new(definition)
+puts "Fee: #{tx.fee.to_i}"
 
-# build RequestPrepareAnnounce Object
-rpa = Nis::Struct::RequestPrepareAnnounce.new(
-  transaction: tx,
-  privateKey: A_PRIVATE_KEY
-)
-
-# Create NIS instance
 nis = Nis.new
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
 
-# Send XEM request.
-res = nis.transaction_prepare_announce(request_prepare_announce: rpa)
-puts res.message
-puts hr
+puts "Message: #{res.message}"
+puts "TransactionHash: #{res.transaction_hash}"
