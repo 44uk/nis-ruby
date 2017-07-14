@@ -1,52 +1,49 @@
 class Nis::Transaction
-  # @attr [Integer] timeStamp
-  # @attr [String]  signature
-  # @attr [Integer] fee
-  # @attr [Integer] mode
   # @attr [String]  remoteAccount
+  # @attr [Integer] mode
   # @attr [Integer] type
+  # @attr [Integer] fee
   # @attr [Integer] deadline
+  # @attr [Integer] timeStamp
   # @attr [Integer] version
-  # @attr [String]  signer
+  # @attr [String] signer
+  # @attr [String] signature
+  # @attr [Symbol] network
   # @see http://bob.nem.ninja/docs/#importanceTransferTransaction
   class ImportanceTransfer
-    include Nis::Mixin::Network
-    attr_writer :version, :fee
+    include Nis::Mixin::Struct
 
-    include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :mode, :remoteAccount, :type, :deadline, :signer
+    attr_reader :type, :fee
+    attr_accessor :mode, :remoteAccount,
+      :deadline, :timeStamp, :version, :signer, :signature,
+      :network
 
-    alias timestamp timeStamp
-    alias timestamp= timeStamp=
     alias remote_account remoteAccount
     alias remote_account= remoteAccount=
+    alias timestamp timeStamp
 
     TYPE = 0x0801 # 2049 (importance transfer transaction)
-    FEE  = 6_000_000
 
     ACTIVATE   = 0x0001
     DEACTIVATE = 0x0002
 
-    def self.build(attrs)
-      new(attrs)
+    def initialize(remote_account, mode, network: :testnet)
+      @type = TYPE
+      @network = network
+
+      @remoteAccount = remote_account
+      @mode = parse_mode(mode)
+      @fee = Nis::Fee::ImportanceTransfer.new(self)
     end
 
-    # @return [Integer]
-    def type
-      @type ||= TYPE
-    end
+    private
 
-    # @return [Integer]
-    def fee
-      @fee ||= FEE
-    end
-
-    alias to_hash_old to_hash
-
-    def to_hash
-      type
-      fee
-      to_hash_old
+    def parse_mode(mode)
+      case mode
+      when :activate   then ACTIVATE
+      when :deactivate then DEACTIVATE
+        else raise "Not implemented mode: #{mode}"
+      end
     end
   end
 end
