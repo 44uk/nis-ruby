@@ -36,10 +36,10 @@ class Nis::Struct
         value: initial_supply.to_s
       }, {
         name: 'supplyMutable',
-        value: supply_mutable ? 'true' : 'false'
+        value: supply_mutable.to_s
       }, {
         name: 'transferable',
-        value: transferable ? 'true' : 'false'
+        value: transferable.to_s
       }]
     end
   end
