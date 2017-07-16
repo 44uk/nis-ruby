@@ -26,10 +26,9 @@ Or add this line to your application's Gemfile:
 gem 'nis-ruby'
 ```
 
-
 ## Usage
 
-More specific sample codes are in **samples/** directory.
+More specific example codes are in **examples/** directory.
 
 ### Methods
 
@@ -44,22 +43,16 @@ nis.status
 # => {code: 6, type: 4, message: "status"}
 # See http://bob.nem.ninja/docs/#status-request
 
+kp = Nis::Keypair.new(SENDER_PRIV_KEY)
 tx = Nis::Transaction::Transfer.new(
-  amount: 10_000_000,
-  recipient: RECIPIENT_ADDRESS,
-  signer: SENDER_PUBLIC_KEY,
-  message: Nis::Struct::Message.new('Hello'),
-  timeStamp: Nis::Util.timestamp,
-  deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1
+  RECIPIENT_ADDRESS,
+  10_000_000,
+  'Message'
 )
-
-rpa = Nis::Struct::RequestPrepareAnnounce.new(
-  transaction: tx,
-  privateKey: SENDER_PRIVATE_KEY
-)
-
-nis.transaction_prepare_announce(request_prepare_announce: rpa)
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+nis.transaction_prepare_announce(req)
+# See http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
+# => {innerTransactionHash: {}, code: 1, type: 1, message: "SUCCESS", transactionHash: {data: "9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde"}}
 ```
 
 ### Requesting
@@ -78,27 +71,6 @@ nis.request(:post, '/account/unlock',
 )
 # => Nothing
 # See http://bob.nem.ninja/docs/#locking-and-unlocking-accounts
-
-tx = {
-  amount: 10_000_000,
-  fee:     1_000_000,
-  recipient: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS',
-  signer: 'a1aaca6c17a24252e674d155713cdf55996ad00175be4af02a20c67b59f9fe8a',
-  message: {
-    payload: '',
-    type: 1
-  },
-  type: 0x0101, # 257
-  timeStamp: Nis::Util.timestamp,
-  deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1
-}
-puts nis.request! :post, 'transaction/prepare-announce', {
-  transaction: tx,
-  privateKey: '68e4f79f886927de698df4f857de2aada41ccca6617e56bb0d61623b35b08cc0'
-}
-# => {innerTransactionHash: {}, code: 1, type: 1, message: "SUCCESS", transactionHash: {data: "9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde"}}
-# See http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
 ```
 
 
@@ -121,12 +93,10 @@ $ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWP
 
 ## Connection
 
-### Environment Variable
+You can find nodes here.
+- [NEM Node Rewards](https://supernodes.nem.io/)
 
-```bash
-$ export NIS_URL=http://bigalice3.nem.ninja:7890
-$ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
-```
+*Currently the gem only supports transactions for local node.*
 
 ### Hash
 
@@ -138,13 +108,23 @@ Nis.new(host: 'bigalice3.nem.ninja')
 Nis.new(url: 'http://bigalice3.nem.ninja:7890')
 ```
 
+### Environment Variable
+
+```bash
+$ export NIS_URL=http://bigalice3.nem.ninja:7890
+$ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
+```
+
+Environment variable used as default value.
+
 
 ## TODO
 
 * Do more improvements
+  * Remote transaction
   * Mosaic transferring
   * Encryption message
-  * Remote transaction
+  * Be more easy to use
 
 
 ## Documentation

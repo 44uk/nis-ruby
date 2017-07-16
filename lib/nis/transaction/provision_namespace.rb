@@ -1,56 +1,76 @@
 class Nis::Transaction
-  # @attr [Integer] timeStamp
-  # @attr [String]  signature
-  # @attr [Integer] fee
-  # @attr [Integer] type
-  # @attr [Integer] deadline
-  # @attr [Integer] version
-  # @attr [String]  signer
-  # @attr [String]  rentalFeeSink
+  # @attr [String] newPart
+  # @attr [String] parent
   # @attr [Integer] rentalFee
-  # @attr [String]  newPart
-  # @attr [String]  parent
+  # @attr [String] rentalFeeSink
+  # @attr [Integer] type
+  # @attr [Integer] fee
+  # @attr [Integer] deadline
+  # @attr [Integer] timeStamp
+  # @attr [Integer] version
+  # @attr [String] signer
+  # @attr [String] signature
+  # @attr [Symbol] network
   # @see http://bob.nem.ninja/docs/#provisionNamespaceTransaction
   class ProvisionNamespace
-    include Nis::Mixin::Network
-    attr_writer :version, :fee
+    include Nis::Mixin::Struct
 
-    include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :type, :deadline, :signer,
-                  :rentalFeeSink, :rentalFee, :newPart, :parent
+    attr_reader :type, :fee
+    attr_accessor :newPart, :parent, :rentalFeeSink, :rentalFee,
+      :deadline, :timeStamp, :version, :signer, :signature,
+      :network
 
-    alias timestamp timeStamp
-    alias timestamp= timeStamp=
-    alias rental_fee_sink rentalFeeSink
-    alias rental_fee_sink= rentalFeeSink=
-    alias rental_fee rentalFee
-    alias rental_fee= rentalFee=
     alias new_part newPart
     alias new_part= newPart=
+    alias rental_fee rentalFee
+    alias rental_fee= rentalFee=
+    alias rental_fee_sink rentalFeeSink
+    alias rental_fee_sink= rentalFeeSink=
+    alias timestamp timeStamp
 
     TYPE = 0x2001 # 8193 (provision namespace transaction)
-    FEE  = 20_000_000
 
-    def self.build(attrs)
-      new(attrs)
+    def initialize(new_part, parent = nil, network: :testnet)
+      @type = TYPE
+      @network = network
+
+      @newPart = new_part
+      @parent = parent
+      @rentalFee = rental[:fee]
+      @rentalFeeSink = rental[:sink]
+
+      @fee = Nis::Fee::ProvisionNamespace.new(self)
     end
 
-    # @return [Integer]
-    def type
-      @type ||= TYPE
+    def root?
+      !!(@parent == nil)
     end
 
-    # @return [Integer]
-    def fee
-      @fee ||= FEE
+    def sub?
+      !!(@parent && @newPart)
     end
 
-    alias to_hash_old to_hash
+    private
 
-    def to_hash
-      type
-      fee
-      to_hash_old
+    # @see http://www.nem.ninja/docs/#namespaces
+    def rental
+      if @network == :testnet
+        if root?
+          { fee: 100 * 1_000_000,
+            sink: 'TAMESPACEWH4MKFMBCVFERDPOOP4FK7MTDJEYP35' }
+        else
+          { fee: 10 * 1_000_000,
+            sink: 'TAMESPACEWH4MKFMBCVFERDPOOP4FK7MTDJEYP35' }
+        end
+      else
+        if root?
+          { fee: 5_000 * 1_000_000 ,
+            sink: 'NAMESPACEWH4MKFMBCVFERDPOOP4FK7MTBXDPZZA' }
+        else
+          { fee: 200 * 1_000_000 ,
+            sink: 'NAMESPACEWH4MKFMBCVFERDPOOP4FK7MTBXDPZZA' }
+        end
+      end
     end
   end
 end

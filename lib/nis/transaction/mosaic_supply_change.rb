@@ -1,53 +1,53 @@
 class Nis::Transaction
-  # @attr [Integer] timeStamp
-  # @attr [Integer] signature
+  # @attr [Nis::Struct::MosaicId] mosaic_id
+  # @attr [Symbol] supplyType
+  # @attr [Integer] delta
   # @attr [Integer] fee
   # @attr [Integer] type
   # @attr [Integer] deadline
+  # @attr [Integer] timeStamp
   # @attr [Integer] version
   # @attr [String] signer
+  # @attr [String] signature
+  # @attr [Symbol] network
   # @see http://bob.nem.ninja/docs/#mosaicSupplyChangeTransaction
   class MosaicSupplyChange
-    include Nis::Mixin::Network
-    attr_writer :version, :fee
+    include Nis::Mixin::Struct
 
-    include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :type, :deadline, :signer,
-                  :supplyType, :delta, :mosaicId
+    attr_reader :type, :fee
+    attr_accessor :mosaicId, :supplyType, :delta,
+      :deadline, :timeStamp, :version, :signer, :signature,
+      :network
 
-    alias timestamp timeStamp
-    alias timestamp= timeStamp=
-    alias supply_type supplyType
-    alias supply_type= supplyType=
     alias mosaid_id mosaicId
     alias mosaid_id= mosaicId=
+    alias supply_type supplyType
+    alias supply_type= supplyType=
+    alias timestamp timeStamp
 
     TYPE = 0x4002 # 16386 (mosaic supply change transaction)
-    FEE  = 20_000_000
 
-    INCREASE = 1
-    DECREASE = 2
+    INCREASE = 0x0001
+    DECREASE = 0x0002
 
-    def self.build(attrs)
-      new(attrs)
+    def initialize(mosaic_id, type, delta, network: :testnet)
+      @type = TYPE
+      @network = network
+
+      @mosaicId = mosaic_id
+      @supplyType = parse_type(type)
+      @delta = delta
+      @fee = Nis::Fee::MosaicSupplyChangeTransfer.new(self)
     end
 
-    # @return [Integer]
-    def type
-      @type ||= TYPE
-    end
+    private
 
-    # @return [Integer]
-    def fee
-      @fee ||= FEE
-    end
-
-    alias to_hash_old to_hash
-
-    def to_hash
-      type
-      fee
-      to_hash_old
+    def parse_type(type)
+      case type
+      when :increase  then INCREASE
+      when :descrease then DECREASE
+        else raise "Not implemented type: #{type}"
+      end
     end
   end
 end

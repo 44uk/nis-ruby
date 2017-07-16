@@ -1,52 +1,33 @@
 class Nis::Transaction
-  # @attr [Integer] timeStamp
-  # @attr [Integer] fee
-  # @attr [Integer] type
-  # @attr [Integer] deadline
-  # @attr [Integer] version
+  # @attr [Nis::Transaction::*] otherTrans
   # @attr [String] signer
-  # @attr [Nis::Struct::TransferTransaction] otherTrans
+  # @attr [Integer] type
+  # @attr [Integer] fee
+  # @attr [Integer] deadline
+  # @attr [Integer] timeStamp
+  # @attr [Integer] version
   # @see http://bob.nem.ninja/docs/#multisigTransaction
   class Multisig
-    include Nis::Mixin::Network
-    attr_writer :version, :fee
+    include Nis::Mixin::Struct
 
-    include Nis::Util::Assignable
-    attr_accessor :timeStamp, :type, :deadline, :signer,
-                  :otherTrans
+    attr_reader :type, :fee
+    attr_accessor :otherTrans, :signer,
+      :deadline, :timeStamp, :version,
+      :network
 
-    alias timestamp timeStamp
-    alias timestamp= timeStamp=
     alias other_trans otherTrans
     alias other_trans= otherTrans=
+    alias timestamp timeStamp
 
-    TYPE = 0x1004 # 4099 (multisig transaction)
-    FEE  = 6_000_000
+    TYPE = 0x1004 # 4100 (multisig transaction)
 
-    def self.build(attrs)
-      new(attrs)
-    end
+    def initialize(tx, signer, network: :testnet)
+      @type = TYPE
+      @network = network
 
-    # @return [Integer]
-    def type
-      @type ||= TYPE
-    end
-
-    # @return [Integer]
-    def fee
-      @fee ||= FEE
-    end
-
-    def mosaics
-      @mosaics ||= []
-    end
-
-    alias to_hash_old to_hash
-
-    def to_hash
-      type
-      fee
-      to_hash_old
+      @otherTrans = tx
+      @signer = signer
+      @fee = Nis::Fee::Multisig.new(self)
     end
   end
 end

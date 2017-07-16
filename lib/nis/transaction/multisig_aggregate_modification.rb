@@ -1,50 +1,48 @@
 class Nis::Transaction
-  # @attr [Integer] timeStamp
-  # @attr [String]  signature
-  # @attr [Integer] fee
+  # @attr [Array <Nis::Struct::MultisigCosignatoryModification>] modifications
+  # @attr [Interger] min_cosigs
   # @attr [Integer] type
+  # @attr [Integer] fee
   # @attr [Integer] deadline
+  # @attr [Integer] timeStamp
   # @attr [Integer] version
   # @attr [String] signer
-  # @attr [Array <Nis::Struct::MultisigCosignatoryModification>] modifications
-  # @attr [Hash] minCosignatories
+  # @attr [String] signature
   # @see http://bob.nem.ninja/docs/#multisigAggregateModificationTransaction
   class MultisigAggregateModification
-    include Nis::Mixin::Network
-    attr_writer :version, :fee
+    include Nis::Mixin::Struct
 
-    include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :type, :deadline, :signer,
-                  :modifications, :minCosignatories
+    attr_reader :type, :fee
+    attr_accessor :modifications, :minCosignatories,
+      :deadline, :timeStamp, :version, :signer, :signature,
+      :network
 
-    alias timestamp timeStamp
-    alias timestamp= timeStamp=
     alias min_cosignatories minCosignatories
     alias min_cosignatories= minCosignatories=
+    alias timestamp timeStamp
 
     TYPE = 0x1001 # 4097 (multisig aggregate modification transfer transaction)
-    FEE  = 16_000_000
 
-    def self.build(attrs)
-      new(attrs)
+    def initialize(modifications, min_cosigs, network: :testnet)
+      @type = TYPE
+      @network = network
+
+      @modifications = modifications
+      @minCosignatories = min_cosigs
+      # @minCosignatories = { relativeChange: 1 }
+      @fee = Nis::Fee::MultisigAggregateModification.new(self)
     end
 
-    # @return [Integer]
-    def type
-      @type ||= TYPE
-    end
+    private
 
-    # @return [Integer]
-    def fee
-      @fee ||= FEE
-    end
-
-    alias to_hash_old to_hash
-
-    def to_hash
-      type
-      fee
-      to_hash_old
-    end
+    # def relative_change
+    #   modifications.inject do |sum, mod|
+    #     case mod.modificationType
+    #     when :add    then  1
+    #     when :remove then -1
+    #       else raise "Unsupported modificationType: #{mod.modificationType}"
+    #     end
+    #   end
+    # end
   end
 end

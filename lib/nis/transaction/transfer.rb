@@ -1,74 +1,44 @@
 class Nis::Transaction
-  # @attr [Integer] timestamp
-  # @attr [Integer] amount
-  # @attr [Integer] fee
   # @attr [String]  recipient
-  # @attr [Integer] type
-  # @attr [Integer] deadline
+  # @attr [Integer] amount
   # @attr [Nis::Struct::Message] message
-  # @attr [Integer] version
-  # @attr [String]  signer
   # @attr [Array <Nis::Struct::MosaicId>] mosaics
+  # @attr [Integer] type
+  # @attr [Nis::Fee::Transfer] fee
+  # @attr [Integer] deadline
+  # @attr [Integer] timestamp
+  # @attr [Integer] version
+  # @attr [String] signer
+  # @attr [Symbol] network
   # @see http://bob.nem.ninja/docs/#transferTransaction
   # @see http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
   # @see http://bob.nem.ninja/docs/#version-1-transfer-transactions
   # @see http://bob.nem.ninja/docs/#version-2-transfer-transactions
   class Transfer
-    include Nis::Mixin::Network
-    attr_writer :version, :fee
+    include Nis::Mixin::Struct
 
-    include Nis::Util::Assignable
-    attr_accessor :timeStamp, :amount, :recipient, :type, :deadline, :message, :signer,
-                  :mosaics
+    attr_reader :type, :fee
+    attr_accessor :recipient, :amount, :message,
+      :deadline, :timeStamp, :version, :signer,
+      :network
 
-    alias :timestamp :timeStamp
-    alias :timestamp= :timeStamp=
+    alias timestamp timeStamp
 
     TYPE = 0x0101 # 257 (transfer transaction)
-    FEE  = 25
 
-    def self.build(attrs)
-      new(attrs)
-    end
+    def initialize(recipient, amount, message = '', network: :testnet)
+      @type = TYPE
+      @network = network
 
-    # @return [Integer]
-    def type
-      @type ||= TYPE
-    end
-
-    # @return [Integer]
-    def fee
-      @fee ||= calculate_fee
+      @recipient = recipient
+      @amount = amount
+      @message = Nis::Struct::Message.new(message)
+      @fee = Nis::Fee::Transfer.new(self)
     end
 
     def mosaics
-      @mosaics ||= []
-    end
-
-    alias to_hash_old to_hash
-
-    def to_hash
-      type
-      fee
-      to_hash_old
-    end
-
-    # @return [Integer]
-    def calculate_fee
-      if mosaics.empty?
-        tmp_fee = [1, amount / 1_000_000 / 10_000].max
-        fee = (tmp_fee > FEE ? FEE : tmp_fee)
-      else
-        # TODO: calc mosaics fee
-        raise NotImplementedError, 'not implemented calculation mosaic fee.'
-        fee = FEE
-      end
-
-      if message.bytesize > 0
-        fee += [1, (message.bytesize / 2 / 32) + 1].max
-      end
-
-      fee * 1_000_000
+      # TODO: to be implemented...
+      []
     end
   end
 end

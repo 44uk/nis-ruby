@@ -1,45 +1,46 @@
 class Nis::Transaction
-  # @attr [Integer] timeStamp
-  # @attr [String]  signature
-  # @attr [Integer] fee
-  # @attr [Integer] type
-  # @attr [Integer] deadline
-  # @attr [Integer] version
-  # @attr [String]  signer
   # @attr [String]  otherHash
   # @attr [String]  otherAccount
+  # @attr [Integer] type
+  # @attr [Integer] fee
+  # @attr [Integer] deadline
+  # @attr [Integer] timeStamp
+  # @attr [Integer] version
+  # @attr [String] signer
+  # @attr [String] signature
   # @see http://bob.nem.ninja/docs/#multisigSignatureTransaction
   class MultisigSignature
-    include Nis::Mixin::Network
-    attr_writer :version, :fee
+    include Nis::Mixin::Struct
 
-    include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :type, :deadline, :signer,
-                  :otherHash, :otherAccount
+    attr_reader :type, :fee
+    attr_accessor :otherHash, :otherAccount, :signer,
+      :deadline, :timeStamp, :version, :signature,
+      :network
 
-    alias timestamp timeStamp
-    alias timestamp= timeStamp=
     alias other_hash otherHash
     alias other_hash= otherHash=
     alias other_account otherAccount
     alias other_account= otherAccount=
+    alias timestamp timeStamp
 
     TYPE = 0x1002 # 4098 (multisig signature transaction)
 
-    def self.build(attrs)
-      new(attrs)
+    def initialize(other_hash, other_account, signer, network: :testnet)
+      @type = TYPE
+      @network = network
+
+      @otherHash = { data: other_hash }
+      @otherAccount = other_account
+      @signer = signer
+      @fee = Nis::Fee::Multisig.new(self)
     end
 
-    # @return [Integer]
-    def type
-      @type ||= TYPE
+    def otherHash=(hash)
+      @otherHash = { data: hash }
     end
 
-    alias to_hash_old to_hash
-
-    def to_hash
-      type
-      to_hash_old
+    def otherHash
+      @otherHash[:data]
     end
   end
 end
