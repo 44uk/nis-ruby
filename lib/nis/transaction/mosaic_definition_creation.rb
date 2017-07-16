@@ -1,55 +1,54 @@
 class Nis::Transaction
-  # @attr [Integer] timeStamp
-  # @attr [Integer] signature
-  # @attr [Integer] fee
-  # @attr [Integer] type
-  # @attr [Integer] deadline
-  # @attr [Integer] version
-  # @attr [String] signer
+  # @attr [Nis::Struct::MosaicDefinition] mosaic_definition
   # @attr [Integer] creationFee
   # @attr [Integer] creationFeeSink
+  # @attr [Integer] type
+  # @attr [Integer] fee
+  # @attr [Integer] deadline
+  # @attr [Integer] timeStamp
+  # @attr [Integer] version
+  # @attr [String] signer
+  # @attr [String] signature
+  # @attr [Symbol] network
   # @attr [Nis::Struct::MosaicDefinition] mosaicDefinition
   # @see http://bob.nem.ninja/docs/#mosaicDefinitionCreationTransaction
   class MosaicDefinitionCreation
-    include Nis::Mixin::Network
-    attr_writer :version, :fee
+    include Nis::Mixin::Struct
 
-    include Nis::Util::Assignable
-    attr_accessor :timeStamp, :signature, :type, :deadline, :signer,
-      :creationFee, :creationFeeSink, :mosaicDefinition
+    attr_reader :type, :fee
+    attr_accessor :mosaicDefinition, :creationFee, :creationFeeSink,
+      :deadline, :timeStamp, :version, :signer, :signature,
+      :network
 
-    alias timestamp timeStamp
-    alias timestamp= timeStamp=
-    alias creation_fee creationFee
-    alias creation_fee= creationFee=
-    alias creation_feeSink creationFeeSink
-    alias creation_feeSink= creationFeeSink=
     alias mosaic_definition mosaicDefinition
     alias mosaic_definition= mosaicDefinition=
+    alias creation_fee creationFee
+    alias creation_fee_sink creationFeeSink
+    alias timestamp timeStamp
 
     TYPE = 0x4001 # 16385 (mosaic definition creation transaction)
-    FEE  = 20_000_000
 
-    def self.build(attrs)
-      new(attrs)
+    def initialize(mosaic_definition, network: :testnet)
+      @type = TYPE
+      @network = network
+
+      @mosaicDefinition = mosaic_definition
+      @creationFee = creation[:fee]
+      @creationFeeSink = creation[:sink]
+      @fee = Nis::Fee::MosaicDefinitionCreation.new(self)
     end
 
-    # @return [Integer]
-    def type
-      @type ||= TYPE
-    end
+    private
 
-    # @return [Integer]
-    def fee
-      @fee ||= FEE
-    end
-
-    alias to_hash_old to_hash
-
-    def to_hash
-      type
-      fee
-      to_hash_old
+    # @see http://www.nem.ninja/docs/#mosaics
+    def creation
+      if @network == :testnet
+        { sink: 'TBMOSAICOD4F54EE5CDMR23CCBGOAM2XSJBR5OLC',
+          fee: 20 * 1_000_000 }
+      else
+        { sink: 'NBMOSAICOD4F54EE5CDMR23CCBGOAM2XSIUX6TRS',
+          fee: 500 * 1_000_000 }
+      end
     end
   end
 end

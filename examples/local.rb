@@ -1,5 +1,4 @@
 require 'nis'
-hr = '-' * 64
 
 nis = Nis.new
 
@@ -9,16 +8,12 @@ page = Nis::Struct::AccountPrivateKeyTransactionsPage.new(
 
 incoming = nis.local_account_transfers_incoming(page: page)
 puts incoming.last.to_hash
-puts hr
 
 outgoing = nis.local_account_transfers_outgoing(page: page)
 puts outgoing.last.to_hash
-puts hr
 
 all = nis.local_account_transfers_all(page: page)
 puts all.last.to_hash
-puts hr
 
 blocks = nis.local_chain_blocks_after(block_height: 2649)
 puts blocks.last
-puts hr

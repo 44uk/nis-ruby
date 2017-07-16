@@ -1,58 +1,31 @@
 require 'nis'
-hr = '-' * 64
 
 # Account A (multisig)
-A_ADDRESS = 'TDJNDAQ7F7AQRXKP2YVTH67QYCWWKE6QLSJFWN64'.freeze
-A_PRIVATE_KEY = '00f077782658ae91b77f238ba5fcd7ef110564b5c189072e4d4590d9b17f9d76f3'.freeze
-A_PUBLIC_KEY  = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'.freeze
+A_PUBLIC_KEY  = '4b26a75313b747985470977a085ae6f840a0b84ebd96ddf17f4a31a2b580d078'
 
-# Account B (cosignatory)
-B_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'.freeze
-B_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'.freeze
-B_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033'.freeze
+# Account B (cosignatory1)
+B_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'
+B_PUBLIC_KEY  = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'
 
-# Account C (cosignatory)
-C_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'.freeze
-C_PRIVATE_KEY = '1d13af2c31ee6fb0c3c7aaaea818d9b305dcadba130ba663fc42d9f25b24ded1'.freeze
-C_PUBLIC_KEY  = '9e7ab2924cd1a3482df784db190614cfc8a33671f5d80a5b15a9c9e8b4d13933'.freeze
+# Account C (cosignatory2)
+C_PUBLIC_KEY  = '9fd1e5e886c4006efc715a0e183f2a87f198b8d19c44e7c67925b01aa45a7114'
+
+# TODO: public key calculated from private key in future version.
+# it will not need to set public key.
+kp = Nis::Keypair.new(B_PRIVATE_KEY, public_key: B_PUBLIC_KEY)
 
 mcm = Nis::Struct::MultisigCosignatoryModification.new(
-  modificationType: 1, # Add
+  modificationType: 1,
   cosignatoryAccount: C_PUBLIC_KEY
 )
+min_cosigs = 2
+mtx = Nis::Transaction::MultisigAggregateModification.new([mcm], min_cosigs)
 
-# build Transaction Object
-tx = Nis::Transaction::MultisigAggregateModification.new(
-  modifications: [
-    mcm
-  ],
-  minCosignatories: {
-    relativeChange: 2
-  },
-  signer: A_PUBLIC_KEY,
-  timeStamp: Nis::Util.timestamp,
-  deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1
-)
+tx = Nis::Transaction::Multisig.new(mtx, A_PUBLIC_KEY)
 
-mtx = Nis::Transaction::Multisig.new(
-  otherTrans: tx,
-  signer: B_PUBLIC_KEY,
-  timeStamp: Nis::Util.timestamp,
-  deadline: Nis::Util.timestamp + 43_200,
-  version: Nis::Util::TESTNET_VERSION_1
-)
-
-# build RequestPrepareAnnounce Object
-rpa = Nis::Struct::RequestPrepareAnnounce.new(
-  transaction: mtx,
-  privateKey: B_PRIVATE_KEY
-)
-
-# Create NIS instance
 nis = Nis.new
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
 
-# Send XEM request.
-res = nis.transaction_prepare_announce(request_prepare_announce: rpa)
-puts res.message
-puts hr
+puts "Message: #{res.message}"
+puts "TransactionHash: #{res.transaction_hash}"
