@@ -60,4 +60,26 @@ describe Nis::Unit::Address do
       it { expect(subject.valid?).to eq false }
     end
   end
+
+  describe 'from_public_key' do
+    subject {described_class.from_public_key(public_key, network)}
+
+    context 'mainnet' do
+      let(:private_key) { '575dbb3062267eff57c970a336ebbc8fbcfe12c5bd3ed7bc11eb0481d7704ced' }
+      let(:public_key)  { 'c5f54ba980fcbb657dbaaa42700539b207873e134d2375efeab5f1ab52f87844' }
+      let(:address) { Nis::Unit::Address.new('NDD2CT6LQLIYQ56KIXI3ENTM6EK3D44P5JFXJ4R4') }
+      let(:network) { :mainnet }
+
+      it { expect(subject).to eq address }
+    end
+
+    context 'testnet' do
+      let(:private_key) { '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214' }
+      let(:public_key)  { 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033' }
+      let(:address) { Nis::Unit::Address.new('TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB') }
+      let(:network) { :testnet }
+
+      it { expect(subject).to eq address }
+    end
+  end
 end
