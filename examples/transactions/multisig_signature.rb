@@ -1,7 +1,7 @@
 require 'nis'
 
 # multisig
-A_PUBLIC_KEY  = '4b26a75313b747985470977a085ae6f840a0b84ebd96ddf17f4a31a2b580d078'
+A_PUBLIC_KEY = '4b26a75313b747985470977a085ae6f840a0b84ebd96ddf17f4a31a2b580d078'
 A_ADDRESS = 'TBAOYZS4FGY5XPQ5OD2VL3SY7GQ5FLH66GRCX5DL'
 
 # cosignatory1
@@ -11,12 +11,9 @@ A_ADDRESS = 'TBAOYZS4FGY5XPQ5OD2VL3SY7GQ5FLH66GRCX5DL'
 
 # cosignatory2
 C_PRIVATE_KEY = '2f6bececfaa81e0ce878be6263df29d11412559132743eebde99f695fbc4e288'
-C_PUBLIC_KEY  = '9fd1e5e886c4006efc715a0e183f2a87f198b8d19c44e7c67925b01aa45a7114'
 C_ADDRESS = 'TAFPFQOTRYEKMKWWKLLLMYA3I5SCFDGYFACCOFWS'
 
-# TODO: public key calculated from private key in future version.
-# it will not need to set public key.
-kp = Nis::Keypair.new(C_PRIVATE_KEY, public_key: C_PUBLIC_KEY)
+kp = Nis::Keypair.new(C_PRIVATE_KEY)
 
 nis = Nis.new
 txes = nis.account_unconfirmed_transactions(address: C_ADDRESS)
