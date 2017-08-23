@@ -169,7 +169,7 @@ module Nis::Util
       end
 
       def Hint_hash(m)
-        h = HH(sk)
+        h = HH(m)
         (0...2*$b).inject(0) {|sum, i| sum + 2 ** i * bit(h, i) }
       end
 
