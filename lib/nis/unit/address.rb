@@ -48,7 +48,7 @@ module Nis::Unit
       ripe = OpenSSL::Digest::RIPEMD160.digest(public_key_hash)
 
       if network == :testnet
-        version = "\x98".force_encoding("ASCII-8BIT") + ripe
+        version = "\x98".force_encoding('ASCII-8BIT') + ripe
       else
         version = "\x68" + ripe
       end
