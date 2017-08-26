@@ -14,7 +14,7 @@ module Nis::Util
       end
 
       def intlist2bytes(l)
-        l.map {|c| c.chr }.join
+        l.map { |c| c.chr }.join
       end
 
       # standard implement
@@ -132,8 +132,8 @@ module Nis::Util
       end
 
       def encodeint(y)
-        bits = (0...$b).map {|i| (y >> i) & 1}
-        (0...$b/8).map {|i| int2byte((0...8).inject(0) {|sum, j| sum + (bits[i * 8 + j] << j) }) }.join
+        bits = (0...$b).map { |i| (y >> i) & 1 }
+        (0...$b / 8).map { |i| int2byte((0...8).inject(0) { |sum, j| sum + (bits[i * 8 + j] << j) }) }.join
       end
 
       def encodepoint(_P)
@@ -141,8 +141,8 @@ module Nis::Util
         zi = inv(z)
         x = (x * zi) % $q
         y = (y * zi) % $q
-        bits = (0...$b-1).map {|i| (y >> i) & 1} + [x & 1]
-        (0...$b/8).map {|i| int2byte((0...8).inject(0) {|sum, j| sum + (bits[i * 8 + j] << j) }) }.join
+        bits = (0...$b - 1).map { |i| (y >> i) & 1 } + [x & 1]
+        (0...$b / 8).map { |i| int2byte((0...8).inject(0) { |sum, j| sum + (bits[i * 8 + j] << j) }) }.join
       end
 
       def bit(h, i)
@@ -151,33 +151,33 @@ module Nis::Util
 
       def publickey_unsafe(sk)
         h = H(sk)
-        a = 2 ** ($b-2) + (3...$b-2).inject(0) {|sum, i| sum + 2 ** i * bit(h, i) }
+        a = 2**($b - 2) + (3...$b - 2).inject(0) { |sum, i| sum + 2**i * bit(h, i) }
         _A = scalarmult_B(a)
         return encodepoint(_A)
       end
 
       def publickey_hash_unsafe(sk)
         h = HH(sk)
-        a = 2 ** ($b-2) + (3...$b-2).inject(0) {|sum, i| sum + 2 ** i * bit(h, i) }
+        a = 2**($b - 2) + (3...$b - 2).inject(0) { |sum, i| sum + 2**i * bit(h, i) }
         _A = scalarmult_B(a)
         return encodepoint(_A)
       end
 
       def Hint(m)
         h = H(m)
-        (0...2*$b).inject(0) {|sum, i| sum + 2 ** i * bit(h, i) }
+        (0...2 * $b).inject(0) { |sum, i| sum + 2**i * bit(h, i) }
       end
 
       def Hint_hash(m)
         h = HH(m)
-        (0...2*$b).inject(0) {|sum, i| sum + 2 ** i * bit(h, i) }
+        (0...2 * $b).inject(0) { |sum, i| sum + 2**i * bit(h, i) }
       end
 
       def signature_unsafe(m, sk, pk)
         h = H(sk)
-        a = 2 ** ($b-2) + (3...$b-2).inject(0) {|sum, i| sum + 2 ** i * bit(h, i) }
+        a = 2**($b - 2) + (3...$b - 2).inject(0) { |sum, i| sum + 2**i * bit(h, i) }
         r = Hint(
-          intlist2bytes(($b/8...$b/4).map {|j| indexbytes(h, j) }) + m
+          intlist2bytes(($b / 8...$b / 4).map { |j| indexbytes(h, j) }) + m
         )
         _R = scalarmult_B(r)
         _S = (r + Hint(encodepoint(_R) + pk + m) * a) % $l
@@ -189,9 +189,9 @@ module Nis::Util
       # See module docstring.  This function should be used for testing only.
       def signature_hash_unsafe(m, sk, pk)
         h = HH(sk)
-        a = 2 ** ($b-2) + (3...$b-2).inject(0) {|sum, i| sum + 2 ** i * bit(h, i) }
+        a = 2**($b - 2) + (3...$b - 2).inject(0) { |sum, i| sum + 2**i * bit(h, i) }
         r = Hint_hash(
-          intlist2bytes(($b/8...$b/4).map {|j| indexbytes(h, j) }) + m
+          intlist2bytes(($b / 8...$b / 4).map { |j| indexbytes(h, j) }) + m
         )
         _R = scalarmult_B(r)
         _S = (r + Hint_hash(encodepoint(_R) + pk + m) * a) % $l
@@ -200,21 +200,21 @@ module Nis::Util
 
       def isoncurve(_P)
         x, y, z, t = _P
-        (z % $q != 0 and
-          x * y % $q == z * t % $q and
-          (y * y - x * x - z * z - $d * t * t) % $q == 0)
+        (z % $q != (0) &&
+          x * y % $q == (z * t % $q) &&
+          (y * y - x * x - z * z - $d * t * t) % $q == (0))
       end
 
       def decodeint(s)
-        (0...$b).inject(0) {|sum, i| sum + 2 ** i * bit(s, i) }
+        (0...$b).inject(0) { |sum, i| sum + 2**i * bit(s, i) }
       end
 
       def decodepoint(s)
-        y = (0...$b-1).inject(0) {|sum, i| 2 ** i * bit(s, i) }
+        y = (0...$b - 1).inject(0) { |sum, i| 2**i * bit(s, i) }
         x = xrecover(y)
         x = $q - x if x & 1 != bit(s, $b - 1)
         _P = [x, y, 1, (x * y) % $q]
-        raise "decoding point that is not on curve" unless isoncurve(_P)
+        raise 'decoding point that is not on curve' unless isoncurve(_P)
         _P
       end
 
@@ -226,27 +226,27 @@ module Nis::Util
       # See module docstring.  This function should be used only for
       # verifying public signatures of public messages.
       def checkvalid(s, m, pk)
-        raise "signature length is wrong" if s.size != $b / 4
-        raise "public-key length is wrong" if pk.size != $b / 8
+        raise 'signature length is wrong' if s.size != $b / 4
+        raise 'public-key length is wrong' if pk.size != $b / 8
 
         # _R = decodepoint(s[:b // 8])
-        _R = decodepoint(s[0...$b/8])
+        _R = decodepoint(s[0...$b / 8])
         _A = decodepoint(pk)
-        _S = decodeint(s[$b/8...$b/4])
+        _S = decodeint(s[$b / 8...$b / 4])
         h = Hint(encodepoint(_R) + pk + m)
 
         x1, y1, z1, _t1 = _P = scalarmult_B(_S)
         x2, y2, z2, _t2 = _Q = edwards_add(_R, scalarmult(_A, h))
 
         if (!isoncurve(_P) || !isoncurve(_Q) || (x1 * z2 - x2 * z1) % q != 0 || (y1 * z2 - y2 * z1) % q != 0)
-          raise SignatureMismatch("signature does not pass verification")
+          raise SignatureMismatch('signature does not pass verification')
         end
       end
     end
 
     $b = 256
-    $q = 2 ** 255 - 19
-    $l = 2 ** 252 + 27742317777372353535851937790883648493
+    $q = 2**255 - 19
+    $l = 2**252 + 27742317777372353535851937790883648493
 
     $d = -121665 * self.inv(121666) % $q
     $I = 2.to_bn.mod_exp(($q - 1) / 4, $q)

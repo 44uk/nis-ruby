@@ -62,7 +62,7 @@ describe Nis::Unit::Address do
   end
 
   describe 'from_public_key' do
-    subject {described_class.from_public_key(public_key, network)}
+    subject { described_class.from_public_key(public_key, network) }
 
     context 'mainnet' do
       let(:private_key) { '575dbb3062267eff57c970a336ebbc8fbcfe12c5bd3ed7bc11eb0481d7704ced' }
