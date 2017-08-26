@@ -2,7 +2,7 @@ class Nis::Struct
   # @attr [Integer] type
   # @attr [String] code
   # @attr [String] message
-  # @see http://bob.nem.ninja/docs/#nemRequestResult
+  # @see https://nemproject.github.io/#nemRequestResult
   class NemRequestResult
     include Nis::Util::Assignable
     attr_accessor :type, :code, :message

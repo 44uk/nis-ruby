@@ -1,7 +1,7 @@
 class Nis::Request
   # @attr [Nis::Struct::Transaction] transaction
   # @attr [Nis::Keypair] keypair
-  # @see http://bob.nem.ninja/docs/#requestPrepareAnnounce
+  # @see https://nemproject.github.io/#requestPrepareAnnounce
   class PrepareAnnounce
     include Nis::Mixin::Struct
 

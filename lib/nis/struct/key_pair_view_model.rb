@@ -2,7 +2,7 @@ class Nis::Struct
   # @attr [String] privateKey
   # @attr [String] publicKey
   # @attr [Nis::Unit::Address] address
-  # @see http://bob.nem.ninja/docs/#keyPairViewModel
+  # @see https://nemproject.github.io/#keyPairViewModel
   class KeyPairViewModel
     include Nis::Util::Assignable
     attr_accessor :privateKey, :publicKey, :address

@@ -1,7 +1,7 @@
 class Nis::Struct
   # @attr [AccountInfo] account
   # @attr [AccountMetaData] meta
-  # @see http://bob.nem.ninja/docs/#accountMetaDataPair
+  # @see https://nemproject.github.io/#accountMetaDataPair
   class AccountMetaDataPair
     include Nis::Util::Assignable
     attr_accessor :account, :meta

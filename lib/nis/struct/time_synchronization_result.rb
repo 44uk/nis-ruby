@@ -2,7 +2,7 @@ class Nis::Struct
   # @attr [Time] dateTime
   # @attr [Integer] currentTimeOffset
   # @attr [Integer] change
-  # @see http://bob.nem.ninja/docs/#timeSynchronizationResult
+  # @see https://nemproject.github.io/#timeSynchronizationResult
   class TimeSynchronizationResult
     include Nis::Util::Assignable
     attr_accessor :dateTime, :currentTimeOffset, :change

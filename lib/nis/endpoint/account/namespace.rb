@@ -5,7 +5,7 @@ module Nis::Endpoint
     # @param [String] id
     # @param [Integer] page_size
     # @return [Array <Nis::Struct::Namespace>]
-    # @see http://bob.nem.ninja/docs/#retrieving-namespaces-that-an-account-owns
+    # @see https://nemproject.github.io/#retrieving-namespaces-that-an-account-owns
     def account_namespace_page(address:, parent: nil, id: nil, page_size: nil)
       request!(:get, '/account/namespace/page',
         address: address,

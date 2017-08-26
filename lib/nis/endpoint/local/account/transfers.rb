@@ -4,7 +4,7 @@ module Nis::Endpoint
       module Transfers
         # @param [Nis::Struct::AccountPrivateKeyTransactionsPage] page
         # @return [Array <Nis::Struct::TransactionMetaDataPair>]
-        # @see http://bob.nem.ninja/docs/#transaction-data-with-decoded-messages
+        # @see https://nemproject.github.io/#transaction-data-with-decoded-messages
         def local_account_transfers_incoming(page:)
           request!(:post, '/local/account/transfers/incoming', page) do |res|
             res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
@@ -13,7 +13,7 @@ module Nis::Endpoint
 
         # @param [Nis::Struct::AccountPrivateKeyTransactionsPage] page
         # @return [Array <Nis::Struct::TransactionMetaDataPair>]
-        # @see http://bob.nem.ninja/docs/#transaction-data-with-decoded-messages
+        # @see https://nemproject.github.io/#transaction-data-with-decoded-messages
         def local_account_transfers_outgoing(page:)
           request!(:post, '/local/account/transfers/outgoing', page) do |res|
             res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
@@ -22,7 +22,7 @@ module Nis::Endpoint
 
         # @param [Nis::Struct::AccountPrivateKeyTransactionsPage] page
         # @return [Array <Nis::Struct::TransactionMetaDataPair>]
-        # @see http://bob.nem.ninja/docs/#transaction-data-with-decoded-messages
+        # @see https://nemproject.github.io/#transaction-data-with-decoded-messages
         def local_account_transfers_all(page:)
           request!(:post, '/local/account/transfers/all', page) do |res|
             res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }

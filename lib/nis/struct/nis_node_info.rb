@@ -1,7 +1,7 @@
 class Nis::Struct
   # @attr [Nis::Struct::NodeInfo] node
   # @attr [Nis::Struct::NodeInfo] nisInfo
-  # @see http://bob.nem.ninja/docs/#nisNodeInfo
+  # @see https://nemproject.github.io/#nisNodeInfo
   class NisNodeInfo
     include Nis::Util::Assignable
     attr_accessor :node, :nisInfo

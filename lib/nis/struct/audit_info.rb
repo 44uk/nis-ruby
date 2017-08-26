@@ -4,7 +4,7 @@ class Nis::Struct
   # @attr [String] host
   # @attr [Integer] elapsedTime
   # @attr [String] id
-  # @see http://bob.nem.ninja/docs/#auditInfo
+  # @see https://nemproject.github.io/#auditInfo
   class AuditInfo
     include Nis::Util::Assignable
     attr_accessor :path, :startTime, :host, :elapsedTime, :id

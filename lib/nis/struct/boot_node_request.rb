@@ -2,7 +2,7 @@ class Nis::Struct
   # @attr [Hash] metaData
   # @attr [Hash] endpoint
   # @attr [Hash] identity
-  # @see http://bob.nem.ninja/docs/#bootNodeRequest
+  # @see https://nemproject.github.io/#bootNodeRequest
   class BootNodeRequest
     include Nis::Util::Assignable
     attr_accessor :metaData, :endpoint, :identity

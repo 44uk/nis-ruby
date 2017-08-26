@@ -2,7 +2,7 @@ class Nis::Struct
   # @attr [String] metaData
   # @attr [String] networkId
   # @attr [String] identity
-  # @see http://bob.nem.ninja/docs/#node
+  # @see https://nemproject.github.io/#node
   class Node
     include Nis::Util::Assignable
     attr_accessor :metaData, :endpoint, :identity

@@ -2,7 +2,7 @@ class Nis::Struct
   # @attr [Nis::Struct::Node] node
   # @attr [Integer] syncs
   # @attr [Nis::Struct::NodeExperience] experience
-  # @see http://bob.nem.ninja/docs/#extendedNodeExperiencePair
+  # @see https://nemproject.github.io/#extendedNodeExperiencePair
   class ExtendedNodeExperiencePair
     include Nis::Util::Assignable
     attr_accessor :node, :syncs, :experiences

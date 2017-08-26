@@ -10,10 +10,10 @@ class Nis::Transaction
   # @attr [Integer] version
   # @attr [String] signer
   # @attr [Symbol] network
-  # @see http://bob.nem.ninja/docs/#transferTransaction
-  # @see http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
-  # @see http://bob.nem.ninja/docs/#version-1-transfer-transactions
-  # @see http://bob.nem.ninja/docs/#version-2-transfer-transactions
+  # @see https://nemproject.github.io/#transferTransaction
+  # @see https://nemproject.github.io/#initiating-a-transfer-transaction
+  # @see https://nemproject.github.io/#version-1-transfer-transactions
+  # @see https://nemproject.github.io/#version-2-transfer-transactions
   class Transfer
     include Nis::Mixin::Struct
 

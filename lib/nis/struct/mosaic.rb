@@ -1,7 +1,7 @@
 class Nis::Struct
   # @attr [Nis::Struct::MosaicId] mosaicId
   # @attr [Integer] quantity
-  # @see http://bob.nem.ninja/docs/#mosaic
+  # @see https://nemproject.github.io/#mosaic
   class Mosaic
     include Nis::Util::Assignable
     attr_accessor :mosaicId, :quantity

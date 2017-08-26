@@ -11,7 +11,7 @@ class Nis::Transaction
   # @attr [String] signature
   # @attr [Symbol] network
   # @attr [Nis::Struct::MosaicDefinition] mosaicDefinition
-  # @see http://bob.nem.ninja/docs/#mosaicDefinitionCreationTransaction
+  # @see https://nemproject.github.io/#mosaicDefinitionCreationTransaction
   class MosaicDefinitionCreation
     include Nis::Mixin::Struct
 

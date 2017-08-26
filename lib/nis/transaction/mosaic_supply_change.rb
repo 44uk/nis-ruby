@@ -10,7 +10,7 @@ class Nis::Transaction
   # @attr [String] signer
   # @attr [String] signature
   # @attr [Symbol] network
-  # @see http://bob.nem.ninja/docs/#mosaicSupplyChangeTransaction
+  # @see https://nemproject.github.io/#mosaicSupplyChangeTransaction
   class MosaicSupplyChange
     include Nis::Mixin::Struct
 
