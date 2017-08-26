@@ -1,7 +1,7 @@
 class Nis::Struct
   # @attr [Integer] s
   # @attr [Integer] f
-  # @see http://bob.nem.ninja/docs/#
+  # @see https://nemproject.github.io/#
   class NodeExperience
     include Nis::Util::Assignable
     attr_accessor :s, :f

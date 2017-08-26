@@ -11,9 +11,9 @@ kp = Nis::Keypair.new(A_PRIVATE_KEY)
 tx = Nis::Transaction::Transfer.new(B_ADDRESS, 1_000_000, 'Good luck!')
 puts "Fee: #{tx.fee.to_i}"
 
-nis = Nis.new
-req = Nis::Request::PrepareAnnounce.new(tx, kp)
-res = nis.transaction_prepare_announce(req)
+nis = Nis.new(host: '104.128.226.60')
+req = Nis::Request::Announce.new(tx, kp)
+res = nis.transaction_announce(req)
 
 puts "Message: #{res.message}"
 puts "TransactionHash: #{res.transaction_hash}"

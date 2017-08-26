@@ -1,7 +1,7 @@
 class Nis::Struct
   # @attr [String] namespaceId
   # @attr [String] name
-  # @see http://bob.nem.ninja/docs/#mosaicId
+  # @see https://nemproject.github.io/#mosaicId
   class MosaicId
     include Nis::Util::Assignable
     attr_accessor :namespaceId, :name

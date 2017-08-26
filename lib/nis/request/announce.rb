@@ -1,10 +1,55 @@
 class Nis::Request
   # @attr [String] data
   # @attr [String] signature
-  # @see http://bob.nem.ninja/docs/#requestAnnounce
+  # @see https://nemproject.github.io/#requestAnnounce
   class Announce
     include Nis::Mixin::Struct
 
-    attr_accessor :data, :signature
+    attr_accessor :transaction, :keypair, :data, :signature
+
+    DEADLINE = 3600
+
+    def initialize(transaction, keypair)
+      @keypair = keypair
+      @transaction = transaction
+    end
+
+    def to_hash
+      if @transaction.respond_to?(:other_trans)
+        other_trans(@transaction)
+      end
+
+      @transaction.tap do |tx|
+        tx.timeStamp = Nis::Util.timestamp
+        tx.deadline = Nis::Util.deadline(DEADLINE)
+        tx.version = Nis::Util.parse_version(tx.network, 1)
+        tx.signer = @keypair.public
+      end
+
+      serialized = serialize(@transaction)
+      hex_serialized = Nis::Util::Convert.ua2hex(serialized)
+
+      { data: Nis::Util::Convert.ua2hex(serialized),
+        signature: signature(hex_serialized) }
+    end
+
+    private
+
+    def serialize(transaction)
+      Nis::Util::Serializer.serialize_transaction(transaction.to_hash)
+    end
+
+    def signature(serialized)
+      @keypair.sign(serialized)
+    end
+
+    def other_trans(transaction)
+      transaction.other_trans.tap do |tx|
+        tx.timeStamp = Nis::Util.timestamp
+        tx.deadline = Nis::Util.deadline(DEADLINE)
+        tx.version = Nis::Util.parse_version(tx.network, 1)
+        tx.signer = transaction.signer
+      end
+    end
   end
 end

@@ -3,7 +3,7 @@ class Nis::Struct
   # @attr [Nis::Struct::Block] block
   # @attr [String] hash
   # @attr [String] difficulty
-  # @see http://bob.nem.ninja/docs/#explorerBlockViewModel
+  # @see https://nemproject.github.io/#explorerBlockViewModel
   class ExplorerBlockViewModel
     include Nis::Util::Assignable
     attr_accessor :txes, :block, :hash, :difficulty

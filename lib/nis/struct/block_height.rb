@@ -1,6 +1,6 @@
 class Nis::Struct
   # @attr [Integer] height
-  # @see http://bob.nem.ninja/docs/#blockHeight
+  # @see https://nemproject.github.io/#blockHeight
   class BlockHeight
     include Nis::Util::Assignable
     attr_accessor :height

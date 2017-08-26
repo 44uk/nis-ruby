@@ -10,8 +10,10 @@
 Ruby client library for the NEM Infrastructure Server API
 
 - [NEM \- Distributed Ledger Technology \(Blockchain\)](https://www.nem.io/)
-- [NEM NIS API Documentation](http://bob.nem.ninja/docs/)
+- [NEM NIS API Documentation](https://nemproject.github.io/)
 - [NEM Forum](https://forum.nem.io/)
+
+*The gem is under development. Incompatible changes can be made.*
 
 
 ## Installation
@@ -37,11 +39,11 @@ nis = Nis.new
 
 nis.heartbeat
 # => {code: 1, type: 2, message: "ok"}
-# See http://bob.nem.ninja/docs/#heart-beat-request
+# See https://nemproject.github.io/#heart-beat-request
 
 nis.status
 # => {code: 6, type: 4, message: "status"}
-# See http://bob.nem.ninja/docs/#status-request
+# See https://nemproject.github.io/#status-request
 
 kp = Nis::Keypair.new(SENDER_PRIV_KEY)
 tx = Nis::Transaction::Transfer.new(
@@ -50,9 +52,13 @@ tx = Nis::Transaction::Transfer.new(
   'Message'
 )
 req = Nis::Request::PrepareAnnounce.new(tx, kp)
+# Request to local node.
 nis.transaction_prepare_announce(req)
-# See http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
+# See https://nemproject.github.io/#initiating-a-transfer-transaction
 # => {innerTransactionHash: {}, code: 1, type: 1, message: "SUCCESS", transactionHash: {data: "9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde"}}
+
+# Request to remote node.
+# nis.transaction_announce(req)
 ```
 
 ### Requesting
@@ -64,13 +70,13 @@ nis.request(:get, '/account/get',
   address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'
 )
 # => [AccountMetaDataPair structure]
-# See http://bob.nem.ninja/docs/#accountMetaDataPair
+# See https://nemproject.github.io/#accountMetaDataPair
 
 nis.request(:post, '/account/unlock',
   privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'
 )
 # => Nothing
-# See http://bob.nem.ninja/docs/#locking-and-unlocking-accounts
+# See https://nemproject.github.io/#locking-and-unlocking-accounts
 ```
 
 
@@ -96,8 +102,6 @@ $ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWP
 You can find nodes here.
 - [NEM Node Rewards](https://supernodes.nem.io/)
 
-*Currently the gem only supports transactions for local node.*
-
 ### Hash
 
 ```ruby
@@ -121,7 +125,6 @@ Environment variable used as default value.
 ## TODO
 
 * Do more improvements
-  * Remote transaction
   * Mosaic transferring
   * Encryption message
   * Be more easy to use

@@ -8,7 +8,7 @@ class Nis::Struct
   # @attr [String] name
   # @attr [String] average_operation_time
   # @attr [String] last_operation_time
-  # @see http://bob.nem.ninja/docs/#nemAsyncTimerVisitor
+  # @see https://nemproject.github.io/#nemAsyncTimerVisitor
   class NemAsyncTimerVisitor
     include Nis::Util::Assignable
     attr_accessor :last_delay_time, :executions, :failures, :successes, :last_operation_start_time, :is_executing, :name, :average_operation_time, :last_operation_time

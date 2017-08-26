@@ -1,6 +1,6 @@
 class Nis::Struct
   # @attr [Integer] id
-  # @see http://bob.nem.ninja/docs/#namespaceMetaData
+  # @see https://nemproject.github.io/#namespaceMetaData
   class NamespaceMetaData
     include Nis::Util::Assignable
     attr_accessor :id

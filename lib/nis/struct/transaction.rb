@@ -9,10 +9,10 @@ class Nis::Struct
   # @attr [Integer] version
   # @attr [String]  signer
   # @attr [Array <Nis::Struct::MosaicId>] mosaics
-  # @see http://bob.nem.ninja/docs/#transaction
-  # @see http://bob.nem.ninja/docs/#initiating-a-transfer-transaction
-  # @see http://bob.nem.ninja/docs/#version-1-transfer-transactions
-  # @see http://bob.nem.ninja/docs/#version-2-transfer-transactions
+  # @see https://nemproject.github.io/#transaction
+  # @see https://nemproject.github.io/#initiating-a-transfer-transaction
+  # @see https://nemproject.github.io/#version-1-transfer-transactions
+  # @see https://nemproject.github.io/#version-2-transfer-transactions
   class Transaction
     include Nis::Util::Assignable
     attr_accessor :timeStamp, :amount, :fee, :recipient, :type, :deadline, :message, :version, :signer,

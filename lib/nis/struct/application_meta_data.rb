@@ -4,7 +4,7 @@ class Nis::Struct
   # @attr [Integer] startTime
   # @attr [String] version
   # @attr [String] signer
-  # @see http://bob.nem.ninja/docs/#applicationMetaData
+  # @see https://nemproject.github.io/#applicationMetaData
   class ApplicationMetaData
     include Nis::Util::Assignable
     attr_accessor :currentTime, :application, :startTime, :version, :signer

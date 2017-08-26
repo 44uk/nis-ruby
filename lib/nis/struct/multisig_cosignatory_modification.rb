@@ -1,7 +1,7 @@
 class Nis::Struct
   # @attr [Integer] modificationType
   # @attr [String] cosignatoryAccount
-  # @see http://bob.nem.ninja/docs/#multisigCosignatoryModification
+  # @see https://nemproject.github.io/#multisigCosignatoryModification
   class MultisigCosignatoryModification
     include Nis::Util::Assignable
     attr_accessor :modificationType, :cosignatoryAccount

@@ -1,7 +1,7 @@
 class Nis::Struct
   # @attr [Array] outstanding
   # @attr [Array] mostRecent
-  # @see http://bob.nem.ninja/docs/#auditCollection
+  # @see https://nemproject.github.io/#auditCollection
   class AuditCollection
     include Nis::Util::Assignable
     attr_accessor :outstanding, :mostRecent

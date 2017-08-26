@@ -4,7 +4,7 @@ module Nis::Endpoint
     # @param [String] hash
     # @param [String] id
     # @return [Array <Nis::Struct::TransactionMetaDataPair>]
-    # @see http://bob.nem.ninja/docs/#requesting-transaction-data-for-an-account
+    # @see https://nemproject.github.io/#requesting-transaction-data-for-an-account
     def account_transfers_incoming(address:, hash: nil, id: nil)
       request!(:get, '/account/transfers/incoming',
         address: address,
@@ -19,7 +19,7 @@ module Nis::Endpoint
     # @param [String] hash
     # @param [String] id
     # @return [Array <Nis::Struct::TransactionMetaDataPair>]
-    # @see http://bob.nem.ninja/docs/#requesting-transaction-data-for-an-account
+    # @see https://nemproject.github.io/#requesting-transaction-data-for-an-account
     def account_transfers_outgoing(address:, hash: nil, id: nil)
       request!(:get, '/account/transfers/outgoing',
         address: address,
@@ -34,7 +34,7 @@ module Nis::Endpoint
     # @param [String] hash
     # @param [String] id
     # @return [Array <Nis::Struct::TransactionMetaDataPair>]
-    # @see http://bob.nem.ninja/docs/#requesting-transaction-data-for-an-account
+    # @see https://nemproject.github.io/#requesting-transaction-data-for-an-account
     def account_transfers_all(address:, hash: nil, id: nil)
       request!(:get, '/account/transfers/all',
         address: address,

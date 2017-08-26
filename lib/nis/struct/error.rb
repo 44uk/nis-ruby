@@ -3,7 +3,7 @@ class Nis::Struct
   # @attr [String] error
   # @attr [String] message
   # @attr [Integer] status
-  # @see http://bob.nem.ninja/docs/#error-object
+  # @see https://nemproject.github.io/#error-object
   class Error
     include Nis::Util::Assignable
     attr_accessor :timeStamp, :error, :message, :status

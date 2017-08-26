@@ -7,7 +7,7 @@ class Nis::Struct
   # @attr [Integer] version
   # @attr [String] signer
   # @attr [Integer] height
-  # @see http://bob.nem.ninja/docs/#block
+  # @see https://nemproject.github.io/#block
   class Block
     include Nis::Util::Assignable
     attr_accessor :timeStamp, :signature, :prevBlockHash, :type, :transactions, :version, :signer, :height

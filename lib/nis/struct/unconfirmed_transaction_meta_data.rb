@@ -1,6 +1,6 @@
 class Nis::Struct
   # @attr [String] data
-  # @see http://bob.nem.ninja/docs/#unconfirmedTransactionMetaData
+  # @see https://nemproject.github.io/#unconfirmedTransactionMetaData
   class UnconfirmedTransactionMetaData
     include Nis::Util::Assignable
     attr_accessor :data

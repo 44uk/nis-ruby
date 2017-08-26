@@ -1,7 +1,7 @@
 module Nis::Endpoint
   module Namespace::Root
     # @return [Array <Nis::Struct::NamespaceMetaDataPair>]
-    # @see http://bob.nem.ninja/docs/#retrieving-root-namespaces
+    # @see https://nemproject.github.io/#retrieving-root-namespaces
     def namespace_root_page(id: nil, page_size: nil)
       request!(:get, '/namespace/root/page',
         id: id,

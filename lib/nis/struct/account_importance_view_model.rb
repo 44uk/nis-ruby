@@ -5,7 +5,7 @@ class Nis::Struct
   # @attr [Integer] score
   # @attr [Integer] ev
   # @attr [Integer] height
-  # @see http://bob.nem.ninja/docs/#accountImportanceViewModel
+  # @see https://nemproject.github.io/#accountImportanceViewModel
   class AccountImportanceViewModel
     include Nis::Util::Assignable
     attr_accessor :address, :importance, :isSet, :score, :ev, :height

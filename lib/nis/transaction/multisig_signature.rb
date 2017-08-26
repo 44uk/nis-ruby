@@ -8,7 +8,7 @@ class Nis::Transaction
   # @attr [Integer] version
   # @attr [String] signer
   # @attr [String] signature
-  # @see http://bob.nem.ninja/docs/#multisigSignatureTransaction
+  # @see https://nemproject.github.io/#multisigSignatureTransaction
   class MultisigSignature
     include Nis::Mixin::Struct
 

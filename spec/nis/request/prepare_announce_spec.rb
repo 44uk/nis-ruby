@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Nis::Request::PrepareAnnounce do
   let(:priv_key) { '00b4a68d16dc505302e9631b860664ba43a8183f0903bc5782a2403b2f9eb3c8a1' }
-  let(:kp) { Nis::Keypair.new(priv_key, public_key: '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a002258673519') }
+  let(:kp) { Nis::Keypair.new(priv_key) }
 
   subject { described_class.new(tx, kp) }
 

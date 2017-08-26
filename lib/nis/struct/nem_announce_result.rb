@@ -4,7 +4,7 @@ class Nis::Struct
   # @attr [String] message
   # @attr [String] transactionHash
   # @attr [String] innerTransactionHash
-  # @see http://bob.nem.ninja/docs/#nemAnnounceResult
+  # @see https://nemproject.github.io/#nemAnnounceResult
   class NemAnnounceResult
     include Nis::Util::Assignable
     attr_accessor :type, :code, :message, :transactionHash, :innerTransactionHash
