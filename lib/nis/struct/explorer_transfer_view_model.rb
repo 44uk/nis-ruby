@@ -2,7 +2,7 @@ class Nis::Struct
   # @attr [Nis::Struct::Transaction] tx
   # @attr [String] hash
   # @attr [String] innerHash
-  # @see http://bob.nem.ninja/docs/#explorerTransferViewModel
+  # @see https://nemproject.github.io/#explorerTransferViewModel
   class ExplorerTransferViewModel
     include Nis::Util::Assignable
     attr_accessor :tx, :hash, :innerHash

@@ -1,7 +1,7 @@
 module Nis::Endpoint
   module Namespace::Mosaic
     # @return [Array <Nis::Struct::MosaicDefinitionMetaDataPair>]
-    # @see http://bob.nem.ninja/docs/#retrieving-mosaic-definitions
+    # @see https://nemproject.github.io/#retrieving-mosaic-definitions
     def namespace_mosaic_definition_page(namespace:, id: nil, page_size: nil)
       request!(:get, '/namespace/mosaic/definition/page',
         namespace: namespace,

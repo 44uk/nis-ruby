@@ -6,7 +6,7 @@ class Nis::Transaction
   # @attr [Integer] deadline
   # @attr [Integer] timeStamp
   # @attr [Integer] version
-  # @see http://bob.nem.ninja/docs/#multisigTransaction
+  # @see https://nemproject.github.io/#multisigTransaction
   class Multisig
     include Nis::Mixin::Struct
 

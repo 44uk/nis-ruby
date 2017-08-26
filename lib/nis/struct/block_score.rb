@@ -1,6 +1,6 @@
 class Nis::Struct
   # @attr [String] score
-  # @see http://bob.nem.ninja/docs/#blockChainScore
+  # @see https://nemproject.github.io/#blockChainScore
   class BlockScore
     include Nis::Util::Assignable
     attr_accessor :score

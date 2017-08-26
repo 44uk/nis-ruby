@@ -1,7 +1,7 @@
 module Nis::Endpoint
   module Debug::Connections
     # @return [Nis::Struct::AuditCollection]
-    # @see http://bob.nem.ninja/docs/#monitoring-incoming-and-outgoing-calls
+    # @see https://nemproject.github.io/#monitoring-incoming-and-outgoing-calls
     def debug_connections_incoming
       request!(:get, '/debug/connections/incoming') do |res|
         Nis::Struct::AuditCollection.build(
@@ -12,7 +12,7 @@ module Nis::Endpoint
     end
 
     # @return [Nis::Struct::AuditCollection]
-    # @see http://bob.nem.ninja/docs/#monitoring-incoming-and-outgoing-calls
+    # @see https://nemproject.github.io/#monitoring-incoming-and-outgoing-calls
     def debug_connections_outgoing
       request!(:get, '/debug/connections/outgoing') do |res|
         Nis::Struct::AuditCollection.build(
@@ -23,7 +23,7 @@ module Nis::Endpoint
     end
 
     # @return [Array <Nis::Struct::NemAsyncTimerVisitor>]
-    # @see http://bob.nem.ninja/docs/#monitoring-timers
+    # @see https://nemproject.github.io/#monitoring-timers
     def debug_connections_timers
       request!(:get, '/debug/timers') do |res|
         res[:data].map { |natv| Nis::Struct::NemAsyncTimerVisitor.build(natv) }

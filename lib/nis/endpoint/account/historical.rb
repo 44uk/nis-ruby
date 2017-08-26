@@ -5,7 +5,7 @@ module Nis::Endpoint
     # @param [Integer] end_height
     # @param [Integer] increment
     # @return [Array <Nis::Struct::AccountHistoricalDataViewModel>]
-    # @see http://bob.nem.ninja/docs/#retrieving-historical-account-data
+    # @see https://nemproject.github.io/#retrieving-historical-account-data
     def account_historical_get(address:, start_height:, end_height:, increment:)
       request!(:get, '/account/historical/get',
         address: address,

@@ -3,7 +3,7 @@ class Nis::Struct
   # @attr [Array] active
   # @attr [Array] busy
   # @attr [Array] failure
-  # @see http://bob.nem.ninja/docs/#nodeCollection
+  # @see https://nemproject.github.io/#nodeCollection
   class NodeCollection
     include Nis::Util::Assignable
     attr_accessor :inactive, :active, :busy, :failure

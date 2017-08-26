@@ -2,7 +2,7 @@ class Nis::Struct
   # @attr [Array <Nis::Struct::Transaction>] txes
   # @attr [String] block
   # @attr [String] hash
-  # @see http://bob.nem.ninja/docs/#explorerViewModelTransaction
+  # @see https://nemproject.github.io/#explorerViewModelTransaction
   class ExplorerViewModelTransaction
     include Nis::Util::Assignable
     attr_accessor :txes, :block, :hash

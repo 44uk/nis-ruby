@@ -1,7 +1,7 @@
 class Nis::Struct
   # @attr [String] meta
   # @attr [String] namespace
-  # @see http://bob.nem.ninja/docs/#namespaceMetaDataPair
+  # @see https://nemproject.github.io/#namespaceMetaDataPair
   class NamespaceMetaDataPair
     include Nis::Util::Assignable
     attr_accessor :meta, :namespace

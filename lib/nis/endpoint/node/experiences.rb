@@ -1,7 +1,7 @@
 module Nis::Endpoint
   module Node::Experiences
     # @return [Nis::Struct::ExtendedNodeExperiencePair]
-    # @see http://bob.nem.ninja/docs/#requesting-node-experiences
+    # @see https://nemproject.github.io/#requesting-node-experiences
     def node_experiences
       request!(:get, '/node/experiences') do |res|
         res[:data].map { |enep| Nis::Struct::ExtendedNodeExperiencePair.build(enep) }

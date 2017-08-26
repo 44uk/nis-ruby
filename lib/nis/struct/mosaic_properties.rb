@@ -3,7 +3,7 @@ class Nis::Struct
   # @attr [Integer] initialSupply
   # @attr [Boolean] supplyMutable
   # @attr [Boolean] transferable
-  # @see http://bob.nem.ninja/docs/#mosaicProperties
+  # @see https://nemproject.github.io/#mosaicProperties
   class MosaicProperties
     include Nis::Util::Assignable
     attr_accessor :divisibility, :initialSupply, :supplyMutable, :transferable

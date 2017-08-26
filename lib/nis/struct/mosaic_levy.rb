@@ -3,7 +3,7 @@ class Nis::Struct
   # @attr [String] recipient
   # @attr [Nis::Struct::MosaicId] mosaicId
   # @attr [Integer] fee
-  # @see http://bob.nem.ninja/docs/#mosaicLevy
+  # @see https://nemproject.github.io/#mosaicLevy
   class MosaicLevy
     include Nis::Util::Assignable
     attr_accessor :type, :recipient, :mosaicId, :fee

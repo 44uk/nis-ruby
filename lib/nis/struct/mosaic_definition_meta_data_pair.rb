@@ -1,7 +1,7 @@
 class Nis::Struct
   # @attr [Nis::Struct::MosaicMetaData] meta
   # @attr [Nis::Struct::Mosaic] mosaic
-  # @see http://bob.nem.ninja/docs/#mosaicDefinitionMetaDataPair
+  # @see https://nemproject.github.io/#mosaicDefinitionMetaDataPair
   class MosaicDefinitionMetaDataPair
     include Nis::Util::Assignable
     attr_accessor :meta, :mosaic

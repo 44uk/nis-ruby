@@ -11,7 +11,7 @@ class Nis::Transaction
   # @attr [String] signer
   # @attr [String] signature
   # @attr [Symbol] network
-  # @see http://bob.nem.ninja/docs/#provisionNamespaceTransaction
+  # @see https://nemproject.github.io/#provisionNamespaceTransaction
   class ProvisionNamespace
     include Nis::Mixin::Struct
 

@@ -9,7 +9,7 @@ class Nis::Transaction
   # @attr [String] signer
   # @attr [String] signature
   # @attr [Symbol] network
-  # @see http://bob.nem.ninja/docs/#importanceTransferTransaction
+  # @see https://nemproject.github.io/#importanceTransferTransaction
   class ImportanceTransfer
     include Nis::Mixin::Struct
 

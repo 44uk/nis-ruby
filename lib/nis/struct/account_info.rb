@@ -6,7 +6,7 @@ class Nis::Struct
   # @attr [String] publicKey
   # @attr [String] label
   # @attr [Array] harvestedBlocks
-  # @see http://bob.nem.ninja/docs/#accountInfo
+  # @see https://nemproject.github.io/#accountInfo
   class AccountInfo
     include Nis::Util::Assignable
     attr_accessor :address, :balance, :vestedBalance, :importance, :publicKey, :label, :harvestedBlocks
