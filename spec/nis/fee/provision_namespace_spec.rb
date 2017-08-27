@@ -28,12 +28,12 @@ describe Nis::Fee::ProvisionNamespace do
     let(:network) { :maitnet }
 
     context 'root' do
-      it { is_expected.to eq 5000_000_000 }
+      it { is_expected.to eq 100_000_000 }
     end
 
     context 'sub' do
       let(:parent)  { 'sushi' }
-      it { is_expected.to eq 200_000_000 }
+      it { is_expected.to eq 10_000_000 }
     end
   end
 

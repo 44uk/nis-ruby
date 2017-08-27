@@ -70,9 +70,9 @@ describe Nis::Transaction::ProvisionNamespace do
           type: 0x2001,
           newPart: 'sushi',
           parent: nil,
-          rentalFee: 5_000 * 1_000_000,
+          rentalFee: 100 * 1_000_000,
           rentalFeeSink: 'NAMESPACEWH4MKFMBCVFERDPOOP4FK7MTBXDPZZA',
-          fee: 5_000_000_000
+          fee: 100_000_000
         )
       end
     end
@@ -87,9 +87,9 @@ describe Nis::Transaction::ProvisionNamespace do
             type: 0x2001,
             newPart: 'nigiri',
             parent: 'sushi',
-            rentalFee: 200 * 1_000_000,
+            rentalFee: 10 * 1_000_000,
             rentalFeeSink: 'NAMESPACEWH4MKFMBCVFERDPOOP4FK7MTBXDPZZA',
-            fee: 200_000_000
+            fee: 10_000_000
           )
         end
       end

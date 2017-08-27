@@ -7,13 +7,9 @@ class Nis::Fee
     # @return [Integer] fee in micro XEM
     def value
       if @transaction.minCosignatories == 0
-        testnet? ?
-          0.5 * 1_000_000 :
-          (10 + 6 * @transaction.modifications.length) * 1_000_000
+        0.5 * 1_000_000
       else
-        testnet? ?
-          0.5 * 1_000_000 :
-          (10 + 6 * @transaction.modifications.length + 6) * 1_000_000
+        0.5 * 1_000_000
       end
     end
 

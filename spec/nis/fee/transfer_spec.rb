@@ -40,22 +40,21 @@ describe Nis::Fee::Transfer do
     let(:network) { :maitnet }
 
     context '1xem, no message' do
-      it { is_expected.to eq 1_000_000 }
+      it { is_expected.to eq 50_000 }
     end
 
     context '1xem, with message' do
       let(:message) { 'Good luck!' }
-      it { is_expected.to eq 2_000_000 }
+      it { is_expected.to eq 100_000 }
     end
 
     context '19,999xem, no message' do
-      it { is_expected.to eq 1_000_000 }
+      it { is_expected.to eq 50_000 }
     end
 
     context '20,000xem, no message' do
       let(:amount)  { 20_000_000_000 }
-      it { is_expected.to eq 2_000_000 }
+      it { is_expected.to eq 100_000 }
     end
   end
-
 end

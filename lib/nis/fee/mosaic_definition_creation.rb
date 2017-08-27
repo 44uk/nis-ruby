@@ -6,7 +6,7 @@ class Nis::Fee
 
     # @return [Integer] fee in micro XEM
     def value
-      (testnet? ? 10 : 500) * 1_000_000
+      10 * 1_000_000
     end
 
     # @return [Integer] fee in micro XEM

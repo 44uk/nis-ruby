@@ -36,12 +36,12 @@ class Nis::Fee
     def min_fee
       tmp = [1, @transaction.amount / 1_000_000 / 10_000].max
       tmp = (tmp > 25 ? 25 : tmp)
-      testnet? ? 0.05 * tmp : tmp
+      0.05 * tmp
     end
 
     def message_fee
       tmp = [1, (@transaction.message.bytesize / 2 / 32) + 1].max
-      testnet? ? 0.05 * tmp : tmp
+      0.05 * tmp
     end
 
     def mosaics_fee
