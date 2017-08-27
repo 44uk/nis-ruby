@@ -14,6 +14,7 @@ class Nis::Request
       @transaction = transaction
     end
 
+    # @return [Hash] Attribute and value pairs
     def to_hash
       if @transaction.respond_to?(:other_trans)
         other_trans(@transaction)
