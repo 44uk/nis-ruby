@@ -29,6 +29,10 @@ module Nis::Util
     end
   end
 
+  def self.parse_nemtime(nemtime)
+    NEM_EPOCH + nemtime
+  end
+
   def self.deadline(seconds = 3600)
     timestamp + seconds
   end
