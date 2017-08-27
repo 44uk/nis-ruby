@@ -28,12 +28,12 @@ describe Nis::Fee::ImportanceTransfer do
     let(:network) { :maitnet }
 
     context 'activate' do
-      it { is_expected.to eq 6_000_000 }
+      it { is_expected.to eq 150_000 }
     end
 
     context 'deactivate' do
       let(:mode)  { :deactivate }
-      it { is_expected.to eq 6_000_000 }
+      it { is_expected.to eq 150_000 }
     end
   end
 

@@ -17,6 +17,6 @@ describe Nis::Fee::MosaicDefinitionCreation do
 
   context 'on mainnet' do
     let(:network) { :mainnet }
-    it { is_expected.to eq 500_000_000 }
+    it { is_expected.to eq 10_000_000 }
   end
 end

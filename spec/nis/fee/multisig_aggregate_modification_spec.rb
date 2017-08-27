@@ -40,17 +40,17 @@ describe Nis::Fee::MultisigAggregateModification do
     let(:network) { :maitnet }
 
     context 'activate' do
-      it { is_expected.to eq 22_000_000 }
+      it { is_expected.to eq 500_000 }
     end
 
     context 'decrease' do
       let(:mode)  { :descrease }
-      it { is_expected.to eq 22_000_000 }
+      it { is_expected.to eq 500_000 }
     end
 
     context '0 cosignatory' do
       let(:min_cosigs)  { 0 }
-      it { is_expected.to eq 16_000_000 }
+      it { is_expected.to eq 500_000 }
     end
   end
 end

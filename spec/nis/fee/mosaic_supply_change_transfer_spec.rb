@@ -30,12 +30,12 @@ describe Nis::Fee::MosaicSupplyChangeTransfer do
     let(:network) { :maitnet }
 
     context 'activate' do
-      it { is_expected.to eq 20_000_000 }
+      it { is_expected.to eq 150_000 }
     end
 
     context 'decrease' do
       let(:mode)  { :descrease }
-      it { is_expected.to eq 20_000_000 }
+      it { is_expected.to eq 150_000 }
     end
   end
 end

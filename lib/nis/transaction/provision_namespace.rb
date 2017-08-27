@@ -64,10 +64,10 @@ class Nis::Transaction
         end
       else
         if root?
-          { fee: 5_000 * 1_000_000 ,
+          { fee: 100 * 1_000_000 ,
             sink: 'NAMESPACEWH4MKFMBCVFERDPOOP4FK7MTBXDPZZA' }
         else
-          { fee: 200 * 1_000_000 ,
+          { fee: 10 * 1_000_000 ,
             sink: 'NAMESPACEWH4MKFMBCVFERDPOOP4FK7MTBXDPZZA' }
         end
       end

@@ -32,7 +32,7 @@ describe Nis::Fee::Multisig do
     let(:network) { :maitnet }
 
     context '1xem, no message' do
-      it { is_expected.to eq 6_000_000 }
+      it { is_expected.to eq 150_000 }
     end
   end
 end

@@ -35,7 +35,7 @@ describe Nis::Transaction::MultisigAggregateModification do
       it do
         expect(subject.to_hash).to match a_hash_including(
           type: 0x1001,
-          fee: 22_000_000
+          fee: 500_000
         )
       end
     end
