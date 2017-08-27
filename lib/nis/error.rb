@@ -3,4 +3,5 @@ class Nis
   class NotFoundError < Error; end
   class BadRequestError < Error; end
   class InternalServerError < Error; end
+  class EmptyConnectionCollection < Error; end
 end

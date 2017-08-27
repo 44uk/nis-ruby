@@ -4,6 +4,7 @@ require 'nis/mixin'
 require 'nis/util'
 require 'nis/keypair'
 require 'nis/fee'
+require 'nis/connection_collection'
 require 'nis/connection'
 require 'nis/client'
 require 'nis/request'
@@ -30,8 +31,14 @@ class Nis
   # @option options [Integer] :port default 7890
   # @option options [Integer] :timeout default 5
   def initialize(options = {})
-    connection = Connection.new(options)
-    @client = Client.new(connection)
+    connections = if options.is_a?(Array)
+      options.map { |opt| Connection.new(opt) }
+    else
+      [Connection.new(options)]
+    end
+    @client = Client.new(ConnectionCollection.new(connections))
+    # connection = Connection.new(options)
+    # @client = Client.new(connection)
   end
 
   include Nis::Endpoint::Heartbeat

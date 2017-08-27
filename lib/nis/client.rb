@@ -18,7 +18,8 @@ class Nis::Client
 
   # @param [Nis::Connection] connection information
   def initialize(connection)
-    @connection = connection
+    @connection_collection = connection
+    @connection = connection.current
   end
 
   # @param [Symbol] method HTTP Method(GET or POST)
@@ -26,13 +27,26 @@ class Nis::Client
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
   def request(method, path, params = {})
+    log(method, path, params)
     if agent.remote? && local_only?(path)
       raise Nis::Error, "The request (#{method} #{path}) is only permitted to local NIS."
     end
     if params.is_a?(Hash) && !params.empty?
       params.reject! { |_, value| value.nil? }
     end
-    res = agent.send(method, path, params)
+
+    begin
+      res = agent.send(method, path, params)
+    rescue Faraday::ConnectionFailed => err
+      puts err.message
+      @agent = nil
+      @connection = @connection_collection.next!
+      retry
+    rescue => err
+      require 'pry'; binding.pry
+      puts err.message
+      raise err
+    end
     body = res.body
     hash = parse_body(body) unless body.empty?
     block_given? ? yield(hash) : hash
@@ -68,6 +82,15 @@ class Nis::Client
 
   def parse_body(body)
     JSON.parse(body, symbolize_names: true)
+  end
+
+  def log(method, path, params)
+    Nis.logger.debug "host:%s\tmethod:%s\tpath:%s\tparams:%s" % [
+      agent.url_prefix,
+      method,
+      path,
+      params.to_hash
+    ]
   end
 
   module Local
