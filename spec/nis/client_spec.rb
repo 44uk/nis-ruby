@@ -2,51 +2,10 @@ require 'spec_helper'
 require 'webmock_helper'
 
 describe Nis::Client do
-  let(:client) { described_class.new }
+  let(:connection) { Nis::Connection.new }
+  let(:client) { described_class.new(connection) }
 
   subject { client }
-
-  describe '#options' do
-    it do
-      expect(subject.options).to match a_hash_including(
-        scheme: 'http',
-        host: '127.0.0.1',
-        port: 7890,
-        timeout: 5,
-        url: 'http://127.0.0.1:7890'
-      )
-    end
-  end
-
-  context 'when ENV["NIS_URL"] set' do
-    before do
-      ENV['NIS_URL'] = 'http://node.example.com:6789'
-    end
-
-    after do
-      ENV['NIS_URL'] = nil
-    end
-
-    describe '#options' do
-      it do
-        expect(subject.options).to match a_hash_including(
-          host: 'node.example.com',
-          port: 6789,
-          url: 'http://node.example.com:6789'
-        )
-      end
-    end
-
-    describe '#options' do
-      let(:client) { described_class.new(host: 'localhost', port: 7890) }
-      it do
-        expect(subject.options).to match a_hash_including(
-          host: 'localhost',
-          url: 'http://localhost:7890'
-        )
-      end
-    end
-  end
 
   describe '#request!' do
     context '/account/get with invalid address' do
