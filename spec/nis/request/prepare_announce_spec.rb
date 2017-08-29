@@ -30,6 +30,7 @@ describe Nis::Request::PrepareAnnounce do
           deadline: 3600,
           version: 0x98000001,
           signer: '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a002258673519',
+          mosaics: [],
           network: :testnet
         },
         privateKey: priv_key
@@ -67,6 +68,7 @@ describe Nis::Request::PrepareAnnounce do
             deadline: 3600,
             version: 0x98000001,
             signer: 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d',
+            mosaics: [],
             network: :testnet
           },
           fee: 150000,

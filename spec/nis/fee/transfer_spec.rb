@@ -10,9 +10,11 @@ describe Nis::Fee::Transfer do
       recipient,
       amount,
       message,
+      mosaics: mosaics,
       network: network
     )
   end
+  let(:mosaics) { [] }
   let(:fee) { described_class.new(tx) }
 
   subject { fee.to_i }

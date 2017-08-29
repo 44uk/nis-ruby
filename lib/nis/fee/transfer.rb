@@ -1,23 +1,19 @@
 class Nis::Fee
   class Transfer
+    FEE_FACTOR = 0.05
+
     def initialize(transaction)
       @transaction = transaction
     end
 
     # @return [Integer] fee in micro XEM
     def value
-      tmp = 0
-
-      if @transaction.mosaics.empty?
-        tmp += min_fee
+      tmp = if @transaction.has_mosaics?
+        mosaics_fee
       else
-        tmp += mosaics_fee
+        FEE_FACTOR * minimum_fee(@transaction.amount / 1_000_000)
       end
-
-      if @transaction.message.bytesize > 0
-        tmp += message_fee
-      end
-
+      tmp += message_fee if @transaction.has_message?
       tmp * 1_000_000
     end
 
@@ -33,15 +29,13 @@ class Nis::Fee
 
     private
 
-    def min_fee
-      tmp = [1, @transaction.amount / 1_000_000 / 10_000].max
-      tmp = (tmp > 25 ? 25 : tmp)
-      0.05 * tmp
+    def minimum_fee(base)
+      tmp = [1, base / 10_000].max
+      tmp > 25 ? 25 : tmp
     end
 
     def message_fee
-      tmp = [1, (@transaction.message.bytesize / 2 / 32) + 1].max
-      0.05 * tmp
+      FEE_FACTOR * [1, (@transaction.message.bytesize / 2 / 32) + 1].max
     end
 
     def mosaics_fee
