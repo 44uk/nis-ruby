@@ -8,7 +8,7 @@ B_ADDRESS = 'TAWKJTUP4DWKLDKKS534TYP6G324CBNMXKBA4X7B'
 
 kp = Nis::Keypair.new(A_PRIVATE_KEY)
 
-tx = Nis::Transaction::Transfer.new(B_ADDRESS, 1_000_000, 'Good luck!')
+tx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')
 puts "Fee: #{tx.fee.to_i}"
 
 nis = Nis.new(host: '104.128.226.60')
