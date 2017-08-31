@@ -20,13 +20,14 @@ class Nis::Transaction
     attr_reader :type, :fee
     attr_accessor :recipient, :amount, :message,
       :deadline, :timeStamp, :version, :signer,
-      :network
+      :network,
+      :mosaics
 
     alias timestamp timeStamp
 
     TYPE = 0x0101 # 257 (transfer transaction)
 
-    def initialize(recipient, amount, message = '', network: :testnet)
+    def initialize(recipient, amount, message = '', mosaics: [], network: :testnet)
       @type = TYPE
       @network = network
 
@@ -34,11 +35,15 @@ class Nis::Transaction
       @amount = amount
       @message = Nis::Struct::Message.new(message)
       @fee = Nis::Fee::Transfer.new(self)
+      @mosaics = mosaics
     end
 
-    def mosaics
-      # TODO: to be implemented...
-      []
+    def has_message?
+      @message.bytesize > 0
+    end
+
+    def has_mosaics?
+      @mosaics.size > 0
     end
   end
 end
