@@ -9,9 +9,13 @@ class Nis::Struct
     include Nis::Util::Assignable
     attr_accessor :creator, :id, :description, :properties, :levy
 
+    extend Forwardable
+    def_delegators :@properties, :divisibility, :initialSupply, :supplyMutable, :transferable,
+      :initial_supply, :supply_mutable
+
     def self.build(attrs)
       attrs[:id] = MosaicId.build(attrs[:id])
-      attrs[:properties] = attrs[:properties].map { |p| MosaicProperties.build(p) }
+      attrs[:properties] = MosaicProperties.build(attrs[:properties])
       attrs[:levy] = MosaicLevy.build(attrs[:levy]) if attrs[:levy]
       new(attrs)
     end
