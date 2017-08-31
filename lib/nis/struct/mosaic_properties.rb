@@ -16,10 +16,10 @@ class Nis::Struct
     def self.build(props)
       attrs = props.inject({}) do |hash, prop|
         hash[prop[:name]] = case prop[:name]
-          when 'divisibility'  then prop[:value].to_i
-          when 'initialSupply' then prop[:value].to_i
-          when 'supplyMutable' then prop[:value] == 'true' ? true : false
-          when 'transferable'  then prop[:value] == 'true' ? true : false
+                            when 'divisibility'  then prop[:value].to_i
+                            when 'initialSupply' then prop[:value].to_i
+                            when 'supplyMutable' then prop[:value] == 'true' ? true : false
+                            when 'transferable'  then prop[:value] == 'true' ? true : false
           else prop[:value]
         end
         hash

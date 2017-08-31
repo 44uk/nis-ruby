@@ -50,13 +50,13 @@ class Nis::Fee
         else
           # custom mosaic fee, Max is 1.25.
           max_mosaic_quantity = 9_000_000_000_000_000
-          total_mosaic_quantity = mo.initial_supply * (10 ** mo.divisibility)
+          total_mosaic_quantity = mo.initial_supply * (10**mo.divisibility)
           supply_related_adjustment = (0.8 * (Math.log(max_mosaic_quantity / total_mosaic_quantity))).floor
 
           num_nem = if mo.initial_supply == 0
             0
           else
-            8_999_999_999.to_f * quantity * 1_000_000 / mo.initial_supply / (10 ** (mo.divisibility + 6))
+            8_999_999_999.to_f * quantity * 1_000_000 / mo.initial_supply / (10**(mo.divisibility + 6))
           end
           tmp_fee = minimum_fee(num_nem.ceil)
         end
