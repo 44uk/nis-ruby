@@ -2,11 +2,15 @@ class Nis
   class Keypair
     attr_reader :private, :public
 
+    # @param [String] Private Key
+    # @option options [Strung] :public_key Public Key
     def initialize(private_key, public_key: nil)
       @private = private_key
       @public  = public_key || calc_public_key
     end
 
+    # @param [String] Hex string
+    # @return  [String] Signed hex string
     def sign(data)
       bin_data = data.scan(/../).map(&:hex).pack('C*')
       bin_signed = Nis::Util::Ed25519.signature_hash_unsafe(bin_data, @bin_secret, @bin_public)

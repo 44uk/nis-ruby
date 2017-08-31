@@ -81,7 +81,7 @@ describe Nis::Transaction::MosaicDefinitionCreation do
     let(:network) { :mainnet }
 
     describe '#creation_fee' do
-      it { expect(subject.creation_fee).to eq 500_000_000 }
+      it { expect(subject.creation_fee).to eq 20_000_000 }
     end
 
     describe '#creation_fee_sink' do
@@ -91,8 +91,8 @@ describe Nis::Transaction::MosaicDefinitionCreation do
     describe '#to_hash' do
       it do
         expect(subject.to_hash).to match a_hash_including(
-          fee: 500_000_000,
-          creationFee: 500_000_000,
+          fee: 10_000_000,
+          creationFee: 20_000_000,
           creationFeeSink: 'NBMOSAICOD4F54EE5CDMR23CCBGOAM2XSIUX6TRS'
         )
       end

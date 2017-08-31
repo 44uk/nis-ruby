@@ -28,7 +28,7 @@ describe Nis::Transaction::Multisig do
       it do
         expect(subject.to_hash).to a_hash_including(
           type: 0x1004,
-          fee: 6_000_000
+          fee: 150_000
         )
       end
     end

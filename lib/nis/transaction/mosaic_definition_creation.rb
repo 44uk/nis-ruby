@@ -47,7 +47,7 @@ class Nis::Transaction
           fee: 20 * 1_000_000 }
       else
         { sink: 'NBMOSAICOD4F54EE5CDMR23CCBGOAM2XSIUX6TRS',
-          fee: 500 * 1_000_000 }
+          fee: 20 * 1_000_000 }
       end
     end
   end

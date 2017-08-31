@@ -5,8 +5,8 @@ module Nis::Util
     # @return [Array]
     def self.serialize_transaction(entity)
       method = case entity[:type]
-        when  257 then method(:serialize_transfer)
-        when 4100 then method(:serialize_multisig_transfer)
+               when  257 then method(:serialize_transfer)
+               when 4100 then method(:serialize_multisig_transfer)
         else raise "Not implemented entity type: #{entity[:type]}"
       end
       method.call(entity)
@@ -54,7 +54,7 @@ module Nis::Util
 
       temp = hex2ua(entity[:message][:payload])
       if temp.size == 0
-        a += [0,0,0,0]
+        a += [0, 0, 0, 0]
       else
         a += serialize_int(temp.size + 8)
         a += serialize_int(entity[:message][:type])

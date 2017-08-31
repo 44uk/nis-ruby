@@ -40,7 +40,7 @@ describe Nis::Transaction::MosaicSupplyChange do
       it do
         expect(subject.to_hash).to match a_hash_including(
           type: 0x4002,
-          fee: 20_000_000,
+          fee: 150_000,
           supplyType: 0x001,
           delta: 1_000,
           mosaicId: {

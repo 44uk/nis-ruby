@@ -14,6 +14,7 @@ class Nis::Request
       @transaction = transaction
     end
 
+    # @return [Hash] Attribute and value pairs
     def to_hash
       if @transaction.respond_to?(:other_trans)
         other_trans(@transaction)
@@ -22,7 +23,7 @@ class Nis::Request
       @transaction.tap do |tx|
         tx.timeStamp = Nis::Util.timestamp
         tx.deadline = Nis::Util.deadline(DEADLINE)
-        tx.version = Nis::Util.parse_version(tx.network, 1)
+        tx.version = Nis::Util.parse_version(tx.network, version(tx))
         tx.signer = @keypair.public
       end
 
@@ -47,9 +48,13 @@ class Nis::Request
       transaction.other_trans.tap do |tx|
         tx.timeStamp = Nis::Util.timestamp
         tx.deadline = Nis::Util.deadline(DEADLINE)
-        tx.version = Nis::Util.parse_version(tx.network, 1)
+        tx.version = Nis::Util.parse_version(tx.network, version(tx))
         tx.signer = transaction.signer
       end
+    end
+
+    def version(transaction)
+      transaction.respond_to?(:has_mosaics?) && transaction.has_mosaics? ? 2 : 1
     end
   end
 end

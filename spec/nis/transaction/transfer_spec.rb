@@ -30,7 +30,7 @@ describe Nis::Transaction::Transfer do
 
     it do
       expect(subject.to_hash).to match a_hash_including(
-        fee: 1_000_000
+        fee: 50_000
       )
     end
   end
