@@ -148,7 +148,7 @@ describe Nis::Request::PrepareAnnounce do
                 message: { type: 1, payload: '476f6f64206c75636b21' },
                 timeStamp: 0,
                 deadline: 3600,
-                version: 0x98000001,
+                version: 0x98000002,
                 signer: 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d',
                 mosaics: [
                   { mosaicId: { namespaceId: 'sushi', name: 'anago' }, quantity: 1_000_000 }
