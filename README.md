@@ -40,6 +40,8 @@ More specific example codes are in **examples/** directory.
 ### Methods
 
 ```ruby
+require 'rubygems'
+require 'nis'
 nis = Nis.new
 
 nis.heartbeat
@@ -69,6 +71,8 @@ nis.transaction_prepare_announce(req)
 ### Requesting
 
 ```ruby
+require 'rubygems'
+require 'nis'
 nis = Nis.new
 
 nis.request(:get, '/account/get',
