@@ -18,7 +18,7 @@ class Nis::Request
     def to_hash
       entity = @transaction.clone
 
-      entity.amount *=  1_000_000 if entity.respond_to?(:amount)
+      entity.amount *= 1_000_000 if entity.respond_to?(:amount)
 
       if entity.respond_to?(:other_trans)
         other_trans(entity)
@@ -31,7 +31,16 @@ class Nis::Request
         tx.signer = @keypair.public
       end
 
-      { transaction: entity.to_hash,
+      entity_hash = entity.to_hash
+      if entity.respond_to?(:has_mosaics?) && !entity.has_mosaics?
+        entity_hash.delete(:mosaics)
+      end
+
+      if entity.respond_to?(:other_trans) && !entity.other_trans.has_mosaics?
+        entity_hash[:otherTrans].delete(:mosaics)
+      end
+
+      { transaction: entity_hash,
         privateKey: @keypair.private }
     end
 
