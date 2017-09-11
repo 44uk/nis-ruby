@@ -22,11 +22,11 @@ class Nis::Fee
     private
 
     def root_fee
-      100 * 1_000_000
+      0.15 * 1_000_000
     end
 
     def sub_fee
-      10 * 1_000_000
+      0.15 * 1_000_000
     end
   end
 end
