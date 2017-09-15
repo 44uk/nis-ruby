@@ -15,5 +15,5 @@ puts outgoing.last.to_hash
 all = nis.local_account_transfers_all(page: page)
 puts all.last.to_hash
 
-blocks = nis.local_chain_blocks_after(block_height: 2649)
+blocks = nis.local_chain_blocks_after(block_height: 2_649)
 puts blocks.last

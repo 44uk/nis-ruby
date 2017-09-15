@@ -1,26 +1,26 @@
 require 'nis'
 
 # sender
-A_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
 
-# receiver
-B_ADDRESS = 'TAWKJTUP4DWKLDKKS534TYP6G324CBNMXKBA4X7B'
+# recipient
+B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'
 
 kp = Nis::Keypair.new(A_PRIVATE_KEY)
 
-# fetch mosaic information
+# fetch mosaic definition
 nis = Nis.new
-mo_dmdps = nis.namespace_mosaic_definition_page(namespace: 'sushi')
+mo_dmdps = nis.namespace_mosaic_definition_page(namespace: 'kon')
 mo_def = mo_dmdps.first.mosaic
 
 # Or you can use built object if you already know mosaic definition.
 # mosaic_id = Nis::Struct::MosaicId.new(
-#   namespaceId: 'sushi',
-#   name: 'anago'
+#   namespaceId: 'kon',
+#   name: 'heart'
 # )
 # properties = Nis::Struct::MosaicProperties.new(
-#   divisibility: 0,
-#   initialSupply: 10_000
+#   divisibility: 3,
+#   initialSupply: 100_000_000
 # )
 # mo_def = Nis::Struct::MosaicDefinition.new(
 #   id: mosaic_id,
