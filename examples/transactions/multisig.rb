@@ -1,16 +1,18 @@
 require 'nis'
 
 # multisig
-A_PUBLIC_KEY  = '4b26a75313b747985470977a085ae6f840a0b84ebd96ddf17f4a31a2b580d078'
+M_PUBLIC_KEY  = '00f077782658ae91b77f238ba5fcd7ef110564b5c189072e4d4590d9b17f9d76f3'
 
 # cosignatory
-B_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'
-B_ADDRESS = 'TAWKJTUP4DWKLDKKS534TYP6G324CBNMXKBA4X7B'
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
 
-kp = Nis::Keypair.new(B_PRIVATE_KEY)
+# recipient
+B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'
 
-ttx = Nis::Transaction::Transfer.new(B_ADDRESS, 1_000_000, 'Good luck!')
-tx = Nis::Transaction::Multisig.new(ttx, A_PUBLIC_KEY)
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+
+ttx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')
+tx = Nis::Transaction::Multisig.new(ttx, M_PUBLIC_KEY)
 puts "Fee: #{tx.fee.to_i}"
 
 nis = Nis.new
