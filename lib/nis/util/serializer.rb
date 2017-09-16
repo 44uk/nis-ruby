@@ -5,12 +5,147 @@ module Nis::Util
     # @return [Array]
     def self.serialize_transaction(entity)
       method = case entity[:type]
-               when  257 then method(:serialize_transfer)
-               when 4100 then method(:serialize_multisig_transfer)
+               when 0x0101 then method(:serialize_transfer)
+               when 0x0801 then method(:serialize_importance_transfer)
+               when 0x1001 then method(:serialize_multisig_aggregate_modification)
+               when 0x1002 then method(:serialize_multisig_signature)
+               when 0x1004 then method(:serialize_multisig)
+               when 0x2001 then method(:serialize_provision_namespace)
+               when 0x4001 then method(:serialize_mosaic_definition_creation)
+               when 0x4002 then method(:serialize_mosaic_supply_change)
         else raise "Not implemented entity type: #{entity[:type]}"
       end
       method.call(entity)
     end
+
+    def self.serialize_transfer(entity)
+      a = []
+      # Common transaction part
+      a += serialize_common(entity)
+      # Transfer transaction part
+      a += serialize_safe_string(entity[:recipient])
+      a += serialize_long(entity[:amount])
+      temp = hex2ua(entity[:message][:payload])
+      if temp.size == 0
+        a += [0, 0, 0, 0]
+      else
+        a += serialize_int(temp.size + 8)
+        a += serialize_int(entity[:message][:type])
+        a += serialize_int(temp.size)
+        a += temp
+      end
+      a
+    end
+
+    def self.serialize_importance_transfer(entity)
+      a = []
+      a += serialize_common(entity)
+      a += serialize_int(entity[:mode])
+      temp = hex2ua(entity[:remoteAccount])
+      a += serialize_int(temp.size)
+      a += temp
+      a
+    end
+
+    def self.serialize_multisig_aggregate_modification(entity)
+      a = []
+      a += serialize_common(entity)
+      a += serialize_int(entity[:modifications].size)
+      a += entity[:modifications].map do |mod|
+        b = []
+        b += serialize_int(40)
+        b += serialize_int(mod[:modificationType])
+        b += serialize_int(32)
+        b += hex2ua(mod[:cosignatoryAccount])
+        b
+      end.flatten
+
+      # The following part describes the minimum cosignatories modification.
+      # The part is optional. Version 1 aggregate modification transactions should omit this part.
+      # Version 2 aggregate modification transactions with no minimum cosignatories modification
+      # should only write the length field with value 0x00, 0x00, 0x00, 0x00.
+      if true # only version2
+        if entity[:minCosignatories][:relativeChange] > 0
+          a += serialize_int(4)
+          a += serialize_int(entity[:minCosignatories][:relativeChange])
+        else
+          a += [0, 0, 0, 0]
+        end
+      end
+      a
+    end
+
+    def self.serialize_multisig_signature(entity)
+      a = []
+      a += serialize_common(entity)
+      temp = hex2ua(entity[:otherHash][:data])
+      a += serialize_int(4 + temp.size)
+      a += serialize_int(temp.size)
+      a += temp
+      a += serialize_safe_string(entity[:otherAccount])
+    end
+
+    def self.serialize_multisig(entity)
+      a = []
+      a += serialize_common(entity)
+      other_tx = entity[:otherTrans]
+      tx = case other_tx[:type]
+        when 0x0101 then serialize_transfer(other_tx)
+        when 0x0801 then serialize_importance_transfer(other_tx)
+        when 0x1001 then serialize_multisig_aggregate_modification(other_tx)
+        else raise "Unexpected type #{other_tx[:type]}"
+      end
+      a += serialize_int(tx.size)
+      a += tx
+      a
+    end
+
+    def self.serialize_provision_namespace(entity)
+      a = []
+      a += serialize_common(entity)
+      a += serialize_safe_string(entity[:rentalFeeSink])
+      a += serialize_long(entity[:rentalFee])
+      temp = hex2ua(utf8_to_hex(entity[:newPart]))
+      a += serialize_int(temp.size)
+      a += temp
+      if entity[:parent]
+        temp = hex2ua(utf8_to_hex(entity[:parent]))
+        a += serialize_int(temp.size)
+        a += temp
+      else
+        a += [255, 255, 255, 255]
+      end
+      a
+    end
+
+    def self.serialize_mosaic_definition_creation(entity)
+      a = []
+      a += serialize_common(entity)
+      a += serialize_mosaic_definition(entity[:mosaicDefinition])
+      a += serialize_safe_string(entity[:creationFeeSink])
+      a += serialize_long(entity[:creationFee])
+      a
+    end
+
+    def self.serialize_mosaic_supply_change(entity)
+      a = []
+      a += serialize_common(entity)
+      mo_id = entity[:mosaicId]
+      a_ns = hex2ua(utf8_to_hex(mo_id[:namespaceId]))
+      a_ns_len = serialize_int(a_ns.size)
+      a_mo = hex2ua(utf8_to_hex(mo_id[:name]))
+      a_mo_len = serialize_int(a_mo.size)
+      a += serialize_int((a_ns_len + a_ns + a_mo_len + a_mo).size)
+      a += a_ns_len
+      a += a_ns
+      a += a_mo_len
+      a += a_mo
+      a += serialize_int(entity[:supplyType])
+      a += serialize_long(entity[:delta])
+      a
+    end
+
+    private
 
     def self.serialize_common(entity)
       a = []
@@ -26,45 +161,6 @@ module Nis::Util
       a += serialize_int(entity[:deadline])
       a
     end
-
-    def self.serialize_multisig_transfer(entity)
-      a = []
-
-      # Common transaction part
-      a += serialize_common(entity)
-
-      # Transfer transaction part
-      tx = serialize_transfer(entity[:otherTrans])
-      a += serialize_int(tx.size)
-      a += tx
-      a
-    end
-
-    def self.serialize_transfer(entity)
-      a = []
-
-      # Common transaction part
-      a += serialize_common(entity)
-
-      # Transfer transaction part
-      temp = serialize_safe_string(entity[:recipient])
-      a += temp
-
-      a += serialize_long(entity[:amount])
-
-      temp = hex2ua(entity[:message][:payload])
-      if temp.size == 0
-        a += [0, 0, 0, 0]
-      else
-        a += serialize_int(temp.size + 8)
-        a += serialize_int(entity[:message][:type])
-        a += serialize_int(temp.size)
-        a += temp
-      end
-      a
-    end
-
-    private
 
     # Safe String - Each char is 8 bit
     # @param [String] str
@@ -106,16 +202,6 @@ module Nis::Util
       a
     end
 
-    # @param [Nis::Struct::MosaicId] mosaic_id
-    # @return [Array]
-    def self.serialize_mosaic_id(mosaic_id)
-      serialized_namespace_id = serialize_safe_string(mosaic_id.namespace_id)
-      serialized_name = serialize_safe_string(mosaic_id.name)
-      [serialized_namespace_id.size + serialized_name.size, 0, 0, 0] +
-        serialized_namespace_id +
-        serialized_name
-    end
-
     # @param [Nis::Struct::Mosaic] mosaic
     # @return [Array]
     def self.serialize_mosaic_and_quantity(mosaic)
@@ -147,72 +233,61 @@ module Nis::Util
 
     # @param [Hash] entity
     # @return [Array]
+    def self.serialize_mosaic_id(entity)
+      a = []
+      a += serialize_safe_string(entity[:namespaceId])
+      a += serialize_safe_string(entity[:name])
+      serialize_int(a.size) + a
+    end
+
+    # @param [Hash] entity
+    # @return [Array]
     def self.serialize_property(entity)
-      a = [].fill(0, 0, 4)
-      serialized_name  = serialize_safe_string(entity[:name]);
-      serialized_value = serialize_safe_string(entity[:value]);
-      a[0] = serialized_name.size + serialized_value.size
-      a + serialized_name + serialized_value
+      a = []
+      a += serialize_safe_string(entity[:name])
+      a += serialize_safe_string(entity[:value])
+      serialize_int(a.size) + a
     end
 
     # @param [Array] entities
     # @return [Array]
     def self.serialize_properties(entities)
-      a = [].fill(0, 0, 4)
-      a[0] = entities.size
-
-      helper = {
+      order = {
         'divisibility'  => 1,
         'initialSupply' => 2,
         'supplyMutable' => 3,
         'transferable'  => 4
       }
-      a + entities.sort_by { |ent| helper[ent[:name]] }
+      a = []
+      a = entities.sort_by { |ent| order[ent[:name]] }
         .map { |ent| serialize_property(ent) }.flatten
+      serialize_int(entities.size) + a
     end
 
     # @param [Hash] entity
     # @return [Array]
     def self.serialize_levy(entity)
-      return [].fill(0, 0, 4) if entity.nil?
-      a = [].fill(0, 0, 8)
-      a[0] = entity[:type]
-      temp = serialize_safe_string(entity[:recipient])
-      serialized_mosaic_id = serialize_mosaic_id(entity[:mosaic_id])
-      serialized_fee = serialize_long(entity[:fee])
-      a += temp + serialized_mosaic_id + serialized_fee
-      a[0] = 4 + temp.size + serialized_mosaic_id.size + 8;
-      a
+      return [0, 0, 0, 0] if entity.nil?
+      a = []
+      a += serialize_int(entity[:type])
+      a += serialize_safe_string(entity[:recipient])
+      a += serialize_mosaic_id(entity[:mosaicId])
+      a += serialize_long(entity[:fee])
+      serialize_int(a.size) + a
     end
 
     # @param [Hash] entity
     # @return [Array]
     def self.serialize_mosaic_definition(entity)
-      a = [].fill(0, 0, 4)
+      a = []
       temp = hex2ua(entity[:creator])
-      a[0] = temp.size
+      a += serialize_int(temp.size)
       a += temp
       a += serialize_mosaic_id(entity[:id])
-      utf8_to_bin = hex2ua(utf8_to_hex(entity[:description]));
-      a += serialize_bin_string(utf8_to_bin);
-      a += serialize_properties(entity[:properties]);
-      a += serialize_levy(entity[:levy]);
-      a
-    end
-
-    # @param [String] hex
-    # @return [Array]
-    # def self.hex2ua(hex)
-    #   hex.scan(/../).map(&:hex)
-    # end
-    #
-    def self.bin2words(bin, bin_size)
-        # temp = [];
-        # for (let i = 0; i < ua_size; i += 4) {
-        #     let x = ua[i] * 0x1000000 + (ua[i + 1] || 0) * 0x10000 + (ua[i + 2] || 0) * 0x100 + (ua[i + 3] || 0);
-        #     temp.push((x > 0x7fffffff) ? x - 0x100000000 : x);
-        # }
-        # CryptoJS.lib.WordArray.create(temp, ua_size);
+      a += serialize_bin_string(hex2ua(utf8_to_hex(entity[:description])))
+      a += serialize_properties(entity[:properties])
+      a += serialize_levy(entity[:levy])
+      serialize_int(a.size) + a
     end
 
     # @param [String] hex
@@ -252,22 +327,6 @@ module Nis::Util
           [((c >> 12) | 224), (((c >> 6) & 63) | 128), ((c & 63) | 128)]
         end
       end.flatten.map(&:chr).join
-    end
-
-    def encode(sender_privkey, recipient_pubkey, message)
-      # sk = hex2ua(sender_privkey)
-      # pk = hex2ua(recipient_pubkey)
-      # let shared = new Uint8Array(32);
-      # let r = key_derive(shared, salt, sk, pk);
-      # let encKey = r;
-      # let encIv = {
-      #     iv: convert.bin2words(iv, 16)
-      # };
-      # let encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Hex.parse(convert.utf8ToHex(msg)), encKey, encIv);
-      #
-      salt = RbNaCl::Random.random_bytes(32)
-      iv   = RbNaCl::Random.random_bytes(16)
-      bin2hex(salt) + bin2hex(iv) # + CryptoJS.enc.Hex.stringify(encrypted.ciphertext)
     end
   end
 end
