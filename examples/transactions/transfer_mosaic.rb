@@ -1,48 +1,52 @@
 require 'nis'
-require 'pp'
 
 # sender
-A_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
 
-# receiver
-B_ADDRESS = 'TAWKJTUP4DWKLDKKS534TYP6G324CBNMXKBA4X7B'
+# recipient
+B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'
 
 kp = Nis::Keypair.new(A_PRIVATE_KEY)
 
-# fetch mosaic information
-nis = Nis.new(host: '104.128.226.60')
-mo_dmdps = nis.namespace_mosaic_definition_page(namespace: 'sushi')
+# fetch mosaic definition
+nis = Nis.new
+mo_dmdps = nis.namespace_mosaic_definition_page(namespace: 'kon')
 mo_def = mo_dmdps.first.mosaic
 
-# require 'pry'; binding.pry
-
+# Or you can use built object if you already know mosaic definition.
 # mosaic_id = Nis::Struct::MosaicId.new(
-#   namespaceId: 'sushi',
-#   name: 'anago'
+#   namespaceId: 'kon',
+#   name: 'heart'
 # )
-
 # properties = Nis::Struct::MosaicProperties.new(
-#   divisibility: 0,
-#   initialSupply: 10_000,
-#   supplyMutable: true,
-#   transferable: true
+#   divisibility: 3,
+#   initialSupply: 100_000_000
 # )
-
 # mo_def = Nis::Struct::MosaicDefinition.new(
 #   id: mosaic_id,
 #   properties: properties,
 # )
 
-tx = Nis::Transaction::Transfer.new(B_ADDRESS, 1_000_000, 'Good luck!')
-tx.mosaics << Nis::Struct::MosaicAttachment.new(mo_def, 1_000_000)
+# sending 1xem as mosaic sample
+# mosaic_id = Nis::Struct::MosaicId.new(
+#   namespaceId: 'nem',
+#   name: 'xem'
+# )
+# properties = Nis::Struct::MosaicProperties.new(
+#   divisibility: 6,
+#   initialSupply: 8_999_999_999
+# )
+# mo_def = Nis::Struct::MosaicDefinition.new(
+#   id: mosaic_id,
+#   properties: properties,
+# )
+# mosaic_attachment = Nis::Struct::MosaicAttachment.new(mo_def, 1_000_000)
 
-# pp tx.to_hash
+tx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')
+tx.mosaics << Nis::Struct::MosaicAttachment.new(mo_def, 1)
 
-nis = Nis.new
 req = Nis::Request::PrepareAnnounce.new(tx, kp)
-pp req.to_hash
-# res = nis.transaction_prepare_announce(req)
+res = nis.transaction_prepare_announce(req)
 
-#
-# puts "Message: #{res.message}"
-# puts "TransactionHash: #{res.transaction_hash}"
+puts "Message: #{res.message}"
+puts "TransactionHash: #{res.transaction_hash}"

@@ -35,11 +35,13 @@ gem 'nis-ruby'
 
 ### Examples
 
-More specific example codes are in **examples/** directory.
+More specific example codes are in **[examples/](examples/)** directory.
 
 ### Methods
 
 ```ruby
+require 'rubygems'
+require 'nis'
 nis = Nis.new
 
 nis.heartbeat
@@ -53,7 +55,7 @@ nis.status
 kp = Nis::Keypair.new(SENDER_PRIV_KEY)
 tx = Nis::Transaction::Transfer.new(
   RECIPIENT_ADDRESS,
-  10_000_000,
+  1, # send 1xem
   'Message'
 )
 req = Nis::Request::PrepareAnnounce.new(tx, kp)
@@ -63,12 +65,15 @@ nis.transaction_prepare_announce(req)
 # => {innerTransactionHash: {}, code: 1, type: 1, message: "SUCCESS", transactionHash: {data: "9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde"}}
 
 # Request to remote node.
+# nis = Nis.new(host: '104.128.226.60')
 # nis.transaction_announce(req)
 ```
 
 ### Requesting
 
 ```ruby
+require 'rubygems'
+require 'nis'
 nis = Nis.new
 
 nis.request(:get, '/account/get',
@@ -102,22 +107,22 @@ $ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWP
 
 ## Connection
 
-You can find nodes here. [NEM Node Rewards](https://supernodes.nem.io/)
+You can choose nodes from [NEM Node Rewards](https://supernodes.nem.io/).
 
 ### Hash
 
 ```ruby
 # Passing hostname
-Nis.new(host: 'bigalice3.nem.ninja')
+Nis.new(host: '104.128.226.60')
 
 # Passing url
-Nis.new(url: 'http://bigalice3.nem.ninja:7890')
+Nis.new(url: 'http://104.128.226.60:7890')
 ```
 
 ### Environment Variable
 
 ```bash
-$ export NIS_URL=http://bigalice3.nem.ninja:7890
+$ export NIS_URL=http://104.128.226.60:7890
 $ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
 ```
 
@@ -126,13 +131,6 @@ Environment variable used as default value.
 ## For More Information
 
 * [Documentation for nis-ruby - rubydoc.info](http://www.rubydoc.info/gems/nis-ruby)
-
-## TODO
-
-* Do more improvements
-  * Encryption message
-  * Failover connection
-  * Be more easy to use
 
 ## Contact
 

@@ -25,6 +25,14 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.post_install_message = %q{
+  <nis-ruby>
+  Please see https://gitter.im/44uk/nis-ruby for the latest information.
+  The gem is under development. Incompatible changes can be made.
+  Feel free to ask and give feedback to https://twitter.com/44uk_i3
+  Good luck! NEM application development!
+  }
+
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'yard', '~> 0.9'

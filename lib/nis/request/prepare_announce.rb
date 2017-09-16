@@ -16,18 +16,31 @@ class Nis::Request
 
     # @return [Hash] Attribute and value pairs
     def to_hash
-      if @transaction.respond_to?(:other_trans)
-        other_trans(@transaction)
+      entity = @transaction.clone
+
+      entity.amount *= 1_000_000 if entity.respond_to?(:amount)
+
+      if entity.respond_to?(:other_trans)
+        other_trans(entity)
       end
 
-      @transaction.tap do |tx|
+      entity.tap do |tx|
         tx.timeStamp = Nis::Util.timestamp
         tx.deadline = Nis::Util.deadline(DEADLINE)
         tx.version = Nis::Util.parse_version(tx.network, version(tx))
         tx.signer = @keypair.public
       end
 
-      { transaction: @transaction.to_hash,
+      entity_hash = entity.to_hash
+      if entity.respond_to?(:has_mosaics?) && !entity.has_mosaics?
+        entity_hash.delete(:mosaics)
+      end
+
+      if entity.respond_to?(:other_trans) && !entity.other_trans.has_mosaics?
+        entity_hash[:otherTrans].delete(:mosaics)
+      end
+
+      { transaction: entity_hash,
         privateKey: @keypair.private }
     end
 
@@ -35,6 +48,8 @@ class Nis::Request
 
     def other_trans(transaction)
       transaction.other_trans.tap do |tx|
+        tx.amount *= 1_000_000 if tx.respond_to?(:amount)
+
         tx.timeStamp = Nis::Util.timestamp
         tx.deadline = Nis::Util.deadline(DEADLINE)
         tx.version = Nis::Util.parse_version(tx.network, version(tx))

@@ -30,7 +30,7 @@ describe Nis::Transaction::ProvisionNamespace do
         parent: nil,
         rentalFee: 100 * 1_000_000,
         rentalFeeSink: 'TAMESPACEWH4MKFMBCVFERDPOOP4FK7MTDJEYP35',
-        fee: 100_000_000
+        fee: 150_000
       )
     end
   end
@@ -55,7 +55,7 @@ describe Nis::Transaction::ProvisionNamespace do
           parent: 'sushi',
           rentalFee: 10 * 1_000_000,
           rentalFeeSink: 'TAMESPACEWH4MKFMBCVFERDPOOP4FK7MTDJEYP35',
-          fee: 10_000_000
+          fee: 150_000
         )
       end
     end
@@ -72,7 +72,7 @@ describe Nis::Transaction::ProvisionNamespace do
           parent: nil,
           rentalFee: 100 * 1_000_000,
           rentalFeeSink: 'NAMESPACEWH4MKFMBCVFERDPOOP4FK7MTBXDPZZA',
-          fee: 100_000_000
+          fee: 150_000
         )
       end
     end
@@ -89,7 +89,7 @@ describe Nis::Transaction::ProvisionNamespace do
             parent: 'sushi',
             rentalFee: 10 * 1_000_000,
             rentalFeeSink: 'NAMESPACEWH4MKFMBCVFERDPOOP4FK7MTBXDPZZA',
-            fee: 10_000_000
+            fee: 150_000
           )
         end
       end

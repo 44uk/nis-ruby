@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Nis::Fee::Transfer do
   let(:recipient) { 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF' }
-  let(:amount)  { 1_000_000 }
+  let(:amount)  { 1 }
   let(:message) { '' }
   let(:network) { :testnet }
   let(:tx) do

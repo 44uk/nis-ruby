@@ -1,7 +1,7 @@
 require 'nis'
 
-# owner
-A_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'
+# namespace creator
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
 
 kp = Nis::Keypair.new(A_PRIVATE_KEY)
 

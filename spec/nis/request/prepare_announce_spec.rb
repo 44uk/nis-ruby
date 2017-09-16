@@ -19,7 +19,7 @@ describe Nis::Request::PrepareAnnounce do
       id: mosaic_id,
       properties: properties,
     )
-    Nis::Struct::MosaicAttachment.new(mo_def, 1_000_000)
+    Nis::Struct::MosaicAttachment.new(mo_def, 1)
   end
 
   subject { described_class.new(tx, kp) }
@@ -32,7 +32,7 @@ describe Nis::Request::PrepareAnnounce do
     let(:tx) do
       Nis::Transaction::Transfer.new(
         'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF',
-        1_000_000,
+        1,
         'Good luck!',
         mosaics: mosaics
       )
@@ -50,7 +50,6 @@ describe Nis::Request::PrepareAnnounce do
           deadline: 3600,
           version: 0x98000001,
           signer: '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a002258673519',
-          mosaics: [],
           network: :testnet
         },
         privateKey: priv_key
@@ -60,27 +59,25 @@ describe Nis::Request::PrepareAnnounce do
     context 'when mosaic transfer' do
       let(:mosaics) { [mo_attachment] }
 
-      context 'Transaction#to_hash' do
-        it do
-          expect(subject.to_hash).to match a_hash_including(
-            transaction: {
-              type: 257,
-              fee: 100_000,
-              recipient: 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF',
-              amount: 1_000_000,
-              message: { type: 1, payload: '476f6f64206c75636b21' },
-              timeStamp: 0,
-              deadline: 3600,
-              version: 0x98000002,
-              signer: '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a002258673519',
-              mosaics: [
-                { mosaicId: { namespaceId: 'sushi', name: 'anago' }, quantity: 1_000_000 }
-              ],
-              network: :testnet
-            },
-            privateKey: priv_key
-          )
-        end
+      it do
+        expect(subject.to_hash).to match a_hash_including(
+          transaction: {
+            type: 257,
+            fee: 100_000,
+            recipient: 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF',
+            amount: 1_000_000,
+            message: { type: 1, payload: '476f6f64206c75636b21' },
+            timeStamp: 0,
+            deadline: 3600,
+            version: 0x98000002,
+            signer: '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a002258673519',
+            mosaics: [
+              { mosaicId: { namespaceId: 'sushi', name: 'anago' }, quantity: 1 }
+            ],
+            network: :testnet
+          },
+          privateKey: priv_key
+        )
       end
     end
   end
@@ -90,7 +87,7 @@ describe Nis::Request::PrepareAnnounce do
     let(:ttx) do
       Nis::Transaction::Transfer.new(
         'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF',
-        1_000_000,
+        1,
         'Good luck!',
         mosaics: mosaics
       )
@@ -117,7 +114,6 @@ describe Nis::Request::PrepareAnnounce do
             deadline: 3600,
             version: 0x98000001,
             signer: 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d',
-            mosaics: [],
             network: :testnet
           },
           fee: 150000,
@@ -131,37 +127,35 @@ describe Nis::Request::PrepareAnnounce do
     context 'when mosaic transfer' do
       let(:mosaics) { [mo_attachment] }
 
-      context 'MultisigTransaction#to_hash' do
-        it do
-          expect(subject.to_hash).to match a_hash_including(
-            transaction: {
-              type: 4100,
+      it do
+        expect(subject.to_hash).to match a_hash_including(
+          transaction: {
+            type: 4100,
+            timeStamp: 0,
+            deadline: 3600,
+            version: 0x98000001,
+            signer: '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a002258673519',
+            otherTrans: {
+              type: 257,
+              fee: 100_000,
+              recipient: 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF',
+              amount: 1_000_000,
+              message: { type: 1, payload: '476f6f64206c75636b21' },
               timeStamp: 0,
               deadline: 3600,
-              version: 0x98000001,
-              signer: '5aff2e991f85d44eed8f449ede365a920abbefc22f1a2f731d4a002258673519',
-              otherTrans: {
-                type: 257,
-                fee: 100_000,
-                recipient: 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF',
-                amount: 1_000_000,
-                message: { type: 1, payload: '476f6f64206c75636b21' },
-                timeStamp: 0,
-                deadline: 3600,
-                version: 0x98000002,
-                signer: 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d',
-                mosaics: [
-                  { mosaicId: { namespaceId: 'sushi', name: 'anago' }, quantity: 1_000_000 }
-                ],
-                network: :testnet
-              },
-              fee: 150000,
+              version: 0x98000002,
+              signer: 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d',
+              mosaics: [
+                { mosaicId: { namespaceId: 'sushi', name: 'anago' }, quantity: 1 }
+              ],
               network: :testnet
-              # signatures: []
             },
-            privateKey: priv_key
-          )
-        end
+            fee: 150000,
+            network: :testnet
+            # signatures: []
+          },
+          privateKey: priv_key
+        )
       end
     end
   end

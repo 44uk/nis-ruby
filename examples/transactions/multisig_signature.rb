@@ -1,22 +1,22 @@
 require 'nis'
 
 # multisig
-A_PUBLIC_KEY = '4b26a75313b747985470977a085ae6f840a0b84ebd96ddf17f4a31a2b580d078'
-A_ADDRESS = 'TBAOYZS4FGY5XPQ5OD2VL3SY7GQ5FLH66GRCX5DL'
+M_PUBLIC_KEY = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'
+M_ADDRESS = 'TDJNDAQ7F7AQRXKP2YVTH67QYCWWKE6QLSJFWN64'
 
 # cosignatory1
-# B_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'
-# B_PUBLIC_KEY  = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'
-# B_ADDRESS = 'TAWKJTUP4DWKLDKKS534TYP6G324CBNMXKBA4X7B'
+# A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+# A_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033'
+# A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
 
 # cosignatory2
-C_PRIVATE_KEY = '2f6bececfaa81e0ce878be6263df29d11412559132743eebde99f695fbc4e288'
-C_ADDRESS = 'TAFPFQOTRYEKMKWWKLLLMYA3I5SCFDGYFACCOFWS'
+B_PRIVATE_KEY = '1d13af2c31ee6fb0c3c7aaaea818d9b305dcadba130ba663fc42d9f25b24ded1'
+B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'
 
-kp = Nis::Keypair.new(C_PRIVATE_KEY)
+kp = Nis::Keypair.new(B_PRIVATE_KEY)
 
 nis = Nis.new
-txes = nis.account_unconfirmed_transactions(address: C_ADDRESS)
+txes = nis.account_unconfirmed_transactions(address: B_ADDRESS)
 
 unless txes.size > 0
   puts 'There are no transactions to sign.'
@@ -26,7 +26,7 @@ end
 hash = txes.first.meta.data
 puts "Unconfirmed Transaction Hash: #{hash}"
 
-tx = Nis::Transaction::MultisigSignature.new(hash, A_ADDRESS, C_PUBLIC_KEY)
+tx = Nis::Transaction::MultisigSignature.new(hash, M_ADDRESS, B_PUBLIC_KEY)
 
 req = Nis::Request::PrepareAnnounce.new(tx, kp)
 res = nis.transaction_prepare_announce(req)
