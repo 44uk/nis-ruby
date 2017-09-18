@@ -52,7 +52,7 @@ module Nis::Util
 
       def xrecover(y)
         xx = (y * y - 1) * inv(@@d * y * y + 1)
-        x = xx.to_bn.mod_exp((@@q + 3) / 8, @@q)
+        x = xx.to_bn.mod_exp((@@q + 3) / 8, @@q).to_i
         x = (x * @@I) % @@q if (x * x - xx) % @@q != 0
         x = @@q - x if x % 2 != 0
         x
@@ -102,10 +102,10 @@ module Nis::Util
       end
 
       def scalarmult(_P, e)
-        @@ident if e == 0
+        return @@ident if e == 0
         _Q = scalarmult(_P, e / 2)
         _Q = edwards_double(_Q)
-        _Q = edwards_add(_Q, _P) if e & 1
+        _Q = edwards_add(_Q, _P) if (e & 1) == 1
         _Q
       end
 
@@ -207,7 +207,7 @@ module Nis::Util
       end
 
       def decodepoint(s)
-        y = (0...@@b - 1).inject(0) { |sum, i| 2**i * bit(s, i) }
+        y = (0...@@b - 1).inject(0) { |sum, i| sum + 2**i * bit(s, i) }
         x = xrecover(y)
         x = @@q - x if x & 1 != bit(s, @@b - 1)
         _P = [x, y, 1, (x * y) % @@q]
