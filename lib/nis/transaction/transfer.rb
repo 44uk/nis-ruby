@@ -33,7 +33,9 @@ class Nis::Transaction
 
       @recipient = recipient
       @amount = amount
-      @message = Nis::Struct::Message.new(message)
+      @message = message.is_a?(Nis::Struct::Message) ?
+        message :
+        Nis::Struct::Message.new(message.to_s)
       @fee = Nis::Fee::Transfer.new(self)
       @mosaics = mosaics
     end

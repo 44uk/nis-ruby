@@ -1,6 +1,7 @@
 require 'openssl'
 require 'digest/sha3'
 require 'base32'
+require 'securerandom'
 
 module Nis::Util
   module Ed25519
@@ -159,6 +160,64 @@ module Nis::Util
         a = 2**(@@b - 2) + (3...@@b - 2).inject(0) { |sum, i| sum + 2**i * bit(h, i) }
         _A = scalarmult_B(a)
         encodepoint(_A)
+      end
+
+      def encrypt(sk, pk, data)
+        h = HH(sk)
+        a = 2**(@@b - 2) + (3...@@b - 2).inject(0) { |sum, i| sum + 2**i * bit(h, i) }
+        _A = decodepoint(pk)
+        bin_g = encodepoint(scalarmult(_A, a))
+
+        bin_iv = SecureRandom.random_bytes(16)
+        # bin_iv = [133, 235, 90, 141, 29, 234, 234, 20, 115, 237, 164, 88, 224, 87, 29, 82].pack('C*')
+        hex_iv = bin_iv.unpack('H*').join
+
+        bin_salt = SecureRandom.random_bytes(32)
+        # bin_salt = [35, 150, 208, 176, 6, 179, 135, 220, 197, 253, 164, 147, 164, 177, 228, 43, 143, 146, 245, 255, 226, 71, 44, 94, 218, 169, 117, 88, 98, 241, 115, 79].pack('C*')
+        hex_salt = bin_salt.unpack('H*').join
+
+        ua_salt = Nis::Util::Convert.hex2ua(hex_salt)
+        ua_g = Nis::Util::Convert.hex2ua(bin_g.unpack('H*').join)
+
+        c = []
+        ua_salt.each_with_index { |el, idx| c << (el ^ ua_g[idx]) }
+        bin_key = Digest::SHA3.digest(c.pack('C*'), 256)
+
+        cipher = OpenSSL::Cipher.new('AES-256-CBC')
+        cipher.encrypt
+        cipher.key = bin_key
+        cipher.iv = bin_iv
+        encrypted_data = cipher.update(data.bytes.pack('C*')) + cipher.final
+        hex_salt + hex_iv + encrypted_data.unpack('H*').join
+      end
+
+      def decrypt(sk, pk, data)
+        h = HH(sk)
+        a = 2**(@@b - 2) + (3...@@b - 2).inject(0) { |sum, i| sum + 2**i * bit(h, i) }
+        _A = decodepoint(pk)
+        bin_g = encodepoint(scalarmult(_A, a))
+
+        hex_salt = data[0, 64]
+        hex_iv = data[64, 32]
+        hex_encrypted = data[96, data.size]
+
+        ua_iv = Nis::Util::Convert.hex2ua(hex_iv)
+        bin_iv = ua_iv.pack('C*')
+
+        ua_salt = Nis::Util::Convert.hex2ua(hex_salt)
+        ua_g = Nis::Util::Convert.hex2ua(bin_g.unpack('H*').first)
+
+        c = []
+        ua_salt.each_with_index { |el, idx| c << (el ^ ua_g[idx]) }
+        bin_key = Digest::SHA3.digest(c.pack('C*'), 256)
+
+        bin_encrypted = Nis::Util::Convert.hex2ua(hex_encrypted).pack('C*')
+
+        cipher = OpenSSL::Cipher.new('AES-256-CBC')
+        cipher.decrypt
+        cipher.key = bin_key
+        cipher.iv = bin_iv
+        cipher.update(bin_encrypted) + cipher.final
       end
 
       def Hint(m)

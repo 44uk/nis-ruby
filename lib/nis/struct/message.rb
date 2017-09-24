@@ -2,15 +2,32 @@ class Nis::Struct
   # @attr [String] value
   # @attr [Integer] type
   # @attr [String] payload
+  # @attr [String] public_key
   class Message
-    attr_accessor :value, :type, :payload
+    attr_reader :value, :type, :public_key, :private_key
 
     TYPE_PLAIN     = 1
     TYPE_ENCRYPTED = 2
 
-    def initialize(value = '')
+    def initialize(value = '', type: :plain, private_key: nil, public_key: nil)
       @value = value
-      @type  = TYPE_PLAIN
+      @type = (type == :encrypted) ? TYPE_ENCRYPTED : TYPE_PLAIN
+      @private_key = private_key
+      @public_key = public_key
+    end
+
+    def encrypt!
+      bin_sk = fix_private_key(@private_key).scan(/../).map(&:hex).reverse.pack('C*')
+      bin_pk = (public_key || @public_key).scan(/../).map(&:hex).pack('C*')
+      @value = Nis::Util::Ed25519.encrypt(bin_sk, bin_pk, value)
+      @type = TYPE_ENCRYPTED
+    end
+
+    def decrypt!
+      bin_sk = fix_private_key(@private_key).scan(/../).map(&:hex).reverse.pack('C*')
+      bin_pk = (public_key || @public_key).scan(/../).map(&:hex).pack('C*')
+      @value = Nis::Util::Ed25519.decrypt(bin_sk, bin_pk, payload)
+      @type = TYPE_PLAIN
     end
 
     # @return [Boolean]
@@ -40,7 +57,7 @@ class Nis::Struct
 
     # @return [String]
     def to_s
-      @value
+      @value.to_s
     end
 
     # @return [Boolean]
@@ -49,7 +66,13 @@ class Nis::Struct
     end
 
     def payload
-      @payload ||= value.unpack('H*').join
+      encrypted? ? value : value.unpack('H*').join
+    end
+
+    private
+
+    def fix_private_key(key)
+      "#{'0' * 64}#{key.sub(/^00/i, '')}"[-64, 64]
     end
   end
 end
