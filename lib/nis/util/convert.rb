@@ -69,8 +69,8 @@ module Nis::Util
         v += 0x100000000 if v < 0
         temp[0] = (v >> 24)
         temp[1] = (v >> 16) & 0xff
-        temp[2] = (v >>  8) & 0xff
-        temp[3] = (v)       & 0xff
+        temp[2] = (v >> 8) & 0xff
+        temp[3] = (v) & 0xff
         temp
       end.flatten
     end
