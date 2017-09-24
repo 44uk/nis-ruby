@@ -90,9 +90,9 @@ module Nis::Util
       a += serialize_common(entity)
       other_tx = entity[:otherTrans]
       tx = case other_tx[:type]
-        when 0x0101 then serialize_transfer(other_tx)
-        when 0x0801 then serialize_importance_transfer(other_tx)
-        when 0x1001 then serialize_multisig_aggregate_modification(other_tx)
+           when 0x0101 then serialize_transfer(other_tx)
+           when 0x0801 then serialize_importance_transfer(other_tx)
+           when 0x1001 then serialize_multisig_aggregate_modification(other_tx)
         else raise "Unexpected type #{other_tx[:type]}"
       end
       a += serialize_int(tx.size)
