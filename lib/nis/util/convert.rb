@@ -2,14 +2,6 @@ module Nis::Util
   module Convert
     HEX_ENCODE_ARRAY = %w[0 1 2 3 4 5 6 7 8 9 a b c d e f]
 
-    def hexlify(obj)
-      obj.unpack('H*').first
-    end
-
-    def unhexlify(obj)
-      obj.scan(/../).map(&:hex).pack('C*')
-    end
-
     # Reversed convertion of hex to Uint8Array
     # @param [String] hex
     # @return [Array]

@@ -74,7 +74,7 @@ module Nis::Util
       s = Nis::Util::Convert.hex2ua(serialized)
       common = deserialize_common(s)
       tx = {}
-      tx[:otherHash] = {data: deserialize_hex(s[68, 32])}
+      tx[:otherHash] = { data: deserialize_hex(s[68, 32]) }
       tx[:otherAccount] = deserialize_a(s[104, 40])
       common.merge(tx)
     end
