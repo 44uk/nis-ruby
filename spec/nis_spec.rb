@@ -305,6 +305,11 @@ describe Nis do
       .to be_a Array }
   end
 
+  describe '#time_sync_network_time' do
+    it { expect(subject.time_sync_network_time)
+      .to be_a Nis::Struct::NetworkTime }
+  end
+
   describe '#request' do
     context '/account/get' do
       it { expect(subject.request(:get, 'account/get',

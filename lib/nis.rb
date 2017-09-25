@@ -69,6 +69,8 @@ class Nis
   include Nis::Endpoint::Node::Info
   include Nis::Endpoint::Node::PeerList
 
+  include Nis::Endpoint::TimeSync::NetworkTime
+
   include Nis::Endpoint::Debug::Connections
   include Nis::Endpoint::Debug::TimeSynchronization
 end
