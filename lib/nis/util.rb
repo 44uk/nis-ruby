@@ -40,7 +40,7 @@ module Nis::Util
   end
 
   def self.timestamp
-    (Time.now - NEM_EPOCH).to_i
+    (Time.now.utc - NEM_EPOCH).to_i
   end
 
   def self.error_handling(hash)
