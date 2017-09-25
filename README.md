@@ -128,6 +128,25 @@ $ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
 
 Environment variable used as default value.
 
+## Logging
+
+```ruby
+# custom loggin output (default is STDOUT)
+Nis.logger = Logger.new('/path/to/nis-ruby.log')
+# custom log level
+Nis.logger.level = Logger::DEBUG
+
+# or configuration
+Nis.configure do |conf|
+  conf.logger = Logger.new('/path/to/nis-ruby.log')
+  conf.logger.level = Logger::DEBUG
+end
+```
+
+```
+D, [2017-09-26T08:03:54.752718 #78207] DEBUG -- : host:http://127.0.0.1:7890/   method:post     path:/transaction/prepare-announce      params:{:transaction=>{:type=>257, :network=>:testnet, :recipient=>"TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF", :amount=>1000000, :message=>{:payload=>"476f6f64206c75636b21", :type=>1}, :fee=>100000, :timeStamp=>78793049, :deadline=>78796649, :version=>2550136833, :signer=>"be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033"}, :privateKey=>"4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214"}
+```
+
 ## For More Information
 
 * [Documentation for nis-ruby - rubydoc.info](http://www.rubydoc.info/gems/nis-ruby)
