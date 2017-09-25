@@ -182,6 +182,9 @@ node/boot:
       private-key: a6cbd01d04edecfaef51df9486c111abb6299c764a00206eb1d01f4587491b3f
       name: Alice
 
+time-sync/network-time:
+  method: get
+
 namespace/root/page:
   method: get
   params:
