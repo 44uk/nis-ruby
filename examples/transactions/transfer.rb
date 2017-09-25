@@ -1,5 +1,11 @@
 require 'nis'
 
+# output debug log example
+# Nis.configure do |conf|
+#   conf.logger = Logger.new('./nis-ruby.log')
+#   conf.logger.level = Logger::DEBUG
+# end
+
 # sender
 A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
 
