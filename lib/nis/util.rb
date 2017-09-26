@@ -1,4 +1,5 @@
 module Nis::Util
+  MIJIN   = 0x60000000
   TESTNET = 0x98000000 # -1744830464
   MAINNET = 0x68000000 #  1744830464
 
@@ -23,6 +24,7 @@ module Nis::Util
 
   def self.parse_network(network)
     case network
+    when :mijin then MIJIN
     when :mainnet then MAINNET
     when :testnet then TESTNET
       else TESTNET
