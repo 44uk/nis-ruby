@@ -9,15 +9,16 @@
 
 Ruby client library for the NEM Infrastructure Server(NIS) API.
 
-- [NEM \- Distributed Ledger Technology \(Blockchain\)](https://www.nem.io/)
-- [NEM NIS API Documentation](https://nemproject.github.io/)
-- [NEM Forum](https://forum.nem.io/)
-
 *The gem is under development. Incompatible changes can be made.*
 
-*Do a thorough test on testnet before you use this gem on production.*
+*Not recommended for production use because of lack of testing, needed more improvement.*
 
-- [NEM Testnet Faucet \- You can get Testnet XEM for development / testing.](http://test-nem-faucet.44uk.net/)
+For further development of nem with ruby, [feel free to send me your feedback!](#feedback-and-contact)
+
+* [NEM \- Distributed Ledger Technology \(Blockchain\)](https://www.nem.io/)
+* [NEM NIS API Documentation](https://nemproject.github.io/)
+* [NEM Forum](https://forum.nem.io/)
+* [NEM Testnet Faucet \- You can get Testnet XEM for development / testing.](http://test-nem-faucet.44uk.net/)
 
 ## Installation
 
@@ -56,7 +57,8 @@ kp = Nis::Keypair.new(SENDER_PRIV_KEY)
 tx = Nis::Transaction::Transfer.new(
   RECIPIENT_ADDRESS,
   1, # send 1xem
-  'Message'
+  'Message',
+  network: :testnet # :mainnet (default is :testnet)
 )
 req = Nis::Request::PrepareAnnounce.new(tx, kp)
 # Request to local node.
@@ -147,16 +149,16 @@ end
 D, [2017-09-26T08:03:54.752718 #78207] DEBUG -- : host:http://127.0.0.1:7890/   method:post     path:/transaction/prepare-announce      params:{:transaction=>{:type=>257, :network=>:testnet, :recipient=>"TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF", :amount=>1000000, :message=>{:payload=>"476f6f64206c75636b21", :type=>1}, :fee=>100000, :timeStamp=>78793049, :deadline=>78796649, :version=>2550136833, :signer=>"be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033"}, :privateKey=>"4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214"}
 ```
 
-## For More Information
+## Feedback and Contact
 
-* [Documentation for nis-ruby - rubydoc.info](http://www.rubydoc.info/gems/nis-ruby)
-
-## Contact
-
-Feel free to ask me if you have any questions.
+For further development of nem with ruby, feel free to send me your feedback!
 
 * [@44uk_i3 - Twitter](https://twitter.com/44uk_i3)
 * [44uk/nis-ruby - gitter](https://gitter.im/44uk/nis-ruby)
+
+## For More Information
+
+* [Documentation for nis-ruby - rubydoc.info](http://www.rubydoc.info/gems/nis-ruby)
 
 ## Contributing
 
