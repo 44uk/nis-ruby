@@ -16,29 +16,35 @@ module Nis::Util
       hex.scan(/../).map(&:hex)
     end
 
-    # Convert an Uint8Array to hex
-    # @param [Uint8Array] ua - An Uint8Array
+    # Convert an Array to hex
+    # @param [Array] ua - An Uint8Array
     # @return [string]
     def self.ua2hex(ua)
-      ua.map { |el| "#{HEX_ENCODE_ARRAY[el >> 4]}#{HEX_ENCODE_ARRAY[el & 0x0f]}" }.join
+      ua.inject('') { |memo, el| memo << "#{HEX_ENCODE_ARRAY[el >> 4]}#{HEX_ENCODE_ARRAY[el & 0x0f]}" }
     end
 
     # Convert hex to string
     # @param [String] hex
     # @return [String]
     def self.hex2a(hex)
-      hex.scan(/../).map { |el| el.to_i(16).chr }.join
+      hex.scan(/../).inject('') { |memo, el| memo << el.hex.chr }
+    end
+
+    # @param [Array] bin
+    # @return [String]
+    def self.bin2hex(bin)
+      bin.map { |v| '%02x' % v }.join
     end
 
     # Convert UTF-8 to hex
     # @param [string] str
     # @return [string]
     def self.utf8_to_hex(str)
-      rstr2utf8(str).each_byte.map { |b| b.to_s(16) }.join
+      rstr2utf8(str).bytes.inject('') { |memo, b| memo << b.to_s(16) }
     end
 
     # Convert an Uint8Array to WordArray
-    # @param [Uint8Array] ua - An Uint8Array
+    # @param [Array] ua - An Uint8Array
     # @param [number] uaLength - The Uint8Array length
     # @return [WordArray]
     def self.ua2words(ua, ua_length)
@@ -52,36 +58,36 @@ module Nis::Util
     end
 
     # Convert a wordArray to Uint8Array
-    # @param [Uint8Array] destUa - A destination Uint8Array
-    # @param [WordArray] cryptowords - A wordArray
-    # @return [Uint8Array]
+    # @param [Array] destUa - A destination Uint8Array
+    # @param [Array] cryptowords - A wordArray
+    # @return [Array]
     def self.words2ua(words)
-      words.map do |v|
+      words.inject([]) do |memo, v|
         temp = []
         v += 0x100000000 if v < 0
         temp[0] = (v >> 24)
         temp[1] = (v >> 16) & 0xff
         temp[2] = (v >> 8) & 0xff
         temp[3] = (v) & 0xff
-        temp
-      end.flatten
+        memo + temp
+      end
     end
 
     # Converts a raw javascript string into a string of single byte characters using utf8 encoding.
     # This makes it easier to perform other encoding operations on the string.
     # @param [String] str
     # @return [String]
-    def self.rstr2utf8(input)
-      input.unpack('U*').map do |c|
-        case
-        when c < 128
-          c
-        when 128 < c && c < 2048
-          [((c >> 6) | 192), ((c & 63) | 128)]
-        else
-          [((c >> 12) | 224), (((c >> 6) & 63) | 128), ((c & 63) | 128)]
+    def self.rstr2utf8(str)
+      str.unpack('U*').inject('') do |memo, c|
+        memo << case
+                when c < 128
+                  c.chr
+                when 128 < c && c < 2048
+                  (c >> 6 | 192).chr + (c & 63 | 128).chr
+          else
+                  (c >> 12 | 224).chr + (c >> 6 & 63 | 128).chr + (c & 63 | 128).chr
         end
-      end.flatten.map(&:chr).join
+      end
     end
 
     # Does the reverse of rstr2utf8.
