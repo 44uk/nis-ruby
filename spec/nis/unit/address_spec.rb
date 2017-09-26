@@ -35,6 +35,15 @@ describe Nis::Unit::Address do
     end
   end
 
+  describe '#mijin?' do
+    it { expect(subject.mijin?).to eq false }
+
+    context 'with Mijin address' do
+      let(:value) { 'MDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV77AOZZAB' }
+      it { expect(subject.mijin?).to eq true }
+    end
+  end
+
   describe '#to_s' do
     it { expect(subject.to_s).to eq value }
   end

@@ -27,6 +27,11 @@ module Nis::Unit
       @first_char == 'T'
     end
 
+    # @return [Boolean]
+    def mijin?
+      @first_char == 'M'
+    end
+
     # @return [String]
     def to_s
       @value
@@ -49,6 +54,8 @@ module Nis::Unit
 
       if network == :testnet
         version = "\x98".force_encoding('ASCII-8BIT') + ripe
+      elsif network == :mijin
+        version = "\x60" + ripe
       else
         version = "\x68" + ripe
       end
