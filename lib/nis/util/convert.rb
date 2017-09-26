@@ -37,14 +37,6 @@ module Nis::Util
       rstr2utf8(str).each_byte.map { |b| b.to_s(16) }.join
     end
 
-    # // Padding helper for above function
-    # let strlpad = function(str, pad, len) {
-    #     while (str.length < len) {
-    #         str = pad + str;
-    #     }
-    #     return str;
-    # }
-
     # Convert an Uint8Array to WordArray
     # @param [Uint8Array] ua - An Uint8Array
     # @param [number] uaLength - The Uint8Array length
@@ -94,24 +86,7 @@ module Nis::Util
 
     # Does the reverse of rstr2utf8.
     def utf82rstr(input)
-        # let output = "", i = 0, c = 0, c1 = 0, c2 = 0, c3 = 0;
-        # while (i < input.length) {
-        #     c = input.charCodeAt(i);
-        #     if (c < 128) {
-        #         output += String.fromCharCode(c);
-        #         i++;
-        #     } else if ((c > 191) && (c < 224)) {
-        #         c2 = input.charCodeAt(i + 1);
-        #         output += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
-        #         i += 2;
-        #     } else {
-        #         c2 = input.charCodeAt(i + 1);
-        #         c3 = input.charCodeAt(i + 2);
-        #         output += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
-        #         i += 3;
-        #     }
-        # }
-        # return output;
+      raise 'Not implemented.'
     end
   end
 end
