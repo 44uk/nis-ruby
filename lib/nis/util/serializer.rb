@@ -199,7 +199,8 @@ module Nis::Util
       mosaics = entities.inject([]) do |memo, ent|
         memo.concat serialize_mosaic_and_quantity(ent)
       end
-      a.concat serialize_int(mosaics.size), mosaics
+      a.concat serialize_int(mosaics.size)
+      a.concat mosaics
     end
 
     # @param [Hash] entity
