@@ -33,6 +33,9 @@ module Nis::Util
         a.concat serialize_int(payload.size)
         a.concat payload
       end
+      if entity[:mosaics] && entity[:mosaics].size > 0
+        a.concat serialize_mosaics(entity[:mosaics])
+      end
       a
     end
 
@@ -78,7 +81,6 @@ module Nis::Util
       a.concat serialize_int(temp.size)
       a.concat temp
       a.concat serialize_safe_string(entity[:otherAccount])
-      a
     end
 
     def self.serialize_multisig(entity)
@@ -93,7 +95,6 @@ module Nis::Util
       tx = serialize_common(other) + tx
       a.concat serialize_int(tx.size)
       a.concat tx
-      a
     end
 
     def self.serialize_provision_namespace(entity)
@@ -118,24 +119,13 @@ module Nis::Util
       a.concat serialize_mosaic_definition(entity[:mosaicDefinition])
       a.concat serialize_safe_string(entity[:creationFeeSink])
       a.concat serialize_long(entity[:creationFee])
-      a
     end
 
     def self.serialize_mosaic_supply_change(entity)
       a = []
-      mo_id = entity[:mosaicId]
-      a_ns = Nis::Util::Convert.hex2ua(Nis::Util::Convert.utf8_to_hex(mo_id[:namespaceId]))
-      a_ns_len = serialize_int(a_ns.size)
-      a_mo = Nis::Util::Convert.hex2ua(Nis::Util::Convert.utf8_to_hex(mo_id[:name]))
-      a_mo_len = serialize_int(a_mo.size)
-      a.concat serialize_int((a_ns_len + a_ns + a_mo_len + a_mo).size)
-      a.concat a_ns_len
-      a.concat a_ns
-      a.concat a_mo_len
-      a.concat a_mo
+      a.concat serialize_mosaic_id(entity[:mosaicId])
       a.concat serialize_int(entity[:supplyType])
       a.concat serialize_long(entity[:delta])
-      a
     end
 
     def self.serialize_common(entity)
@@ -144,13 +134,12 @@ module Nis::Util
       a.concat serialize_int(entity[:version])
       a.concat serialize_int(entity[:timeStamp])
 
-      temp = Nis::Util::Convert.hex2ua(entity[:signer])
-      a.concat serialize_int(temp.size)
-      a.concat temp
+      signer = Nis::Util::Convert.hex2ua(entity[:signer])
+      a.concat serialize_int(signer.size)
+      a.concat signer
 
       a.concat serialize_long(entity[:fee].to_i)
       a.concat serialize_int(entity[:deadline])
-      a
     end
 
     # Safe String - Each char is 8 bit
@@ -174,12 +163,13 @@ module Nis::Util
     # @param [Integer] value
     # @return [Array]
     def self.serialize_int(value)
-      a = [0, 0, 0, 0]
-      bin = sprintf('%032b', value)
-      0.upto(bin.size / 8 - 1) do |i|
-        a[i] = 0xFF & (value >> 8 * i)
-      end
-      a
+      [value].pack('I').unpack('C4')
+      # a = [0, 0, 0, 0]
+      # bin = sprintf('%032b', value)
+      # 0.upto(bin.size / 8 - 1) do |i|
+      #   a[i] = 0xFF & (value >> 8 * i)
+      # end
+      # a
     end
 
     # @param [Integer] value
@@ -195,35 +185,21 @@ module Nis::Util
 
     # @param [Nis::Struct::Mosaic] mosaic
     # @return [Array]
-    def self.serialize_mosaic_and_quantity(mosaic)
-      a = [].fill(0, 0, 4)
-      serialized_mosaic_id = serialize_mosaic_id(mosaic.mosaic_id)
-      serialized_quantity = serialize_long(mosaic.quantity)
-      a[0] = serialized_mosaic_id.size + serialized_quantity.size
-      a.concat serialized_mosaic_id + serialized_quantity
+    def self.serialize_mosaic_and_quantity(mosaic_attachment)
+      a = []
+      a.concat serialize_mosaic_id(mosaic_attachment[:mosaicId])
+      a.concat serialize_long(mosaic_attachment[:quantity])
     end
 
     # @param [Array <Nis::Struct::Mosaic>] entities
     # @return [Array]
     def self.serialize_mosaics(entities)
-      a = [].fill(0, 0, 4)
-      a[0] = entities.size
-      a + entities.map do |ent|
-        # {
-        #   entity: ent,
-        #   value: "#{ent.mosaic_id.namespace_id}:#{ent.mosaic_id.name}:#{ent.quantity}"
-        # }
-        { entity: ent,
-          value: [
-            ent.mosaic_id.namespace_id,
-            ent.mosaic_id.name,
-            ent.quantity,
-          ].join(':') }
-      end.sort_by do |ent|
-        ent[:value]
-      end.map do |ent|
-        serialize_mosaic_and_quantity(ent[:entity])
-      end.flatten
+      a = []
+      a.concat serialize_int(entities.size)
+      mosaics = entities.inject([]) do |memo, ent|
+        memo.concat serialize_mosaic_and_quantity(ent)
+      end
+      a.concat serialize_int(mosaics.size), mosaics
     end
 
     # @param [Hash] entity
@@ -274,9 +250,9 @@ module Nis::Util
     # @return [Array]
     def self.serialize_mosaic_definition(entity)
       a = []
-      temp = Nis::Util::Convert.hex2ua(entity[:creator])
-      a.concat serialize_int(temp.size)
-      a.concat temp
+      creator = Nis::Util::Convert.hex2ua(entity[:creator])
+      a.concat serialize_int(creator.size)
+      a.concat creator
       a.concat serialize_mosaic_id(entity[:id])
       a.concat serialize_bin_string(Nis::Util::Convert.hex2ua(Nis::Util::Convert.utf8_to_hex(entity[:description])))
       a.concat serialize_properties(entity[:properties])

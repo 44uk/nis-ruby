@@ -89,6 +89,34 @@ describe Nis::Util::Serializer do
 
       it { expect(subject).to eq common + specific }
 
+      context 'and mosaics' do
+        let(:entity) do
+          {
+            type: 257,
+            version: -1744830462,
+            timeStamp: 9111526,
+            signer: 'a1aaca6c17a24252e674d155713cdf55996ad00175be4af02a20c67b59f9fe8a',
+            fee: 50_000,
+            deadline: 9154726,
+            recipient: 'TAH4MBR6MNLZKJAVW5ZJCMFAL7RS5U2YODUQKLCT',
+            amount: 1_000_000,
+            message: {
+              payload: 'Hello',
+              type: 1
+            },
+            mosaics: [
+              { mosaicId: { namespaceId: 'makoto.metals.silver', name: 'coin' },
+                quantity: 1_500 }
+            ],
+            privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'
+          }
+        end
+        let(:common)   { [1, 1, 0, 0, 2, 0, 0, 152, 230, 7, 139, 0, 32, 0, 0, 0, 161, 170, 202, 108, 23, 162, 66, 82, 230, 116, 209, 85, 113, 60, 223, 85, 153, 106, 208, 1, 117, 190, 74, 240, 42, 32, 198, 123, 89, 249, 254, 138, 80, 195, 0, 0, 0, 0, 0, 0, 166, 176, 139, 0] }
+        let(:specific) { [40, 0, 0, 0, 84, 65, 72, 52, 77, 66, 82, 54, 77, 78, 76, 90, 75, 74, 65, 86, 87, 53, 90, 74, 67, 77, 70, 65, 76, 55, 82, 83, 53, 85, 50, 89, 79, 68, 85, 81, 75, 76, 67, 84, 64, 66, 15, 0, 0, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 44, 0, 0, 0, 32, 0, 0, 0, 20, 0, 0, 0, 109, 97, 107, 111, 116, 111, 46, 109, 101, 116, 97, 108, 115, 46, 115, 105, 108, 118, 101, 114, 4, 0, 0, 0, 99, 111, 105, 110, 220, 5, 0, 0, 0, 0, 0, 0] }
+
+        it { expect(subject).to eq common + specific }
+      end
+
       context 'and multisig' do
         let(:entity) do
           {
