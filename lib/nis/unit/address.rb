@@ -48,16 +48,16 @@ module Nis::Unit
     end
 
     def self.from_public_key(public_key, network = :testnet)
-      bin_public_key = public_key.scan(/../).map(&:hex).pack('C*')
+      bin_public_key = Nis::Util::Convert.hex2bin(public_key)
       public_key_hash = Digest::SHA3.digest(bin_public_key, 256)
       ripe = OpenSSL::Digest::RIPEMD160.digest(public_key_hash)
 
       if network == :testnet
-        version = "\x98".force_encoding('ASCII-8BIT') + ripe
+        version = "\x98".force_encoding('ASCII-8BIT') << ripe
       elsif network == :mijin
-        version = "\x60" + ripe
+        version = "\x60" << ripe
       else
-        version = "\x68" + ripe
+        version = "\x68" << ripe
       end
 
       checksum = Digest::SHA3.digest(version, 256)[0...4]
