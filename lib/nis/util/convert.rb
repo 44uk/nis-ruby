@@ -16,18 +16,23 @@ module Nis::Util
       hex.scan(/../).map(&:hex)
     end
 
-    # Convert an Array to hex
-    # @param [Array] ua - An Uint8Array
-    # @return [string]
-    def self.ua2hex(ua)
-      ua.inject('') { |memo, el| memo << "#{HEX_ENCODE_ARRAY[el >> 4]}#{HEX_ENCODE_ARRAY[el & 0x0f]}" }
-    end
-
     # Convert hex to string
     # @param [String] hex
     # @return [String]
     def self.hex2a(hex)
       hex.scan(/../).inject('') { |memo, el| memo << el.hex.chr }
+    end
+
+    # @param [Array] bin
+    # @return [String]
+    def self.hex2bin(hex)
+      hex2ua(hex).pack('C*')
+    end
+
+    # @param [Array] bin
+    # @return [String]
+    def self.hex2bin_rev(hex)
+      hex2ua_rev(hex).pack('C*')
     end
 
     # @param [Array] bin
@@ -41,6 +46,13 @@ module Nis::Util
     # @return [string]
     def self.utf8_to_hex(str)
       rstr2utf8(str).bytes.inject('') { |memo, b| memo << b.to_s(16) }
+    end
+
+    # Convert an Array to hex
+    # @param [Array] ua - An Uint8Array
+    # @return [string]
+    def self.ua2hex(ua)
+      ua.inject('') { |memo, el| memo << "#{HEX_ENCODE_ARRAY[el >> 4]}#{HEX_ENCODE_ARRAY[el & 0x0f]}" }
     end
 
     # Convert an Uint8Array to WordArray
