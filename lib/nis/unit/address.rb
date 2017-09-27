@@ -39,7 +39,7 @@ module Nis::Unit
 
     # @return [String]
     def to_hexadecimal
-      @value.each_byte.map { |b| b.to_s(16) }.join
+      @value.each_byte.inject('') { |memo, b| memo << b.to_s(16) }
     end
 
     # @return [Boolean]
