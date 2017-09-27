@@ -28,6 +28,20 @@ module Nis::Endpoint
             res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
           end
         end
+
+        def local_account_transfers(dir = :all, page:)
+          request!(:post, "/local/account/transfers/#{local_account_transfers_direction(dir)}", page) do |res|
+            res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
+          end
+        end
+
+        def local_account_transfers_direction(dir)
+          case dir.to_s
+            when /\Ai/ then :incoming
+            when /\Ao/ then :outgoing
+            else :all
+          end
+        end
       end
     end
   end
