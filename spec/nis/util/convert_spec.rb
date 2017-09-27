@@ -17,14 +17,13 @@ describe Nis::Util::Convert do
   it { expect(subject.ua2words(ua_rev, 32)).to eq words }
   it { expect(subject.words2ua(words)).to eq ua_rev }
 
-  let(:hexstr) { '48656c6c6f21' }
-  let(:str) { 'Hello!' }
+  let(:hexstr) { '4e6577206a6f623a20666978204d722e20476c75636b27732068617a792054562c2050445121' }
+  let(:str) { "New job: fix Mr. Gluck's hazy TV, PDQ!" }
 
   it { expect(subject.hex2a(hexstr)).to eq str }
 
-  let(:utf8str) { 'あいうえお' }
-  let(:hex_utf8str) { 'e38182e38184e38186e38188e3818a' }
+  let(:hex_utf8str) { 'e38184e3828de381afe381abe381bbe381b8e381a8e381a1e3828ae381ace3828be38292e3828fe3818be38288e3819fe3828ce3819de381a4e381ade381aae38289e38280' }
+  let(:utf8str) { 'いろはにほへとちりぬるをわかよたれそつねならむ' }
 
   it { expect(subject.utf8_to_hex(utf8str)).to eq hex_utf8str }
-
 end

@@ -2,7 +2,6 @@ require 'logger'
 
 class Nis
   module Configuration
-
     # Logger for {#debug}, default is `Nis::Logger.new(STDOUT)`
     # @return [Logger]
     attr_accessor :logger

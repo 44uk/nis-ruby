@@ -66,7 +66,7 @@ class Nis::Struct
     end
 
     def payload
-      encrypted? ? value : value.unpack('H*').join
+      encrypted? ? value : value.unpack('H*').first
     end
 
     private

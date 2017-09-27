@@ -25,16 +25,8 @@ describe Nis::Util::Serializer do
       properties: properties,
       levy: levy }
   end
-
-  let(:description) { 'A healthy drink with lots of vitamins' }
-  let(:hex_description) { '41206865616c746879206472696e6b2077697468206c6f7473206f6620766974616d696e73' }
-
-  let(:description_ja) { 'あいうえお' }
-  let(:hex_description_ja) { 'e38182e38184e38186e38188e3818a' }
-
   let(:hex_creator) { '10cfe522fe23c015b8ab24ef6a0c32c5de78eb55b2152ed07b6a092121187100' }
-  let(:ua_creator)  { [16, 207, 229, 34, 254, 35, 192, 21, 184, 171, 36, 239, 106, 12, 50, 197, 222, 120, 235, 85, 178, 21, 46, 208, 123, 106, 9, 33, 33, 24, 113, 0] }
-  let(:ua_creator_reversed)  { [0, 113, 24, 33, 33, 9, 106, 123, 208, 46, 21, 178, 85, 235, 120, 222, 197, 50, 12, 106, 239, 36, 171, 184, 21, 192, 35, 254, 34, 229, 207, 16] }
+  let(:description) { 'A healthy drink with lots of vitamins' }
 
   it { expect(subject.serialize_safe_string('Hello')).to eq [5, 0, 0, 0, 72, 101, 108, 108, 111] }
   it { expect(subject.serialize_safe_string(nil)).to eq [255, 255, 255, 255] }
@@ -70,13 +62,6 @@ describe Nis::Util::Serializer do
   it { expect(subject.serialize_levy(nil)).to eq [0, 0, 0, 0] }
 
   xit { expect(subject.serialize_mosaic_definition(mosaic_definition)).to eq [32, 0, 0, 0, 16, 207, 229, 34, 254, 35, 192, 21, 184, 171, 36, 239, 106, 12, 50, 197, 222, 120, 235, 85, 178, 21, 46, 208, 123, 106, 9, 33, 33, 24, 113, 0, 31, 0, 0, 0, 19, 0, 0, 0, 109, 97, 107, 111, 116, 111, 46, 109, 101, 116, 97, 108, 46, 115, 105, 108, 118, 101, 114, 4, 0, 0, 0, 99, 111, 105, 110, 37, 0, 0, 0, 65, 32, 104, 101, 97, 108, 116, 104, 121, 32, 100, 114, 105, 110, 107, 32, 119, 105, 116, 104, 32, 108, 111, 116, 115, 32, 111, 102, 32, 118, 105, 116, 97, 109, 105, 110, 115, 1, 0, 0, 0, 21, 0, 0, 0, 12, 0, 0, 0, 100, 105, 118, 105, 115, 105, 98, 105, 108, 105, 116, 121, 1, 0, 0, 0, 51, 91, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 84, 65, 72, 52, 77, 66, 82, 54, 77, 78, 76, 90, 75, 74, 65, 86, 87, 53, 90, 74, 67, 77, 70, 65, 76, 55, 82, 83, 53, 85, 50, 89, 79, 68, 85, 81, 75, 76, 67, 84, 31, 0, 0, 0, 19, 0, 0, 0, 109, 97, 107, 111, 116, 111, 46, 109, 101, 116, 97, 108, 46, 115, 105, 108, 118, 101, 114, 4, 0, 0, 0, 99, 111, 105, 110, 64, 66, 15, 0, 0, 0, 0, 0] }
-
-  it { expect(subject.hex2ua(hex_creator)).to eq ua_creator }
-  # it { expect(subject.ua2hex(ua_creator)).to eq hex_creator }
-  it { expect(subject.hex2ua_reversed(hex_creator)).to eq ua_creator_reversed }
-
-  it { expect(subject.utf8_to_hex(description)).to eq hex_description }
-  it { expect(subject.utf8_to_hex(description_ja)).to eq hex_description_ja }
 
   describe '.serialize_transaction' do
     subject { described_class.serialize_transaction(entity) }
