@@ -97,22 +97,6 @@ nis.request(:post, '/account/unlock',
 # See https://nemproject.github.io/#locking-and-unlocking-accounts
 ```
 
-## Commandline
-
-```bash
-$ nis status
-# => {"code":6,"type":4,"message":"status"}
-
-$ nis heartbeat
-# => {"code":1,"type":2,"message":"ok"}
-
-$ nis request get account/get --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS
-# => [AccountMetaDataPair structure]
-
-$ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS hash:81d52a7df4abba8bb1613bcc42b6b93cf3114524939035d88ae8e864cd2c34c8
-# => [Array <HervestInfo structure>]
-```
-
 ## Connection
 
 You can choose nodes from [NEM Node Rewards](https://supernodes.nem.io/).
@@ -131,7 +115,6 @@ Nis.new(url: 'http://23.228.67.85:7890')
 
 ```bash
 $ export NIS_URL=http://23.228.67.85:7890
-$ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
 ```
 
 Environment variable used as default value.
