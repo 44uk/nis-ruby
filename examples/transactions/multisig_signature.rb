@@ -1,4 +1,7 @@
 require 'nis'
+Nis.logger.level = Logger::DEBUG
+
+nis = Nis.new
 
 # multisig
 M_PUBLIC_KEY = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'
@@ -24,12 +27,12 @@ unless txes.size > 0
 end
 
 hash = txes.first.meta.data
-puts "Unconfirmed Transaction Hash: #{hash}"
+p "Unconfirmed Transaction Hash: #{hash}"
 
 tx = Nis::Transaction::MultisigSignature.new(hash, M_ADDRESS, B_PUBLIC_KEY)
 
 req = Nis::Request::PrepareAnnounce.new(tx, kp)
 res = nis.transaction_prepare_announce(req)
 
-puts "Message: #{res.message}"
-puts "TransactionHash: #{res.transaction_hash}"
+p "Message: #{res.message}"
+p "TransactionHash: #{res.transaction_hash}"
