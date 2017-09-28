@@ -1,4 +1,7 @@
 require 'nis'
+Nis.logger.level = Logger::DEBUG
+
+nis = Nis.new
 
 # multisig
 M_PUBLIC_KEY  = '00f077782658ae91b77f238ba5fcd7ef110564b5c189072e4d4590d9b17f9d76f3'
@@ -13,11 +16,10 @@ kp = Nis::Keypair.new(A_PRIVATE_KEY)
 
 ttx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')
 tx = Nis::Transaction::Multisig.new(ttx, M_PUBLIC_KEY)
-puts "Fee: #{tx.fee.to_i}"
+p "Fee: #{tx.fee.to_i}"
 
-nis = Nis.new
 req = Nis::Request::PrepareAnnounce.new(tx, kp)
 res = nis.transaction_prepare_announce(req)
 
-puts "Message: #{res.message}"
-puts "TransactionHash: #{res.transaction_hash}"
+p "Message: #{res.message}"
+p "TransactionHash: #{res.transaction_hash}"

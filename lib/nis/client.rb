@@ -15,6 +15,7 @@ class Nis::Client
   }.freeze
 
   LOCAL_ONLY_PATHES = [
+    '/account/generate',
     '/local/account/transfers/incoming',
     '/local/account/transfers/outgoing',
     '/local/account/transfers/all',

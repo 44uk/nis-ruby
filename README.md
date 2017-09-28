@@ -43,6 +43,11 @@ More specific example codes are in **[examples/](examples/)** directory.
 ```ruby
 require 'rubygems'
 require 'nis'
+# turn on output request information
+Nis.logger.level = Logger::DEBUG
+
+A_PRIVATE_KEY = '__put_your_private_key__'
+
 nis = Nis.new
 
 nis.heartbeat
@@ -53,7 +58,7 @@ nis.status
 # => {code: 6, type: 4, message: "status"}
 # See https://nemproject.github.io/#status-request
 
-kp = Nis::Keypair.new(SENDER_PRIV_KEY)
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
 tx = Nis::Transaction::Transfer.new(
   RECIPIENT_ADDRESS,
   1, # send 1xem
@@ -67,7 +72,8 @@ nis.transaction_prepare_announce(req)
 # => {innerTransactionHash: {}, code: 1, type: 1, message: "SUCCESS", transactionHash: {data: "9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde"}}
 
 # Request to remote node.
-# nis = Nis.new(host: '104.128.226.60')
+# nis = Nis.new(host: '23.228.67.85')
+# req = Nis::Request::Announce.new(tx, kp)
 # nis.transaction_announce(req)
 ```
 
@@ -115,16 +121,16 @@ You can choose nodes from [NEM Node Rewards](https://supernodes.nem.io/).
 
 ```ruby
 # Passing hostname
-Nis.new(host: '104.128.226.60')
+Nis.new(host: '23.228.67.85')
 
 # Passing url
-Nis.new(url: 'http://104.128.226.60:7890')
+Nis.new(url: 'http://23.228.67.85:7890')
 ```
 
 ### Environment Variable
 
 ```bash
-$ export NIS_URL=http://104.128.226.60:7890
+$ export NIS_URL=http://23.228.67.85:7890
 $ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
 ```
 
