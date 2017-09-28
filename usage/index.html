@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Usage - nis-ruby</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../custom.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Usage";
+    var mkdocs_page_input_path = "usage.md";
+    var mkdocs_page_url = "/usage/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> nis-ruby</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Usage</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#usage">Usage</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#installation">Installation</a></li>
+        
+            <li><a class="toctree-l3" href="#connection">Connection</a></li>
+        
+            <li><a class="toctree-l3" href="#logging">Logging</a></li>
+        
+            <li><a class="toctree-l3" href="#xem-for-development">XEM for development</a></li>
+        
+            <li><a class="toctree-l3" href="#rubydoc">Rubydoc</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">nis-ruby</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Usage</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/44uk/nis-ruby/edit/master/docs/usage.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="usage">Usage</h1>
+<h2 id="installation">Installation</h2>
+<pre><code class="bash">$ gem install nis-ruby
+</code></pre>
+
+<p>or add this line to your application's Gemfile.</p>
+<pre><code class="ruby">gem 'nis-ruby'
+</code></pre>
+
+<h3 id="methods">Methods</h3>
+<pre><code class="ruby">require 'rubygems'
+require 'nis'
+# turn on output request information
+Nis.logger.level = Logger::DEBUG
+
+A_PRIVATE_KEY = '__put_your_private_key__'
+
+nis = Nis.new
+
+nis.heartbeat
+# =&gt; {code: 1, type: 2, message: &quot;ok&quot;}
+# See https://nemproject.github.io/#heart-beat-request
+
+nis.status
+# =&gt; {code: 6, type: 4, message: &quot;status&quot;}
+# See https://nemproject.github.io/#status-request
+
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+tx = Nis::Transaction::Transfer.new(
+  RECIPIENT_ADDRESS,
+  1, # send 1xem
+  'Message',
+  network: :testnet # :mainnet (default is :testnet)
+)
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+# Request to local node.
+nis.transaction_prepare_announce(req)
+# See https://nemproject.github.io/#initiating-a-transfer-transaction
+# =&gt; {innerTransactionHash: {}, code: 1, type: 1, message: &quot;SUCCESS&quot;, transactionHash: {data: &quot;9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde&quot;}}
+
+# Request to remote node.
+nis = Nis.new(host: '23.228.67.85')
+req = Nis::Request::Announce.new(tx, kp)
+nis.transaction_announce(req)
+</code></pre>
+
+<h3 id="api-path">API Path</h3>
+<pre><code class="ruby">require 'rubygems'
+require 'nis'
+nis = Nis.new
+
+nis.request(:get, '/account/get',
+  address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'
+)
+# =&gt; [AccountMetaDataPair structure]
+# See https://nemproject.github.io/#accountMetaDataPair
+
+nis.request(:post, '/account/unlock',
+  privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'
+)
+# =&gt; Nothing
+# See https://nemproject.github.io/#locking-and-unlocking-accounts
+</code></pre>
+
+<h3 id="examples">Examples</h3>
+<p>More specific example codes are in <strong><a href="https://github.com/44uk/nis-ruby/tree/master/examples">examples/</a></strong> directory.</p>
+<h2 id="connection">Connection</h2>
+<p>You can choose nodes from <a href="https://supernodes.nem.io/">NEM Node Rewards</a>.</p>
+<h3 id="hash">Hash</h3>
+<pre><code class="ruby"># Passing hostname
+Nis.new(host: '23.228.67.85')
+
+# Passing url
+Nis.new(url: 'http://23.228.67.85:7890')
+</code></pre>
+
+<h3 id="env-variable">ENV Variable</h3>
+<pre><code class="bash">$ export NIS_URL=http://23.228.67.85:7890
+</code></pre>
+
+<p><code>ENV['NIS_URL']</code> used as default value.</p>
+<h2 id="logging">Logging</h2>
+<pre><code class="ruby"># custom loggin output (default is STDOUT)
+Nis.logger = Logger.new('/path/to/nis-ruby.log')
+# custom log level
+Nis.logger.level = Logger::DEBUG
+
+# or configuration
+Nis.configure do |conf|
+  conf.logger = Logger.new('/path/to/nis-ruby.log')
+  conf.logger.level = Logger::DEBUG
+end
+</code></pre>
+
+<pre><code>D, [2017-09-26T08:03:54.752718 #78207] DEBUG -- : host:http://127.0.0.1:7890/   method:post     path:/transaction/prepare-announce      params:{:transaction=&gt;{:type=&gt;257, :network=&gt;:testnet, :recipient=&gt;&quot;TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF&quot;, :amount=&gt;1000000, :message=&gt;{:payload=&gt;&quot;476f6f64206c75636b21&quot;, :type=&gt;1}, :fee=&gt;100000, :timeStamp=&gt;78793049, :deadline=&gt;78796649, :version=&gt;2550136833, :signer=&gt;&quot;be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033&quot;}, :privateKey=&gt;&quot;4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214&quot;}
+</code></pre>
+
+<h2 id="xem-for-development">XEM for development</h2>
+<p>You can get Testnet XEM for development / testing from these faucet or thread.</p>
+<ul>
+<li><a href="http://test-nem-faucet.44uk.net/">NEM Testnet Faucet - You can get Testnet XEM for development / testing.</a></li>
+<li><a href="http://tomotomo9696.xyz/nem/faucet/">NEM TESTNET faucet〜てすとねっと蛇口〜</a></li>
+<li><a href="http://namuyan.dip.jp/nem/testnet/">NEM testnet Faucet</a></li>
+<li><a href="https://forum.nem.io/t/paste-you-address-here-for-beta-nem-testnet-xem/829">Paste you address here for beta NEM (Testnet XEM) - Technical Discussion - NEM Forum</a></li>
+</ul>
+<h2 id="rubydoc">Rubydoc</h2>
+<ul>
+<li><a href="http://www.rubydoc.info/gems/nis-ruby">Documentation for nis-ruby - rubydoc.info</a></li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about/" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2017, <a href="https://github.com/44uk">Yoshiyuki Ieyama</a>, <a href="https://twitter.com/44uk_i3">44uk_i3</a>.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/44uk/nis-ruby" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

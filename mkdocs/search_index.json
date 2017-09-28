@@ -2,76 +2,111 @@
     "docs": [
         {
             "location": "/",
-            "text": "nis-ruby\n\n\n\n\n\n\n\n\n\n\n\n\nRuby client library for the NEM Infrastructure Server(NIS) API.\n\n\n\n\nNEM - Distributed Ledger Technology (Blockchain)\n\n\nNEM NIS API Documentation\n\n\nNEM Forum\n\n\n\n\nThe gem is under development. Incompatible changes can be made.\n\n\nDo a thorough test on testnet before you use this gem on production.\n\n\n\n\nNEM Testnet Faucet - You can get Testnet XEM for development / testing.\n\n\n\n\nInstallation\n\n\n$ gem install nis-ruby\n\n\n\n\nOr add this line to your application's Gemfile:\n\n\ngem 'nis-ruby'\n\n\n\n\nUsage\n\n\nExamples\n\n\nMore specific example codes are in \nexamples/\n directory.\n\n\nMethods\n\n\nrequire 'rubygems'\nrequire 'nis'\nnis = Nis.new\n\nnis.heartbeat\n# => {code: 1, type: 2, message: \"ok\"}\n# See https://nemproject.github.io/#heart-beat-request\n\nnis.status\n# => {code: 6, type: 4, message: \"status\"}\n# See https://nemproject.github.io/#status-request\n\nkp = Nis::Keypair.new(SENDER_PRIV_KEY)\ntx = Nis::Transaction::Transfer.new(\n  RECIPIENT_ADDRESS,\n  1, # send 1xem\n  'Message'\n)\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\n# Request to local node.\nnis.transaction_prepare_announce(req)\n# See https://nemproject.github.io/#initiating-a-transfer-transaction\n# => {innerTransactionHash: {}, code: 1, type: 1, message: \"SUCCESS\", transactionHash: {data: \"9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde\"}}\n\n# Request to remote node.\n# nis = Nis.new(host: '104.128.226.60')\n# nis.transaction_announce(req)\n\n\n\n\nRequesting\n\n\nrequire 'rubygems'\nrequire 'nis'\nnis = Nis.new\n\nnis.request(:get, '/account/get',\n  address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'\n)\n# => [AccountMetaDataPair structure]\n# See https://nemproject.github.io/#accountMetaDataPair\n\nnis.request(:post, '/account/unlock',\n  privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'\n)\n# => Nothing\n# See https://nemproject.github.io/#locking-and-unlocking-accounts\n\n\n\n\nCommandline\n\n\n$ nis status\n# => {\"code\":6,\"type\":4,\"message\":\"status\"}\n\n$ nis heartbeat\n# => {\"code\":1,\"type\":2,\"message\":\"ok\"}\n\n$ nis request get account/get --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS\n# => [AccountMetaDataPair structure]\n\n$ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS hash:81d52a7df4abba8bb1613bcc42b6b93cf3114524939035d88ae8e864cd2c34c8\n# => [Array <HervestInfo structure>]\n\n\n\n\nConnection\n\n\nYou can choose nodes from \nNEM Node Rewards\n.\n\n\nHash\n\n\n# Passing hostname\nNis.new(host: '104.128.226.60')\n\n# Passing url\nNis.new(url: 'http://104.128.226.60:7890')\n\n\n\n\nEnvironment Variable\n\n\n$ export NIS_URL=http://104.128.226.60:7890\n$ nis heartbeat # => {\"code\":1,\"type\":2,\"message\":\"ok\"}\n\n\n\n\nEnvironment variable used as default value.\n\n\nFor More Information\n\n\n\n\nDocumentation for nis-ruby - rubydoc.info\n\n\n\n\nContact\n\n\nFeel free to ask me if you have any questions.\n\n\n\n\n@44uk_i3 - Twitter\n\n\n44uk/nis-ruby - gitter\n\n\n\n\nContributing\n\n\nBug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/nis-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the \nContributor Covenant\n code of conduct.\n\n\nLicense\n\n\nThe gem is available as open source under the terms of the \nMIT License\n.",
+            "text": "nis-ruby\n\n\n\n\n\n\n\n\n\n\n\n\nRuby client library for the NEM Infrastructure Server(NIS) API.\n\n\nFor further development of nem with ruby, \nfeel free to send me your feedback!\n\n\nIntroduction\n\n\nThe gem is under development. Incompatible changes can be made.\n\n\nThis is a Ruby client library for the NEM Infrastructure Server(NIS) API.",
             "title": "Home"
         },
         {
             "location": "/#nis-ruby",
-            "text": "Ruby client library for the NEM Infrastructure Server(NIS) API.   NEM - Distributed Ledger Technology (Blockchain)  NEM NIS API Documentation  NEM Forum   The gem is under development. Incompatible changes can be made.  Do a thorough test on testnet before you use this gem on production.   NEM Testnet Faucet - You can get Testnet XEM for development / testing.",
+            "text": "Ruby client library for the NEM Infrastructure Server(NIS) API.  For further development of nem with ruby,  feel free to send me your feedback!",
             "title": "nis-ruby"
         },
         {
-            "location": "/#installation",
-            "text": "$ gem install nis-ruby  Or add this line to your application's Gemfile:  gem 'nis-ruby'",
-            "title": "Installation"
+            "location": "/#introduction",
+            "text": "The gem is under development. Incompatible changes can be made.  This is a Ruby client library for the NEM Infrastructure Server(NIS) API.",
+            "title": "Introduction"
         },
         {
-            "location": "/#usage",
+            "location": "/usage/",
+            "text": "Usage\n\n\nInstallation\n\n\n$ gem install nis-ruby\n\n\n\n\nor add this line to your application's Gemfile.\n\n\ngem 'nis-ruby'\n\n\n\n\nMethods\n\n\nrequire 'rubygems'\nrequire 'nis'\n# turn on output request information\nNis.logger.level = Logger::DEBUG\n\nA_PRIVATE_KEY = '__put_your_private_key__'\n\nnis = Nis.new\n\nnis.heartbeat\n# => {code: 1, type: 2, message: \"ok\"}\n# See https://nemproject.github.io/#heart-beat-request\n\nnis.status\n# => {code: 6, type: 4, message: \"status\"}\n# See https://nemproject.github.io/#status-request\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(\n  RECIPIENT_ADDRESS,\n  1, # send 1xem\n  'Message',\n  network: :testnet # :mainnet (default is :testnet)\n)\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\n# Request to local node.\nnis.transaction_prepare_announce(req)\n# See https://nemproject.github.io/#initiating-a-transfer-transaction\n# => {innerTransactionHash: {}, code: 1, type: 1, message: \"SUCCESS\", transactionHash: {data: \"9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde\"}}\n\n# Request to remote node.\nnis = Nis.new(host: '23.228.67.85')\nreq = Nis::Request::Announce.new(tx, kp)\nnis.transaction_announce(req)\n\n\n\n\nAPI Path\n\n\nrequire 'rubygems'\nrequire 'nis'\nnis = Nis.new\n\nnis.request(:get, '/account/get',\n  address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'\n)\n# => [AccountMetaDataPair structure]\n# See https://nemproject.github.io/#accountMetaDataPair\n\nnis.request(:post, '/account/unlock',\n  privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'\n)\n# => Nothing\n# See https://nemproject.github.io/#locking-and-unlocking-accounts\n\n\n\n\nExamples\n\n\nMore specific example codes are in \nexamples/\n directory.\n\n\nConnection\n\n\nYou can choose nodes from \nNEM Node Rewards\n.\n\n\nHash\n\n\n# Passing hostname\nNis.new(host: '23.228.67.85')\n\n# Passing url\nNis.new(url: 'http://23.228.67.85:7890')\n\n\n\n\nENV Variable\n\n\n$ export NIS_URL=http://23.228.67.85:7890\n\n\n\n\nENV['NIS_URL']\n used as default value.\n\n\nLogging\n\n\n# custom loggin output (default is STDOUT)\nNis.logger = Logger.new('/path/to/nis-ruby.log')\n# custom log level\nNis.logger.level = Logger::DEBUG\n\n# or configuration\nNis.configure do |conf|\n  conf.logger = Logger.new('/path/to/nis-ruby.log')\n  conf.logger.level = Logger::DEBUG\nend\n\n\n\n\nD, [2017-09-26T08:03:54.752718 #78207] DEBUG -- : host:http://127.0.0.1:7890/   method:post     path:/transaction/prepare-announce      params:{:transaction=>{:type=>257, :network=>:testnet, :recipient=>\"TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF\", :amount=>1000000, :message=>{:payload=>\"476f6f64206c75636b21\", :type=>1}, :fee=>100000, :timeStamp=>78793049, :deadline=>78796649, :version=>2550136833, :signer=>\"be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033\"}, :privateKey=>\"4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214\"}\n\n\n\n\nXEM for development\n\n\nYou can get Testnet XEM for development / testing from these faucet or thread.\n\n\n\n\nNEM Testnet Faucet - You can get Testnet XEM for development / testing.\n\n\nNEM TESTNET faucet\u301c\u3066\u3059\u3068\u306d\u3063\u3068\u86c7\u53e3\u301c\n\n\nNEM testnet Faucet\n\n\nPaste you address here for beta NEM (Testnet XEM) - Technical Discussion - NEM Forum\n\n\n\n\nRubydoc\n\n\n\n\nDocumentation for nis-ruby - rubydoc.info",
+            "title": "Usage"
+        },
+        {
+            "location": "/usage/#usage",
             "text": "",
             "title": "Usage"
         },
         {
-            "location": "/#examples",
+            "location": "/usage/#installation",
+            "text": "$ gem install nis-ruby  or add this line to your application's Gemfile.  gem 'nis-ruby'",
+            "title": "Installation"
+        },
+        {
+            "location": "/usage/#methods",
+            "text": "require 'rubygems'\nrequire 'nis'\n# turn on output request information\nNis.logger.level = Logger::DEBUG\n\nA_PRIVATE_KEY = '__put_your_private_key__'\n\nnis = Nis.new\n\nnis.heartbeat\n# => {code: 1, type: 2, message: \"ok\"}\n# See https://nemproject.github.io/#heart-beat-request\n\nnis.status\n# => {code: 6, type: 4, message: \"status\"}\n# See https://nemproject.github.io/#status-request\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(\n  RECIPIENT_ADDRESS,\n  1, # send 1xem\n  'Message',\n  network: :testnet # :mainnet (default is :testnet)\n)\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\n# Request to local node.\nnis.transaction_prepare_announce(req)\n# See https://nemproject.github.io/#initiating-a-transfer-transaction\n# => {innerTransactionHash: {}, code: 1, type: 1, message: \"SUCCESS\", transactionHash: {data: \"9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde\"}}\n\n# Request to remote node.\nnis = Nis.new(host: '23.228.67.85')\nreq = Nis::Request::Announce.new(tx, kp)\nnis.transaction_announce(req)",
+            "title": "Methods"
+        },
+        {
+            "location": "/usage/#api-path",
+            "text": "require 'rubygems'\nrequire 'nis'\nnis = Nis.new\n\nnis.request(:get, '/account/get',\n  address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'\n)\n# => [AccountMetaDataPair structure]\n# See https://nemproject.github.io/#accountMetaDataPair\n\nnis.request(:post, '/account/unlock',\n  privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'\n)\n# => Nothing\n# See https://nemproject.github.io/#locking-and-unlocking-accounts",
+            "title": "API Path"
+        },
+        {
+            "location": "/usage/#examples",
             "text": "More specific example codes are in  examples/  directory.",
             "title": "Examples"
         },
         {
-            "location": "/#methods",
-            "text": "require 'rubygems'\nrequire 'nis'\nnis = Nis.new\n\nnis.heartbeat\n# => {code: 1, type: 2, message: \"ok\"}\n# See https://nemproject.github.io/#heart-beat-request\n\nnis.status\n# => {code: 6, type: 4, message: \"status\"}\n# See https://nemproject.github.io/#status-request\n\nkp = Nis::Keypair.new(SENDER_PRIV_KEY)\ntx = Nis::Transaction::Transfer.new(\n  RECIPIENT_ADDRESS,\n  1, # send 1xem\n  'Message'\n)\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\n# Request to local node.\nnis.transaction_prepare_announce(req)\n# See https://nemproject.github.io/#initiating-a-transfer-transaction\n# => {innerTransactionHash: {}, code: 1, type: 1, message: \"SUCCESS\", transactionHash: {data: \"9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde\"}}\n\n# Request to remote node.\n# nis = Nis.new(host: '104.128.226.60')\n# nis.transaction_announce(req)",
-            "title": "Methods"
-        },
-        {
-            "location": "/#requesting",
-            "text": "require 'rubygems'\nrequire 'nis'\nnis = Nis.new\n\nnis.request(:get, '/account/get',\n  address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'\n)\n# => [AccountMetaDataPair structure]\n# See https://nemproject.github.io/#accountMetaDataPair\n\nnis.request(:post, '/account/unlock',\n  privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'\n)\n# => Nothing\n# See https://nemproject.github.io/#locking-and-unlocking-accounts",
-            "title": "Requesting"
-        },
-        {
-            "location": "/#commandline",
-            "text": "$ nis status\n# => {\"code\":6,\"type\":4,\"message\":\"status\"}\n\n$ nis heartbeat\n# => {\"code\":1,\"type\":2,\"message\":\"ok\"}\n\n$ nis request get account/get --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS\n# => [AccountMetaDataPair structure]\n\n$ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS hash:81d52a7df4abba8bb1613bcc42b6b93cf3114524939035d88ae8e864cd2c34c8\n# => [Array <HervestInfo structure>]",
-            "title": "Commandline"
-        },
-        {
-            "location": "/#connection",
+            "location": "/usage/#connection",
             "text": "You can choose nodes from  NEM Node Rewards .",
             "title": "Connection"
         },
         {
-            "location": "/#hash",
-            "text": "# Passing hostname\nNis.new(host: '104.128.226.60')\n\n# Passing url\nNis.new(url: 'http://104.128.226.60:7890')",
+            "location": "/usage/#hash",
+            "text": "# Passing hostname\nNis.new(host: '23.228.67.85')\n\n# Passing url\nNis.new(url: 'http://23.228.67.85:7890')",
             "title": "Hash"
         },
         {
-            "location": "/#environment-variable",
-            "text": "$ export NIS_URL=http://104.128.226.60:7890\n$ nis heartbeat # => {\"code\":1,\"type\":2,\"message\":\"ok\"}  Environment variable used as default value.",
-            "title": "Environment Variable"
+            "location": "/usage/#env-variable",
+            "text": "$ export NIS_URL=http://23.228.67.85:7890  ENV['NIS_URL']  used as default value.",
+            "title": "ENV Variable"
         },
         {
-            "location": "/#for-more-information",
+            "location": "/usage/#logging",
+            "text": "# custom loggin output (default is STDOUT)\nNis.logger = Logger.new('/path/to/nis-ruby.log')\n# custom log level\nNis.logger.level = Logger::DEBUG\n\n# or configuration\nNis.configure do |conf|\n  conf.logger = Logger.new('/path/to/nis-ruby.log')\n  conf.logger.level = Logger::DEBUG\nend  D, [2017-09-26T08:03:54.752718 #78207] DEBUG -- : host:http://127.0.0.1:7890/   method:post     path:/transaction/prepare-announce      params:{:transaction=>{:type=>257, :network=>:testnet, :recipient=>\"TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF\", :amount=>1000000, :message=>{:payload=>\"476f6f64206c75636b21\", :type=>1}, :fee=>100000, :timeStamp=>78793049, :deadline=>78796649, :version=>2550136833, :signer=>\"be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033\"}, :privateKey=>\"4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214\"}",
+            "title": "Logging"
+        },
+        {
+            "location": "/usage/#xem-for-development",
+            "text": "You can get Testnet XEM for development / testing from these faucet or thread.   NEM Testnet Faucet - You can get Testnet XEM for development / testing.  NEM TESTNET faucet\u301c\u3066\u3059\u3068\u306d\u3063\u3068\u86c7\u53e3\u301c  NEM testnet Faucet  Paste you address here for beta NEM (Testnet XEM) - Technical Discussion - NEM Forum",
+            "title": "XEM for development"
+        },
+        {
+            "location": "/usage/#rubydoc",
             "text": "Documentation for nis-ruby - rubydoc.info",
-            "title": "For More Information"
+            "title": "Rubydoc"
         },
         {
-            "location": "/#contact",
-            "text": "Feel free to ask me if you have any questions.   @44uk_i3 - Twitter  44uk/nis-ruby - gitter",
-            "title": "Contact"
+            "location": "/about/",
+            "text": "About\n\n\nFeedback and Contact\n\n\nFor further development of nem with ruby, feel free to send me your feedback, feature requests, bug reports!\n\n\n\n\n44uk/nis-ruby - gitter\n\n\n@44uk_i3 - Twitter\n\n\n\n\nand I would be glad if you could let me know any project using the gem!\n\n\nDonation\n\n\nThe project gratefully accepts donations via nem:xem.\n\n\nNCPBJTNKHODIGPDMPKPETJK6YLMUPAW7ISBIQGUP\n\n\n\n\nThanks\n\n\n\n\nNEM - Distributed Ledger Technology (Blockchain)\n\n\nNEM NIS API Documentation\n\n\nNEM Forum\n\n\n\n\nContributing\n\n\nBug reports and pull requests are welcome on GitHub at \n44uk/nis-ruby\n. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the \nContributor Covenant\n code of conduct.\n\n\nLicense\n\n\nThe gem is available as open source under the terms of the \nMIT License\n.",
+            "title": "About"
         },
         {
-            "location": "/#contributing",
-            "text": "Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/nis-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the  Contributor Covenant  code of conduct.",
+            "location": "/about/#about",
+            "text": "",
+            "title": "About"
+        },
+        {
+            "location": "/about/#feedback-and-contact",
+            "text": "For further development of nem with ruby, feel free to send me your feedback, feature requests, bug reports!   44uk/nis-ruby - gitter  @44uk_i3 - Twitter   and I would be glad if you could let me know any project using the gem!",
+            "title": "Feedback and Contact"
+        },
+        {
+            "location": "/about/#donation",
+            "text": "The project gratefully accepts donations via nem:xem.  NCPBJTNKHODIGPDMPKPETJK6YLMUPAW7ISBIQGUP",
+            "title": "Donation"
+        },
+        {
+            "location": "/about/#thanks",
+            "text": "NEM - Distributed Ledger Technology (Blockchain)  NEM NIS API Documentation  NEM Forum",
+            "title": "Thanks"
+        },
+        {
+            "location": "/about/#contributing",
+            "text": "Bug reports and pull requests are welcome on GitHub at  44uk/nis-ruby . This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the  Contributor Covenant  code of conduct.",
             "title": "Contributing"
         },
         {
-            "location": "/#license",
+            "location": "/about/#license",
             "text": "The gem is available as open source under the terms of the  MIT License .",
             "title": "License"
         }

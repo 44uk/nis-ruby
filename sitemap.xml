@@ -3,7 +3,23 @@
 
     
     <url>
-     <loc>/</loc>
+     <loc>https://44uk.github.io/nis-ruby//</loc>
+     <lastmod>2017-09-28</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://44uk.github.io/nis-ruby//usage/</loc>
+     <lastmod>2017-09-28</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://44uk.github.io/nis-ruby//about/</loc>
      <lastmod>2017-09-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
