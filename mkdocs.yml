@@ -1,0 +1,23 @@
+site_url: https://44uk.github.io/nis-ruby/
+site_name: nis-ruby
+site_description: Ruby client library for the NEM Infrastructure Server API
+repo_url: https://github.com/44uk/nis-ruby
+copyright: Copyright &copy; 2017, <a href="https://github.com/44uk">Yoshiyuki Ieyama</a>, <a href="https://twitter.com/44uk_i3">44uk_i3</a>.
+theme: readthedocs
+
+pages:
+  - Home: index.md
+  - Usage: usage.md
+  - Examples:
+    - examples/nis.md
+    - examples/account.md
+    - examples/block.md
+    - examples/debug.md
+    - examples/local.md
+    - examples/namespace.md
+    - examples/node.md
+    - examples/time_sync.md
+    - examples/transactions.md
+    - examples/apostille.md
+    - examples/util.md
+  - About: about.md
