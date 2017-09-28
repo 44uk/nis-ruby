@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="None">
+  
+  <link rel="shortcut icon" href="./img/favicon.ico">
+  <title>Home - nis-ruby</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+  <link href="./custom.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Home";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> nis-ruby</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href=".">Home</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#nis-ruby">nis-ruby</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#installation">Installation</a></li>
+        
+            <li><a class="toctree-l3" href="#usage">Usage</a></li>
+        
+            <li><a class="toctree-l3" href="#commandline">Commandline</a></li>
+        
+            <li><a class="toctree-l3" href="#connection">Connection</a></li>
+        
+            <li><a class="toctree-l3" href="#for-more-information">For More Information</a></li>
+        
+            <li><a class="toctree-l3" href="#contact">Contact</a></li>
+        
+            <li><a class="toctree-l3" href="#contributing">Contributing</a></li>
+        
+            <li><a class="toctree-l3" href="#license">License</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">nis-ruby</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/44uk/nis-ruby/edit/master/docs/index.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="nis-ruby">nis-ruby</h1>
+<p><a href="https://badge.fury.io/rb/nis-ruby"><img alt="Gem Version" src="https://badge.fury.io/rb/nis-ruby.svg" /></a>
+<a href="https://travis-ci.org/44uk/nis-ruby"><img alt="Build Status" src="https://travis-ci.org/44uk/nis-ruby.svg?branch=master" /></a>
+<a href="https://codeclimate.com/github/44uk/nis-ruby"><img alt="Code Climate" src="https://codeclimate.com/github/44uk/nis-ruby/badges/gpa.svg" /></a>
+<a href="https://gitter.im/44uk/nis-ruby?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img alt="Join the chat at https://gitter.im/44uk/nis-ruby" src="https://badges.gitter.im/44uk/nis-ruby.svg" /></a></p>
+<p><img src="https://cloud.githubusercontent.com/assets/370508/24320282/a332d238-1175-11e7-96dc-75bc30e562d2.png" width="280" height="280" alt="nem" align="right" /></p>
+<p>Ruby client library for the NEM Infrastructure Server(NIS) API.</p>
+<ul>
+<li><a href="https://www.nem.io/">NEM - Distributed Ledger Technology (Blockchain)</a></li>
+<li><a href="https://nemproject.github.io/">NEM NIS API Documentation</a></li>
+<li><a href="https://forum.nem.io/">NEM Forum</a></li>
+</ul>
+<p><em>The gem is under development. Incompatible changes can be made.</em></p>
+<p><em>Do a thorough test on testnet before you use this gem on production.</em></p>
+<ul>
+<li><a href="http://test-nem-faucet.44uk.net/">NEM Testnet Faucet - You can get Testnet XEM for development / testing.</a></li>
+</ul>
+<h2 id="installation">Installation</h2>
+<pre><code class="bash">$ gem install nis-ruby
+</code></pre>
+
+<p>Or add this line to your application's Gemfile:</p>
+<pre><code class="ruby">gem 'nis-ruby'
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+<h3 id="examples">Examples</h3>
+<p>More specific example codes are in <strong><a href="./examples/">examples/</a></strong> directory.</p>
+<h3 id="methods">Methods</h3>
+<pre><code class="ruby">require 'rubygems'
+require 'nis'
+nis = Nis.new
+
+nis.heartbeat
+# =&gt; {code: 1, type: 2, message: &quot;ok&quot;}
+# See https://nemproject.github.io/#heart-beat-request
+
+nis.status
+# =&gt; {code: 6, type: 4, message: &quot;status&quot;}
+# See https://nemproject.github.io/#status-request
+
+kp = Nis::Keypair.new(SENDER_PRIV_KEY)
+tx = Nis::Transaction::Transfer.new(
+  RECIPIENT_ADDRESS,
+  1, # send 1xem
+  'Message'
+)
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+# Request to local node.
+nis.transaction_prepare_announce(req)
+# See https://nemproject.github.io/#initiating-a-transfer-transaction
+# =&gt; {innerTransactionHash: {}, code: 1, type: 1, message: &quot;SUCCESS&quot;, transactionHash: {data: &quot;9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde&quot;}}
+
+# Request to remote node.
+# nis = Nis.new(host: '104.128.226.60')
+# nis.transaction_announce(req)
+</code></pre>
+
+<h3 id="requesting">Requesting</h3>
+<pre><code class="ruby">require 'rubygems'
+require 'nis'
+nis = Nis.new
+
+nis.request(:get, '/account/get',
+  address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'
+)
+# =&gt; [AccountMetaDataPair structure]
+# See https://nemproject.github.io/#accountMetaDataPair
+
+nis.request(:post, '/account/unlock',
+  privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'
+)
+# =&gt; Nothing
+# See https://nemproject.github.io/#locking-and-unlocking-accounts
+</code></pre>
+
+<h2 id="commandline">Commandline</h2>
+<pre><code class="bash">$ nis status
+# =&gt; {&quot;code&quot;:6,&quot;type&quot;:4,&quot;message&quot;:&quot;status&quot;}
+
+$ nis heartbeat
+# =&gt; {&quot;code&quot;:1,&quot;type&quot;:2,&quot;message&quot;:&quot;ok&quot;}
+
+$ nis request get account/get --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS
+# =&gt; [AccountMetaDataPair structure]
+
+$ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS hash:81d52a7df4abba8bb1613bcc42b6b93cf3114524939035d88ae8e864cd2c34c8
+# =&gt; [Array &lt;HervestInfo structure&gt;]
+</code></pre>
+
+<h2 id="connection">Connection</h2>
+<p>You can choose nodes from <a href="https://supernodes.nem.io/">NEM Node Rewards</a>.</p>
+<h3 id="hash">Hash</h3>
+<pre><code class="ruby"># Passing hostname
+Nis.new(host: '104.128.226.60')
+
+# Passing url
+Nis.new(url: 'http://104.128.226.60:7890')
+</code></pre>
+
+<h3 id="environment-variable">Environment Variable</h3>
+<pre><code class="bash">$ export NIS_URL=http://104.128.226.60:7890
+$ nis heartbeat # =&gt; {&quot;code&quot;:1,&quot;type&quot;:2,&quot;message&quot;:&quot;ok&quot;}
+</code></pre>
+
+<p>Environment variable used as default value.</p>
+<h2 id="for-more-information">For More Information</h2>
+<ul>
+<li><a href="http://www.rubydoc.info/gems/nis-ruby">Documentation for nis-ruby - rubydoc.info</a></li>
+</ul>
+<h2 id="contact">Contact</h2>
+<p>Feel free to ask me if you have any questions.</p>
+<ul>
+<li><a href="https://twitter.com/44uk_i3">@44uk_i3 - Twitter</a></li>
+<li><a href="https://gitter.im/44uk/nis-ruby">44uk/nis-ruby - gitter</a></li>
+</ul>
+<h2 id="contributing">Contributing</h2>
+<p>Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/nis-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the <a href="http://contributor-covenant.org">Contributor Covenant</a> code of conduct.</p>
+<h2 id="license">License</h2>
+<p>The gem is available as open source under the terms of the <a href="./LICENSE">MIT License</a>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/44uk/nis-ruby" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+    </span>
+</div>
+    <script src="./js/theme.js"></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.16.3
+Build Date UTC : 2017-09-28 05:02:38
+-->
