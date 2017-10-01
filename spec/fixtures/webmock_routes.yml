@@ -201,6 +201,11 @@ namespace/mosaic/definition/page:
   params:
     namespace: makoto.metal.coins
 
+transaction/get:
+  method: get
+  params:
+    hash: 37c34ead4c3fe6af42d994135798262f785ba2d807c02ac3608bc10da12e5f87
+
 transaction/prepare-announce:
   method: post
   params:
