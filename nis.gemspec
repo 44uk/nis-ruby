@@ -21,8 +21,6 @@ Gem::Specification.new do |spec|
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
-  spec.bindir        = 'bin'
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
   spec.post_install_message = '
@@ -45,5 +43,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'base32', '~> 0.3'
   spec.add_dependency 'faraday', '~> 0.11'
   spec.add_dependency 'faraday_middleware', '~> 0.11'
-  spec.add_dependency 'thor', '~> 0.19'
 end

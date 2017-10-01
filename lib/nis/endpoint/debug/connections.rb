@@ -29,5 +29,22 @@ module Nis::Endpoint
         res[:data].map { |natv| Nis::Struct::NemAsyncTimerVisitor.build(natv) }
       end
     end
+
+    def debug_connections(dir)
+      request!(:get, "/debug/connections/#{debug_connections_direction(dir)}") do |res|
+        Nis::Struct::AuditCollection.build(
+          outstanding: res[:outstanding],
+          most_recent: res[:'most-recent']
+        )
+      end
+    end
+
+    def debug_connections_direction(dir)
+      case dir.to_s
+        when /\Ai/ then :incoming
+        when /\Ao/ then :outgoing
+        else raise "Undefined direction: #{dir}"
+      end
+    end
   end
 end

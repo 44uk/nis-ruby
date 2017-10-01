@@ -9,15 +9,16 @@
 
 Ruby client library for the NEM Infrastructure Server(NIS) API.
 
-- [NEM \- Distributed Ledger Technology \(Blockchain\)](https://www.nem.io/)
-- [NEM NIS API Documentation](https://nemproject.github.io/)
-- [NEM Forum](https://forum.nem.io/)
-
 *The gem is under development. Incompatible changes can be made.*
 
-*Do a thorough test on testnet before you use this gem on production.*
+*Not recommended for production use because of lack of testing, needed more improvement.*
 
-- [NEM Testnet Faucet \- You can get Testnet XEM for development / testing.](http://test-nem-faucet.44uk.net/)
+For further development of nem with ruby, [feel free to send me your feedback!](#feedback-and-contact)
+
+* [NEM \- Distributed Ledger Technology \(Blockchain\)](https://www.nem.io/)
+* [NEM NIS API Documentation](https://nemproject.github.io/)
+* [NEM Forum](https://forum.nem.io/)
+* [NEM Testnet Faucet \- You can get Testnet XEM for development / testing.](http://test-nem-faucet.44uk.net/)
 
 ## Installation
 
@@ -42,6 +43,11 @@ More specific example codes are in **[examples/](examples/)** directory.
 ```ruby
 require 'rubygems'
 require 'nis'
+# turn on output request information
+Nis.logger.level = Logger::DEBUG
+
+A_PRIVATE_KEY = '__put_your_private_key__'
+
 nis = Nis.new
 
 nis.heartbeat
@@ -52,11 +58,12 @@ nis.status
 # => {code: 6, type: 4, message: "status"}
 # See https://nemproject.github.io/#status-request
 
-kp = Nis::Keypair.new(SENDER_PRIV_KEY)
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
 tx = Nis::Transaction::Transfer.new(
   RECIPIENT_ADDRESS,
   1, # send 1xem
-  'Message'
+  'Message',
+  network: :testnet # :mainnet (default is :testnet)
 )
 req = Nis::Request::PrepareAnnounce.new(tx, kp)
 # Request to local node.
@@ -65,7 +72,8 @@ nis.transaction_prepare_announce(req)
 # => {innerTransactionHash: {}, code: 1, type: 1, message: "SUCCESS", transactionHash: {data: "9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde"}}
 
 # Request to remote node.
-# nis = Nis.new(host: '104.128.226.60')
+# nis = Nis.new(host: '23.228.67.85')
+# req = Nis::Request::Announce.new(tx, kp)
 # nis.transaction_announce(req)
 ```
 
@@ -89,22 +97,6 @@ nis.request(:post, '/account/unlock',
 # See https://nemproject.github.io/#locking-and-unlocking-accounts
 ```
 
-## Commandline
-
-```bash
-$ nis status
-# => {"code":6,"type":4,"message":"status"}
-
-$ nis heartbeat
-# => {"code":1,"type":2,"message":"ok"}
-
-$ nis request get account/get --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS
-# => [AccountMetaDataPair structure]
-
-$ nis request get account/harvests --params=address:TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS hash:81d52a7df4abba8bb1613bcc42b6b93cf3114524939035d88ae8e864cd2c34c8
-# => [Array <HervestInfo structure>]
-```
-
 ## Connection
 
 You can choose nodes from [NEM Node Rewards](https://supernodes.nem.io/).
@@ -113,31 +105,49 @@ You can choose nodes from [NEM Node Rewards](https://supernodes.nem.io/).
 
 ```ruby
 # Passing hostname
-Nis.new(host: '104.128.226.60')
+Nis.new(host: '23.228.67.85')
 
 # Passing url
-Nis.new(url: 'http://104.128.226.60:7890')
+Nis.new(url: 'http://23.228.67.85:7890')
 ```
 
 ### Environment Variable
 
 ```bash
-$ export NIS_URL=http://104.128.226.60:7890
-$ nis heartbeat # => {"code":1,"type":2,"message":"ok"}
+$ export NIS_URL=http://23.228.67.85:7890
 ```
 
 Environment variable used as default value.
 
-## For More Information
+## Logging
 
-* [Documentation for nis-ruby - rubydoc.info](http://www.rubydoc.info/gems/nis-ruby)
+```ruby
+# custom loggin output (default is STDOUT)
+Nis.logger = Logger.new('/path/to/nis-ruby.log')
+# custom log level
+Nis.logger.level = Logger::DEBUG
 
-## Contact
+# or configuration
+Nis.configure do |conf|
+  conf.logger = Logger.new('/path/to/nis-ruby.log')
+  conf.logger.level = Logger::DEBUG
+end
+```
 
-Feel free to ask me if you have any questions.
+```
+D, [2017-09-26T08:03:54.752718 #78207] DEBUG -- : host:http://127.0.0.1:7890/   method:post     path:/transaction/prepare-announce      params:{:transaction=>{:type=>257, :network=>:testnet, :recipient=>"TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF", :amount=>1000000, :message=>{:payload=>"476f6f64206c75636b21", :type=>1}, :fee=>100000, :timeStamp=>78793049, :deadline=>78796649, :version=>2550136833, :signer=>"be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033"}, :privateKey=>"4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214"}
+```
+
+## Feedback and Contact
+
+For further development of nem with ruby, feel free to send me your feedback!
 
 * [@44uk_i3 - Twitter](https://twitter.com/44uk_i3)
 * [44uk/nis-ruby - gitter](https://gitter.im/44uk/nis-ruby)
+
+## For More Information
+
+* [Documentation for nis-ruby - rubydoc.info](http://www.rubydoc.info/gems/nis-ruby)
 
 ## Contributing
 

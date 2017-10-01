@@ -1,4 +1,5 @@
 require 'nis/version'
+require 'nis/configuration'
 require 'nis/mixin'
 require 'nis/util'
 require 'nis/keypair'
@@ -13,6 +14,8 @@ require 'nis/error'
 
 # API Ruby Wrapper for NEM Infrastructure Server
 class Nis
+  extend Nis::Configuration
+
   extend Forwardable
 
   def_delegators :@client, :request, :request!
@@ -56,6 +59,7 @@ class Nis
   include Nis::Endpoint::Block::At
   include Nis::Endpoint::Block::Get
 
+  include Nis::Endpoint::Transaction::Get
   include Nis::Endpoint::Transaction::PrepareAnnounce
   include Nis::Endpoint::Transaction::Announce
 
@@ -68,6 +72,8 @@ class Nis
   include Nis::Endpoint::Node::ExtendedInfo
   include Nis::Endpoint::Node::Info
   include Nis::Endpoint::Node::PeerList
+
+  include Nis::Endpoint::TimeSync::NetworkTime
 
   include Nis::Endpoint::Debug::Connections
   include Nis::Endpoint::Debug::TimeSynchronization

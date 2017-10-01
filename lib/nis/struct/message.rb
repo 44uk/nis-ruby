@@ -4,10 +4,17 @@ class Nis::Struct
   # @attr [String] payload
   # @attr [String] public_key
   class Message
-    attr_reader :value, :type, :public_key, :private_key
+    attr_reader :value, :type
+    attr_accessor :public_key, :private_key
 
     TYPE_PLAIN     = 1
     TYPE_ENCRYPTED = 2
+
+    def self.build(attrs)
+      if attrs[:type] == TYPE_ENCRYPTED
+        new(attrs[:payload], type: :encrypted)
+      end
+    end
 
     def initialize(value = '', type: :plain, private_key: nil, public_key: nil)
       @value = value
@@ -66,7 +73,7 @@ class Nis::Struct
     end
 
     def payload
-      encrypted? ? value : value.unpack('H*').join
+      encrypted? ? value : value.unpack('H*').first
     end
 
     private

@@ -15,6 +15,7 @@ class Nis::Client
   }.freeze
 
   LOCAL_ONLY_PATHES = [
+    '/account/generate',
     '/local/account/transfers/incoming',
     '/local/account/transfers/outgoing',
     '/local/account/transfers/all',
@@ -40,6 +41,7 @@ class Nis::Client
   # @param [Hash] params API Parameters
   # @return [Hash] Hash converted API Response
   def request(method, path, params = {})
+    log(method, path, params)
     if connection.remote? && local_only?(path)
       raise Nis::Error, "The request (#{method} #{path}) is only permitted to local NIS."
     end
@@ -118,6 +120,15 @@ class Nis::Client
     ).to_s
 
     options
+  end
+
+  def log(method, path, params)
+    Nis.logger.debug "host:%s\tmethod:%s\tpath:%s\tparams:%s" % [
+      connection.url_prefix,
+      method,
+      path,
+      params.to_hash
+    ]
   end
 
   module Local

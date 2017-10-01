@@ -1,23 +1,27 @@
 require 'nis'
+Nis.logger.level = Logger::DEBUG
 
 # Create NIS instance.
 # By default, connect to local NIS.
 # You also can connect to remote.
-#   Nis.new(host: '50.3.87.123')
-nis = Nis.new
+nis = Nis.new(host: '23.228.67.85')
 
 # API path /heartbeat, /status are mapped into methods.
 # It returns Nis::Struct::NemRequestResult object.
-puts nis.heartbeat.inspect
-puts nis.status.inspect
+p nis.heartbeat.inspect
+p nis.status.inspect
 
 # Also call Nis#request method.
 # The method receive [HTTP Method], [API Path], [Parameters]
 # It returns hash which converted API JSON response.
 
 # Nis#request returns hash,
-puts nis.request :get, 'heartbeat'
-puts nis.request :get, 'status'
+p nis.request :get, 'heartbeat'
+p nis.request :get, 'status'
 
 # Nis#request! can raise Error when NIS returns error.
-puts nis.request! :get, 'account/get', address: 'INVALID_ADDRESS'
+p nis.request! :get, 'account/get', address: 'INVALID_ADDRESS'
+
+# only accept local node
+# nis = Nis.new
+# nis.shutdown

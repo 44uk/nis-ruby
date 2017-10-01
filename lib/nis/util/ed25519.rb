@@ -15,7 +15,7 @@ module Nis::Util
       end
 
       def intlist2bytes(l)
-        l.map { |c| c.chr }.join
+        l.inject('') { |memo, c| memo << c.chr }
       end
 
       # standard implement
@@ -29,7 +29,7 @@ module Nis::Util
 
       def pow2(x, p)
         while p > 0 do
-          x = x * x % @@q
+          x = x.to_bn.mod_exp(2, @@q).to_i
           p -= 1
         end
         x
@@ -112,7 +112,7 @@ module Nis::Util
 
       def make_Bpow
         _P = @@B
-        (0...253).each do |_|
+        253.times do
           @@Bpow << _P
           _P = edwards_double(_P)
         end
@@ -123,7 +123,7 @@ module Nis::Util
         # scalarmult(B, l) is the identity
         e = e % @@l
         _P = @@ident
-        (0...253).each do |i|
+        253.times do |i|
           _P = edwards_add(_P, @@Bpow[i]) if e & 1 == 1
           e = e / 2
         end
@@ -132,7 +132,7 @@ module Nis::Util
 
       def encodeint(y)
         bits = (0...@@b).map { |i| (y >> i) & 1 }
-        (0...@@b / 8).map { |i| int2byte((0...8).inject(0) { |sum, j| sum + (bits[i * 8 + j] << j) }) }.join
+        (0...@@b / 8).inject('') { |memo, i| memo << int2byte((0...8).inject(0) { |sum, j| sum + (bits[i * 8 + j] << j) }) }
       end
 
       def encodepoint(_P)
@@ -141,7 +141,7 @@ module Nis::Util
         x = (x * zi) % @@q
         y = (y * zi) % @@q
         bits = (0...@@b - 1).map { |i| (y >> i) & 1 } + [x & 1]
-        (0...@@b / 8).map { |i| int2byte((0...8).inject(0) { |sum, j| sum + (bits[i * 8 + j] << j) }) }.join
+        (0...@@b / 8).inject('') { |memo, i| memo << int2byte((0...8).inject(0) { |sum, j| sum + (bits[i * 8 + j] << j) }) }
       end
 
       def bit(h, i)
@@ -169,15 +169,13 @@ module Nis::Util
         bin_g = encodepoint(scalarmult(_A, a))
 
         bin_iv = SecureRandom.random_bytes(16)
-        # bin_iv = [133, 235, 90, 141, 29, 234, 234, 20, 115, 237, 164, 88, 224, 87, 29, 82].pack('C*')
-        hex_iv = bin_iv.unpack('H*').join
+        hex_iv = bin_iv.unpack('H*').first
 
         bin_salt = SecureRandom.random_bytes(32)
-        # bin_salt = [35, 150, 208, 176, 6, 179, 135, 220, 197, 253, 164, 147, 164, 177, 228, 43, 143, 146, 245, 255, 226, 71, 44, 94, 218, 169, 117, 88, 98, 241, 115, 79].pack('C*')
-        hex_salt = bin_salt.unpack('H*').join
+        hex_salt = bin_salt.unpack('H*').first
 
         ua_salt = Nis::Util::Convert.hex2ua(hex_salt)
-        ua_g = Nis::Util::Convert.hex2ua(bin_g.unpack('H*').join)
+        ua_g = Nis::Util::Convert.hex2ua(bin_g.unpack('H*').first)
 
         c = []
         ua_salt.each_with_index { |el, idx| c << (el ^ ua_g[idx]) }
@@ -188,7 +186,7 @@ module Nis::Util
         cipher.key = bin_key
         cipher.iv = bin_iv
         encrypted_data = cipher.update(data.bytes.pack('C*')) + cipher.final
-        hex_salt + hex_iv + encrypted_data.unpack('H*').join
+        hex_salt + hex_iv + encrypted_data.unpack('H*').first
       end
 
       def decrypt(sk, pk, data)

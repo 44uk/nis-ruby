@@ -1,4 +1,7 @@
 require 'nis'
+Nis.logger.level = Logger::DEBUG
+
+nis = Nis.new
 
 # multisig
 M_PUBLIC_KEY  = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'
@@ -20,7 +23,6 @@ min_cosigs = 1
 mtx = Nis::Transaction::MultisigAggregateModification.new([mcm], min_cosigs)
 tx = Nis::Transaction::Multisig.new(mtx, M_PUBLIC_KEY)
 
-nis = Nis.new
 req = Nis::Request::PrepareAnnounce.new(tx, kp)
 res = nis.transaction_prepare_announce(req)
 
