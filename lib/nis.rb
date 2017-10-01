@@ -59,6 +59,7 @@ class Nis
   include Nis::Endpoint::Block::At
   include Nis::Endpoint::Block::Get
 
+  include Nis::Endpoint::Transaction::Get
   include Nis::Endpoint::Transaction::PrepareAnnounce
   include Nis::Endpoint::Transaction::Announce
 
