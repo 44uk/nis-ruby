@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Account - nis-ruby</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../custom.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Account";
+    var mkdocs_page_input_path = "examples/account.md";
+    var mkdocs_page_url = "/examples/account/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> nis-ruby</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../usage/">Usage</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Examples</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../nis/">Nis</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Account</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#generate">generate</a></li>
+    
+
+    <li class="toctree-l3"><a href="#get">get</a></li>
+    
+
+    <li class="toctree-l3"><a href="#harvests">harvests</a></li>
+    
+
+    <li class="toctree-l3"><a href="#harvests_1">harvests</a></li>
+    
+
+    <li class="toctree-l3"><a href="#importances">importances</a></li>
+    
+
+    <li class="toctree-l3"><a href="#lockunlock">lock/unlock</a></li>
+    
+
+    <li class="toctree-l3"><a href="#namespace">namespace</a></li>
+    
+
+    <li class="toctree-l3"><a href="#mosaic">mosaic</a></li>
+    
+
+    <li class="toctree-l3"><a href="#status">status</a></li>
+    
+
+    <li class="toctree-l3"><a href="#transfers">transfers</a></li>
+    
+
+    <li class="toctree-l3"><a href="#undonfirmed-transactions">undonfirmed transactions</a></li>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../block/">Block</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../debug/">Debug</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../local/">Local</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../namespace/">Namespace</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../node/">Node</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../time_sync/">Time sync</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../transactions/">Transactions</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../util/">Util</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">nis-ruby</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Examples &raquo;</li>
+        
+      
+    
+    <li>Account</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/44uk/nis-ruby/edit/master/docs/examples/account.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="generate">generate</h2>
+<pre><code class="ruby">keypair = nis.account_generate
+
+p keypair
+
+# Access properties.
+# Names are same API response.
+p keypair.address
+p keypair.privateKey
+p keypair.publicKey
+
+# Ruby style access.
+# Also can be access property by snakecase.
+p keypair.private_key
+p keypair.public_key
+
+# hash like access.
+# Also can be access property like hash.
+p keypair[:privateKey]
+p keypair[:private_key]
+
+# Address object
+# Properties wrapped by value object.
+p address = keypair.address
+p address.testnet?
+</code></pre>
+
+<h2 id="get">get</h2>
+<pre><code class="ruby">A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+A_PUBLIC_KEY = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'
+
+nis = Nis.new(host: '23.228.67.85')
+
+p nis.account_get(address: A_ADDRESS)
+p nis.account_get_from_public_key(public_key: A_PUBLIC_KEY)
+
+p nis.account_get_forwarded(address: A_ADDRESS)
+p nis.account_get_forwarded_from_public_key(public_key: A_PUBLIC_KEY)
+
+# /account/get?address={address}
+#   -&gt; account_get address: {address}
+# Passing parameters by keyword arguments.
+account_meta_pair = nis.account_get(address: keypair.address)
+account = account_meta_pair[:account]
+p account.balance
+
+# /account/get/from-public-key?public-key={key}
+#   -&gt; account_get_public_key public_key: {key}
+account_meta_pair = nis.account_get_from_public_key(public_key: keypair.public_key)
+account = account_meta_pair.account
+p account.address
+</code></pre>
+
+<h2 id="harvests">harvests</h2>
+<pre><code class="ruby">A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+nis = Nis.new(host: '23.228.67.85')
+
+p nis.account_harvests(address: A_ADDRESS)
+</code></pre>
+
+<h2 id="harvests_1">harvests</h2>
+<pre><code class="ruby">A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+nis = Nis.new(host: '23.228.67.85')
+
+p nis.account_historical_get(
+  address: A_ADDRESS,
+  start_height: 17592,
+  end_height: 17592,
+  increment: 1
+)
+</code></pre>
+
+<h2 id="importances">importances</h2>
+<pre><code class="ruby">A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+nis = Nis.new(host: '23.228.67.85')
+
+p nis.account_importances
+</code></pre>
+
+<h2 id="lockunlock">lock/unlock</h2>
+<pre><code class="ruby">A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+
+nis = Nis.new(host: '23.228.67.85')
+
+nis.account_lock(private_key: A_PRIVATE_KEY)
+</code></pre>
+
+<pre><code class="ruby">A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+
+nis = Nis.new(host: '23.228.67.85')
+
+nis.account_unlock(private_key: A_PRIVATE_KEY)
+</code></pre>
+
+<h2 id="namespace">namespace</h2>
+<pre><code class="ruby">A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+nis = Nis.new(host: '23.228.67.85')
+
+p nis.account_namespace_page(:address =&gt; A_ADDRESS)
+</code></pre>
+
+<h2 id="mosaic">mosaic</h2>
+<pre><code class="ruby">A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+nis = Nis.new(host: '23.228.67.85')
+
+p nis.account_mosaic_definition_page(:address =&gt; A_ADDRESS)
+p nis.account_mosaic_owned(address: A_ADDRESS)
+</code></pre>
+
+<h2 id="status">status</h2>
+<pre><code class="ruby">A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+nis = Nis.new(host: '23.228.67.85')
+
+p nis.account_status(address: A_ADDRESS)
+</code></pre>
+
+<h2 id="transfers">transfers</h2>
+<pre><code class="ruby">A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+nis = Nis.new(host: '23.228.67.85')
+
+# mapped methods
+p nis.account_transfers_incoming(address: A_ADDRESS)
+p nis.account_transfers_outgoing(address: A_ADDRESS)
+p nis.account_transfers_all(address: A_ADDRESS)
+
+# another way
+p nis.account_transfers(:in,  address: A_ADDRESS)
+p nis.account_transfers(:out, address: A_ADDRESS)
+p nis.account_transfers(:all, address: A_ADDRESS)
+</code></pre>
+
+<h2 id="undonfirmed-transactions">undonfirmed transactions</h2>
+<pre><code class="ruby">A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+nis = Nis.new(host: '23.228.67.85')
+
+p nis.account_unconfirmed_transactions(address: A_ADDRESS)
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../block/" class="btn btn-neutral float-right" title="Block">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../nis/" class="btn btn-neutral" title="Nis"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2017, <a href="https://github.com/44uk">Yoshiyuki Ieyama</a>, <a href="https://twitter.com/44uk_i3">44uk_i3</a>.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/44uk/nis-ruby" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../nis/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../block/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>

@@ -2,68 +2,48 @@
     "docs": [
         {
             "location": "/",
-            "text": "nis-ruby\n\n\n\n\n\n\n\n\n\n\n\n\nRuby client library for the NEM Infrastructure Server(NIS) API.\n\n\nFor further development of nem with ruby, \nfeel free to send me your feedback!\n\n\nIntroduction\n\n\nThe gem is under development. Incompatible changes can be made.\n\n\nThis is a Ruby client library for the NEM Infrastructure Server(NIS) API.",
+            "text": "Introduction\n\n\n\n\n\n\n\n\n\n\n\n\nRuby client library for the NEM Infrastructure Server(NIS) API.\n\n\nThe gem is under development. Incompatible changes can be made.\n\n\nNot recommended for production use because of lack of testing, needed more improvement.\n\n\nFor further development of nem with ruby, \nfeel free to send me your feedback!\n\n\nInstallation\n\n\n$ gem install nis-ruby\n\n\n\n\nor add this line to your application's Gemfile.\n\n\ngem 'nis-ruby'",
             "title": "Home"
         },
         {
-            "location": "/#nis-ruby",
-            "text": "Ruby client library for the NEM Infrastructure Server(NIS) API.  For further development of nem with ruby,  feel free to send me your feedback!",
-            "title": "nis-ruby"
-        },
-        {
             "location": "/#introduction",
-            "text": "The gem is under development. Incompatible changes can be made.  This is a Ruby client library for the NEM Infrastructure Server(NIS) API.",
+            "text": "Ruby client library for the NEM Infrastructure Server(NIS) API.  The gem is under development. Incompatible changes can be made.  Not recommended for production use because of lack of testing, needed more improvement.  For further development of nem with ruby,  feel free to send me your feedback!",
             "title": "Introduction"
         },
         {
-            "location": "/usage/",
-            "text": "Usage\n\n\nInstallation\n\n\n$ gem install nis-ruby\n\n\n\n\nor add this line to your application's Gemfile.\n\n\ngem 'nis-ruby'\n\n\n\n\nMethods\n\n\nrequire 'rubygems'\nrequire 'nis'\n# turn on output request information\nNis.logger.level = Logger::DEBUG\n\nA_PRIVATE_KEY = '__put_your_private_key__'\n\nnis = Nis.new\n\nnis.heartbeat\n# => {code: 1, type: 2, message: \"ok\"}\n# See https://nemproject.github.io/#heart-beat-request\n\nnis.status\n# => {code: 6, type: 4, message: \"status\"}\n# See https://nemproject.github.io/#status-request\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(\n  RECIPIENT_ADDRESS,\n  1, # send 1xem\n  'Message',\n  network: :testnet # :mainnet (default is :testnet)\n)\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\n# Request to local node.\nnis.transaction_prepare_announce(req)\n# See https://nemproject.github.io/#initiating-a-transfer-transaction\n# => {innerTransactionHash: {}, code: 1, type: 1, message: \"SUCCESS\", transactionHash: {data: \"9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde\"}}\n\n# Request to remote node.\nnis = Nis.new(host: '23.228.67.85')\nreq = Nis::Request::Announce.new(tx, kp)\nnis.transaction_announce(req)\n\n\n\n\nAPI Path\n\n\nrequire 'rubygems'\nrequire 'nis'\nnis = Nis.new\n\nnis.request(:get, '/account/get',\n  address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'\n)\n# => [AccountMetaDataPair structure]\n# See https://nemproject.github.io/#accountMetaDataPair\n\nnis.request(:post, '/account/unlock',\n  privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'\n)\n# => Nothing\n# See https://nemproject.github.io/#locking-and-unlocking-accounts\n\n\n\n\nExamples\n\n\nMore specific example codes are in \nexamples/\n directory.\n\n\nConnection\n\n\nYou can choose nodes from \nNEM Node Rewards\n.\n\n\nHash\n\n\n# Passing hostname\nNis.new(host: '23.228.67.85')\n\n# Passing url\nNis.new(url: 'http://23.228.67.85:7890')\n\n\n\n\nENV Variable\n\n\n$ export NIS_URL=http://23.228.67.85:7890\n\n\n\n\nENV['NIS_URL']\n used as default value.\n\n\nLogging\n\n\n# custom loggin output (default is STDOUT)\nNis.logger = Logger.new('/path/to/nis-ruby.log')\n# custom log level\nNis.logger.level = Logger::DEBUG\n\n# or configuration\nNis.configure do |conf|\n  conf.logger = Logger.new('/path/to/nis-ruby.log')\n  conf.logger.level = Logger::DEBUG\nend\n\n\n\n\nD, [2017-09-26T08:03:54.752718 #78207] DEBUG -- : host:http://127.0.0.1:7890/   method:post     path:/transaction/prepare-announce      params:{:transaction=>{:type=>257, :network=>:testnet, :recipient=>\"TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF\", :amount=>1000000, :message=>{:payload=>\"476f6f64206c75636b21\", :type=>1}, :fee=>100000, :timeStamp=>78793049, :deadline=>78796649, :version=>2550136833, :signer=>\"be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033\"}, :privateKey=>\"4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214\"}\n\n\n\n\nXEM for development\n\n\nYou can get Testnet XEM for development / testing from these faucet or thread.\n\n\n\n\nNEM Testnet Faucet - You can get Testnet XEM for development / testing.\n\n\nNEM TESTNET faucet\u301c\u3066\u3059\u3068\u306d\u3063\u3068\u86c7\u53e3\u301c\n\n\nNEM testnet Faucet\n\n\nPaste you address here for beta NEM (Testnet XEM) - Technical Discussion - NEM Forum\n\n\n\n\nRubydoc\n\n\n\n\nDocumentation for nis-ruby - rubydoc.info",
-            "title": "Usage"
-        },
-        {
-            "location": "/usage/#usage",
-            "text": "",
-            "title": "Usage"
-        },
-        {
-            "location": "/usage/#installation",
+            "location": "/#installation",
             "text": "$ gem install nis-ruby  or add this line to your application's Gemfile.  gem 'nis-ruby'",
             "title": "Installation"
         },
         {
+            "location": "/usage/",
+            "text": "Connection\n\n\nrequire 'rubygems'\nrequire 'nis'\n\n# turn on output request information\nNis.logger.level = Logger::DEBUG\n\n# connect to local node\nnis = Nis.new\n\n# Passing options\nnis = Nis.new(host: '127.0.0.1', port: 7890)\n\n# Passing url\nnis = Nis.new(url: 'http://127.0.0.1:7890')\n\n# connect to remote node\nnis = Nis.new(host: '23.228.67.85')\n\n# ENV['NIS_URL'] can be used if it set.\n# export NIS_URL=http://23.228.67.85:7890\nnis = Nis.new\n\n\n\n\nYou can choose nodes from \nNEM Node Rewards\n.\n\n\nMethods\n\n\nrequire 'rubygems'\nrequire 'nis'\n\nA_PRIVATE_KEY = '__put_your_private_key__'\n\nnis = Nis.new\n\nnis.heartbeat\n# => {code: 1, type: 2, message: \"ok\"}\n# See https://nemproject.github.io/#heart-beat-request\n\nnis.status\n# => {code: 6, type: 4, message: \"status\"}\n# See https://nemproject.github.io/#status-request\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(\n  RECIPIENT_ADDRESS,\n  1, # send 1xem\n  'Message',\n  network: :testnet # :mainnet (default is :testnet)\n)\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\n# Request to local node.\nnis.transaction_prepare_announce(req)\n# See https://nemproject.github.io/#initiating-a-transfer-transaction\n# => {innerTransactionHash: {}, code: 1, type: 1, message: \"SUCCESS\", transactionHash: {data: \"9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde\"}}\n\n# Request to remote node.\nnis = Nis.new(host: '23.228.67.85')\nreq = Nis::Request::Announce.new(tx, kp)\nnis.transaction_announce(req)\n\n\n\n\nAPI Path\n\n\nrequire 'rubygems'\nrequire 'nis'\nnis = Nis.new(host: '23.228.67.85')\n\nnis.request(:get, '/account/get',\n  address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'\n)\n# => [AccountMetaDataPair structure]\n# See https://nemproject.github.io/#accountMetaDataPair\n\nnis.request(:post, '/account/unlock',\n  privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'\n)\n# => Nothing\n# See https://nemproject.github.io/#locking-and-unlocking-accounts\n\n\n\n\nLogging\n\n\n# custom loggin output (default is STDOUT)\nNis.logger = Logger.new('/path/to/nis-ruby.log')\n# custom log level\nNis.logger.level = Logger::DEBUG\n\n# or configuration\nNis.configure do |conf|\n  conf.logger = Logger.new('/path/to/nis-ruby.log')\n  conf.logger.level = Logger::DEBUG\nend\n\n\n\n\nD, [2017-09-26T08:03:54.752718 #78207] DEBUG -- : host:http://127.0.0.1:7890/   method:post     path:/transaction/prepare-announce      params:{:transaction=>{:type=>257, :network=>:testnet, :recipient=>\"TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF\", :amount=>1000000, :message=>{:payload=>\"476f6f64206c75636b21\", :type=>1}, :fee=>100000, :timeStamp=>78793049, :deadline=>78796649, :version=>2550136833, :signer=>\"be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033\"}, :privateKey=>\"4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214\"}\n\n\n\n\nExamples\n\n\nMore specific example codes are in \nexamples/\n directory.\n\n\nXEM for development\n\n\nYou can get Testnet XEM for development / testing from these faucet or thread.\n\n\n\n\nNEM Testnet Faucet - You can get Testnet XEM for development / testing.\n\n\nNEM TESTNET faucet\u301c\u3066\u3059\u3068\u306d\u3063\u3068\u86c7\u53e3\u301c\n\n\nNEM testnet Faucet\n\n\nPaste you address here for beta NEM (Testnet XEM) - Technical Discussion - NEM Forum\n\n\n\n\nRubydoc\n\n\n\n\nDocumentation for nis-ruby - rubydoc.info",
+            "title": "Usage"
+        },
+        {
+            "location": "/usage/#connection",
+            "text": "require 'rubygems'\nrequire 'nis'\n\n# turn on output request information\nNis.logger.level = Logger::DEBUG\n\n# connect to local node\nnis = Nis.new\n\n# Passing options\nnis = Nis.new(host: '127.0.0.1', port: 7890)\n\n# Passing url\nnis = Nis.new(url: 'http://127.0.0.1:7890')\n\n# connect to remote node\nnis = Nis.new(host: '23.228.67.85')\n\n# ENV['NIS_URL'] can be used if it set.\n# export NIS_URL=http://23.228.67.85:7890\nnis = Nis.new  You can choose nodes from  NEM Node Rewards .",
+            "title": "Connection"
+        },
+        {
             "location": "/usage/#methods",
-            "text": "require 'rubygems'\nrequire 'nis'\n# turn on output request information\nNis.logger.level = Logger::DEBUG\n\nA_PRIVATE_KEY = '__put_your_private_key__'\n\nnis = Nis.new\n\nnis.heartbeat\n# => {code: 1, type: 2, message: \"ok\"}\n# See https://nemproject.github.io/#heart-beat-request\n\nnis.status\n# => {code: 6, type: 4, message: \"status\"}\n# See https://nemproject.github.io/#status-request\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(\n  RECIPIENT_ADDRESS,\n  1, # send 1xem\n  'Message',\n  network: :testnet # :mainnet (default is :testnet)\n)\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\n# Request to local node.\nnis.transaction_prepare_announce(req)\n# See https://nemproject.github.io/#initiating-a-transfer-transaction\n# => {innerTransactionHash: {}, code: 1, type: 1, message: \"SUCCESS\", transactionHash: {data: \"9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde\"}}\n\n# Request to remote node.\nnis = Nis.new(host: '23.228.67.85')\nreq = Nis::Request::Announce.new(tx, kp)\nnis.transaction_announce(req)",
+            "text": "require 'rubygems'\nrequire 'nis'\n\nA_PRIVATE_KEY = '__put_your_private_key__'\n\nnis = Nis.new\n\nnis.heartbeat\n# => {code: 1, type: 2, message: \"ok\"}\n# See https://nemproject.github.io/#heart-beat-request\n\nnis.status\n# => {code: 6, type: 4, message: \"status\"}\n# See https://nemproject.github.io/#status-request\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(\n  RECIPIENT_ADDRESS,\n  1, # send 1xem\n  'Message',\n  network: :testnet # :mainnet (default is :testnet)\n)\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\n# Request to local node.\nnis.transaction_prepare_announce(req)\n# See https://nemproject.github.io/#initiating-a-transfer-transaction\n# => {innerTransactionHash: {}, code: 1, type: 1, message: \"SUCCESS\", transactionHash: {data: \"9da41fd6c6886740ae6a15c869df0470015d78103e5b216971aa09fdbcce9cde\"}}\n\n# Request to remote node.\nnis = Nis.new(host: '23.228.67.85')\nreq = Nis::Request::Announce.new(tx, kp)\nnis.transaction_announce(req)",
             "title": "Methods"
         },
         {
             "location": "/usage/#api-path",
-            "text": "require 'rubygems'\nrequire 'nis'\nnis = Nis.new\n\nnis.request(:get, '/account/get',\n  address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'\n)\n# => [AccountMetaDataPair structure]\n# See https://nemproject.github.io/#accountMetaDataPair\n\nnis.request(:post, '/account/unlock',\n  privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'\n)\n# => Nothing\n# See https://nemproject.github.io/#locking-and-unlocking-accounts",
+            "text": "require 'rubygems'\nrequire 'nis'\nnis = Nis.new(host: '23.228.67.85')\n\nnis.request(:get, '/account/get',\n  address: 'TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS'\n)\n# => [AccountMetaDataPair structure]\n# See https://nemproject.github.io/#accountMetaDataPair\n\nnis.request(:post, '/account/unlock',\n  privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'\n)\n# => Nothing\n# See https://nemproject.github.io/#locking-and-unlocking-accounts",
             "title": "API Path"
-        },
-        {
-            "location": "/usage/#examples",
-            "text": "More specific example codes are in  examples/  directory.",
-            "title": "Examples"
-        },
-        {
-            "location": "/usage/#connection",
-            "text": "You can choose nodes from  NEM Node Rewards .",
-            "title": "Connection"
-        },
-        {
-            "location": "/usage/#hash",
-            "text": "# Passing hostname\nNis.new(host: '23.228.67.85')\n\n# Passing url\nNis.new(url: 'http://23.228.67.85:7890')",
-            "title": "Hash"
-        },
-        {
-            "location": "/usage/#env-variable",
-            "text": "$ export NIS_URL=http://23.228.67.85:7890  ENV['NIS_URL']  used as default value.",
-            "title": "ENV Variable"
         },
         {
             "location": "/usage/#logging",
             "text": "# custom loggin output (default is STDOUT)\nNis.logger = Logger.new('/path/to/nis-ruby.log')\n# custom log level\nNis.logger.level = Logger::DEBUG\n\n# or configuration\nNis.configure do |conf|\n  conf.logger = Logger.new('/path/to/nis-ruby.log')\n  conf.logger.level = Logger::DEBUG\nend  D, [2017-09-26T08:03:54.752718 #78207] DEBUG -- : host:http://127.0.0.1:7890/   method:post     path:/transaction/prepare-announce      params:{:transaction=>{:type=>257, :network=>:testnet, :recipient=>\"TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF\", :amount=>1000000, :message=>{:payload=>\"476f6f64206c75636b21\", :type=>1}, :fee=>100000, :timeStamp=>78793049, :deadline=>78796649, :version=>2550136833, :signer=>\"be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033\"}, :privateKey=>\"4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214\"}",
             "title": "Logging"
+        },
+        {
+            "location": "/usage/#examples",
+            "text": "More specific example codes are in  examples/  directory.",
+            "title": "Examples"
         },
         {
             "location": "/usage/#xem-for-development",
@@ -76,13 +56,258 @@
             "title": "Rubydoc"
         },
         {
-            "location": "/about/",
-            "text": "About\n\n\nFeedback and Contact\n\n\nFor further development of nem with ruby, feel free to send me your feedback, feature requests, bug reports!\n\n\n\n\n44uk/nis-ruby - gitter\n\n\n@44uk_i3 - Twitter\n\n\n\n\nand I would be glad if you could let me know any project using the gem!\n\n\nDonation\n\n\nThe project gratefully accepts donations via nem:xem.\n\n\nNCPBJTNKHODIGPDMPKPETJK6YLMUPAW7ISBIQGUP\n\n\n\n\nThanks\n\n\n\n\nNEM - Distributed Ledger Technology (Blockchain)\n\n\nNEM NIS API Documentation\n\n\nNEM Forum\n\n\n\n\nContributing\n\n\nBug reports and pull requests are welcome on GitHub at \n44uk/nis-ruby\n. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the \nContributor Covenant\n code of conduct.\n\n\nLicense\n\n\nThe gem is available as open source under the terms of the \nMIT License\n.",
-            "title": "About"
+            "location": "/examples/nis/",
+            "text": "heartbeat\n\n\nnis = Nis.new(host: '23.228.67.85')\np nis.heartbeat\n\n# passing API Path\np nis.request :get, 'heartbeat'\n\n\n\n\nstatus\n\n\nnis = Nis.new(host: '23.228.67.85')\np nis.status\n\n# passing API Path\np nis.request :get, 'status'\n\n\n\n\nshutdown\n\n\n# only accept local node\nnis = Nis.new\nnis.shutdown",
+            "title": "Nis"
         },
         {
-            "location": "/about/#about",
+            "location": "/examples/nis/#heartbeat",
+            "text": "nis = Nis.new(host: '23.228.67.85')\np nis.heartbeat\n\n# passing API Path\np nis.request :get, 'heartbeat'",
+            "title": "heartbeat"
+        },
+        {
+            "location": "/examples/nis/#status",
+            "text": "nis = Nis.new(host: '23.228.67.85')\np nis.status\n\n# passing API Path\np nis.request :get, 'status'",
+            "title": "status"
+        },
+        {
+            "location": "/examples/nis/#shutdown",
+            "text": "# only accept local node\nnis = Nis.new\nnis.shutdown",
+            "title": "shutdown"
+        },
+        {
+            "location": "/examples/account/",
+            "text": "generate\n\n\nkeypair = nis.account_generate\n\np keypair\n\n# Access properties.\n# Names are same API response.\np keypair.address\np keypair.privateKey\np keypair.publicKey\n\n# Ruby style access.\n# Also can be access property by snakecase.\np keypair.private_key\np keypair.public_key\n\n# hash like access.\n# Also can be access property like hash.\np keypair[:privateKey]\np keypair[:private_key]\n\n# Address object\n# Properties wrapped by value object.\np address = keypair.address\np address.testnet?\n\n\n\n\nget\n\n\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\nA_PUBLIC_KEY = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_get(address: A_ADDRESS)\np nis.account_get_from_public_key(public_key: A_PUBLIC_KEY)\n\np nis.account_get_forwarded(address: A_ADDRESS)\np nis.account_get_forwarded_from_public_key(public_key: A_PUBLIC_KEY)\n\n# /account/get?address={address}\n#   -> account_get address: {address}\n# Passing parameters by keyword arguments.\naccount_meta_pair = nis.account_get(address: keypair.address)\naccount = account_meta_pair[:account]\np account.balance\n\n# /account/get/from-public-key?public-key={key}\n#   -> account_get_public_key public_key: {key}\naccount_meta_pair = nis.account_get_from_public_key(public_key: keypair.public_key)\naccount = account_meta_pair.account\np account.address\n\n\n\n\nharvests\n\n\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_harvests(address: A_ADDRESS)\n\n\n\n\nharvests\n\n\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_historical_get(\n  address: A_ADDRESS,\n  start_height: 17592,\n  end_height: 17592,\n  increment: 1\n)\n\n\n\n\nimportances\n\n\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_importances\n\n\n\n\nlock/unlock\n\n\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\nnis = Nis.new(host: '23.228.67.85')\n\nnis.account_lock(private_key: A_PRIVATE_KEY)\n\n\n\n\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\nnis = Nis.new(host: '23.228.67.85')\n\nnis.account_unlock(private_key: A_PRIVATE_KEY)\n\n\n\n\nnamespace\n\n\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_namespace_page(:address => A_ADDRESS)\n\n\n\n\nmosaic\n\n\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_mosaic_definition_page(:address => A_ADDRESS)\np nis.account_mosaic_owned(address: A_ADDRESS)\n\n\n\n\nstatus\n\n\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_status(address: A_ADDRESS)\n\n\n\n\ntransfers\n\n\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\n# mapped methods\np nis.account_transfers_incoming(address: A_ADDRESS)\np nis.account_transfers_outgoing(address: A_ADDRESS)\np nis.account_transfers_all(address: A_ADDRESS)\n\n# another way\np nis.account_transfers(:in,  address: A_ADDRESS)\np nis.account_transfers(:out, address: A_ADDRESS)\np nis.account_transfers(:all, address: A_ADDRESS)\n\n\n\n\nundonfirmed transactions\n\n\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_unconfirmed_transactions(address: A_ADDRESS)",
+            "title": "Account"
+        },
+        {
+            "location": "/examples/account/#generate",
+            "text": "keypair = nis.account_generate\n\np keypair\n\n# Access properties.\n# Names are same API response.\np keypair.address\np keypair.privateKey\np keypair.publicKey\n\n# Ruby style access.\n# Also can be access property by snakecase.\np keypair.private_key\np keypair.public_key\n\n# hash like access.\n# Also can be access property like hash.\np keypair[:privateKey]\np keypair[:private_key]\n\n# Address object\n# Properties wrapped by value object.\np address = keypair.address\np address.testnet?",
+            "title": "generate"
+        },
+        {
+            "location": "/examples/account/#get",
+            "text": "A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\nA_PUBLIC_KEY = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_get(address: A_ADDRESS)\np nis.account_get_from_public_key(public_key: A_PUBLIC_KEY)\n\np nis.account_get_forwarded(address: A_ADDRESS)\np nis.account_get_forwarded_from_public_key(public_key: A_PUBLIC_KEY)\n\n# /account/get?address={address}\n#   -> account_get address: {address}\n# Passing parameters by keyword arguments.\naccount_meta_pair = nis.account_get(address: keypair.address)\naccount = account_meta_pair[:account]\np account.balance\n\n# /account/get/from-public-key?public-key={key}\n#   -> account_get_public_key public_key: {key}\naccount_meta_pair = nis.account_get_from_public_key(public_key: keypair.public_key)\naccount = account_meta_pair.account\np account.address",
+            "title": "get"
+        },
+        {
+            "location": "/examples/account/#harvests",
+            "text": "A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_harvests(address: A_ADDRESS)",
+            "title": "harvests"
+        },
+        {
+            "location": "/examples/account/#harvests_1",
+            "text": "A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_historical_get(\n  address: A_ADDRESS,\n  start_height: 17592,\n  end_height: 17592,\n  increment: 1\n)",
+            "title": "harvests"
+        },
+        {
+            "location": "/examples/account/#importances",
+            "text": "A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_importances",
+            "title": "importances"
+        },
+        {
+            "location": "/examples/account/#lockunlock",
+            "text": "A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\nnis = Nis.new(host: '23.228.67.85')\n\nnis.account_lock(private_key: A_PRIVATE_KEY)  A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\nnis = Nis.new(host: '23.228.67.85')\n\nnis.account_unlock(private_key: A_PRIVATE_KEY)",
+            "title": "lock/unlock"
+        },
+        {
+            "location": "/examples/account/#namespace",
+            "text": "A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_namespace_page(:address => A_ADDRESS)",
+            "title": "namespace"
+        },
+        {
+            "location": "/examples/account/#mosaic",
+            "text": "A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_mosaic_definition_page(:address => A_ADDRESS)\np nis.account_mosaic_owned(address: A_ADDRESS)",
+            "title": "mosaic"
+        },
+        {
+            "location": "/examples/account/#status",
+            "text": "A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_status(address: A_ADDRESS)",
+            "title": "status"
+        },
+        {
+            "location": "/examples/account/#transfers",
+            "text": "A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\n# mapped methods\np nis.account_transfers_incoming(address: A_ADDRESS)\np nis.account_transfers_outgoing(address: A_ADDRESS)\np nis.account_transfers_all(address: A_ADDRESS)\n\n# another way\np nis.account_transfers(:in,  address: A_ADDRESS)\np nis.account_transfers(:out, address: A_ADDRESS)\np nis.account_transfers(:all, address: A_ADDRESS)",
+            "title": "transfers"
+        },
+        {
+            "location": "/examples/account/#undonfirmed-transactions",
+            "text": "A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.account_unconfirmed_transactions(address: A_ADDRESS)",
+            "title": "undonfirmed transactions"
+        },
+        {
+            "location": "/examples/block/",
+            "text": "at public\n\n\np nis.block_at_public(block_height: 890_761)\n\n\n\n\nget\n\n\np nis.block_get(block_hash: 'fb5e76bf137eb27451926d29fd2b308e672e5d9ec405d9cbcd47cc0f83492cd0')",
+            "title": "Block"
+        },
+        {
+            "location": "/examples/block/#at-public",
+            "text": "p nis.block_at_public(block_height: 890_761)",
+            "title": "at public"
+        },
+        {
+            "location": "/examples/block/#get",
+            "text": "p nis.block_get(block_hash: 'fb5e76bf137eb27451926d29fd2b308e672e5d9ec405d9cbcd47cc0f83492cd0')",
+            "title": "get"
+        },
+        {
+            "location": "/examples/debug/",
+            "text": "connections\n\n\nnis = Nis.new(host: '23.228.67.85')\n\n# mapped methods\np nis.debug_connections_incoming\np nis.debug_connections_outgoing\np nis.debug_connections_timers\n\n# another way\np nis.debug_connections(:in)\np nis.debug_connections(:out)\n\n\n\n\ntime synchronization\n\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.debug_time_synchronization",
+            "title": "Debug"
+        },
+        {
+            "location": "/examples/debug/#connections",
+            "text": "nis = Nis.new(host: '23.228.67.85')\n\n# mapped methods\np nis.debug_connections_incoming\np nis.debug_connections_outgoing\np nis.debug_connections_timers\n\n# another way\np nis.debug_connections(:in)\np nis.debug_connections(:out)",
+            "title": "connections"
+        },
+        {
+            "location": "/examples/debug/#time-synchronization",
+            "text": "nis = Nis.new(host: '23.228.67.85')\n\np nis.debug_time_synchronization",
+            "title": "time synchronization"
+        },
+        {
+            "location": "/examples/local/",
+            "text": "account transfers\n\n\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new\n\npage = Nis::Struct::AccountPrivateKeyTransactionsPage.new(\n  value: '00b4a68d16dc505302e9631b860664ba43a8183f0903bc5782a2403b2f9eb3c8a1'\n)\n\n# mapped methods\np nis.local_account_transfers_incoming(page: page)\np nis.local_account_transfers_outgoing(page: page)\np nis.local_account_transfers_all(page: page)\n\n# another way\np nis.local_account_transfers(:in, page: page)\np nis.local_account_transfers(:out, page: page)\np nis.local_account_transfers(:all, page: page)\n\n\n\n\nchain blocks after\n\n\nnis = Nis.new\n\np nis.local_chain_blocks_after(block_height: 2_649)",
+            "title": "Local"
+        },
+        {
+            "location": "/examples/local/#account-transfers",
+            "text": "A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nnis = Nis.new\n\npage = Nis::Struct::AccountPrivateKeyTransactionsPage.new(\n  value: '00b4a68d16dc505302e9631b860664ba43a8183f0903bc5782a2403b2f9eb3c8a1'\n)\n\n# mapped methods\np nis.local_account_transfers_incoming(page: page)\np nis.local_account_transfers_outgoing(page: page)\np nis.local_account_transfers_all(page: page)\n\n# another way\np nis.local_account_transfers(:in, page: page)\np nis.local_account_transfers(:out, page: page)\np nis.local_account_transfers(:all, page: page)",
+            "title": "account transfers"
+        },
+        {
+            "location": "/examples/local/#chain-blocks-after",
+            "text": "nis = Nis.new\n\np nis.local_chain_blocks_after(block_height: 2_649)",
+            "title": "chain blocks after"
+        },
+        {
+            "location": "/examples/namespace/",
+            "text": "root page\n\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.namespace_root_page\n\n\n\n\nmosaic definition page\n\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.namespace_mosaic_definition_page(namespace: 'alice.misc')",
+            "title": "Namespace"
+        },
+        {
+            "location": "/examples/namespace/#root-page",
+            "text": "nis = Nis.new(host: '23.228.67.85')\n\np nis.namespace_root_page",
+            "title": "root page"
+        },
+        {
+            "location": "/examples/namespace/#mosaic-definition-page",
+            "text": "nis = Nis.new(host: '23.228.67.85')\n\np nis.namespace_mosaic_definition_page(namespace: 'alice.misc')",
+            "title": "mosaic definition page"
+        },
+        {
+            "location": "/examples/node/",
+            "text": "Info\n\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.node_info\np nis.node_extended_info\np nis.node_experiences\n\n\n\n\nPeerlist\n\n\nnis = Nis.new(host: '23.228.67.85')\n\n# mapped methods\np nis.node_peerlist_all\np nis.node_peerlist_reachable\np nis.node_peerlist_active\n\n# another way\np nis.node_peerlist(:all)\np nis.node_peerlist(:reachable)\np nis.node_peerlist(:active)\n\n\n\n\nActive peers max chain height\n\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.node_active_peers_max_chain_height\n\n\n\n\nBoot node request\n\n\nnis = Nis.new\n\nbnr = Nis::Struct::BootNodeRequest.new(\n  metaData: {\n    application: 'NIS'\n  },\n  endpoint: {\n    protocol: 'http',\n    port: 7890,\n    host: 'localhost'\n  },\n  identity: {\n    'private-key': 'a6cbd01d04edecfaef51df9486c111abb6299c764a00206eb1d01f4587491b3f',\n    name: 'Alice'\n  }\n)\n\nbegin\n  p nis.node_boot(boot_node_request: bnr)\nrescue => ex\n  p ex\nend",
+            "title": "Node"
+        },
+        {
+            "location": "/examples/node/#info",
+            "text": "nis = Nis.new(host: '23.228.67.85')\n\np nis.node_info\np nis.node_extended_info\np nis.node_experiences",
+            "title": "Info"
+        },
+        {
+            "location": "/examples/node/#peerlist",
+            "text": "nis = Nis.new(host: '23.228.67.85')\n\n# mapped methods\np nis.node_peerlist_all\np nis.node_peerlist_reachable\np nis.node_peerlist_active\n\n# another way\np nis.node_peerlist(:all)\np nis.node_peerlist(:reachable)\np nis.node_peerlist(:active)",
+            "title": "Peerlist"
+        },
+        {
+            "location": "/examples/node/#active-peers-max-chain-height",
+            "text": "nis = Nis.new(host: '23.228.67.85')\n\np nis.node_active_peers_max_chain_height",
+            "title": "Active peers max chain height"
+        },
+        {
+            "location": "/examples/node/#boot-node-request",
+            "text": "nis = Nis.new\n\nbnr = Nis::Struct::BootNodeRequest.new(\n  metaData: {\n    application: 'NIS'\n  },\n  endpoint: {\n    protocol: 'http',\n    port: 7890,\n    host: 'localhost'\n  },\n  identity: {\n    'private-key': 'a6cbd01d04edecfaef51df9486c111abb6299c764a00206eb1d01f4587491b3f',\n    name: 'Alice'\n  }\n)\n\nbegin\n  p nis.node_boot(boot_node_request: bnr)\nrescue => ex\n  p ex\nend",
+            "title": "Boot node request"
+        },
+        {
+            "location": "/examples/time_sync/",
+            "text": "Network time\n\n\nnis = Nis.new(host: '23.228.67.85')\n\np nis.time_sync_network_time",
+            "title": "Time sync"
+        },
+        {
+            "location": "/examples/time_sync/#network-time",
+            "text": "nis = Nis.new(host: '23.228.67.85')\n\np nis.time_sync_network_time",
+            "title": "Network time"
+        },
+        {
+            "location": "/examples/transactions/",
+            "text": "Transfer\n\n\nVersion1\n\n\nnis = Nis.new\n\n# sender\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\n# recipient\nB_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'\nB_PUBLIC_KEY = '9e7ab2924cd1a3482df784db190614cfc8a33671f5d80a5b15a9c9e8b4d13933'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n# with encrypted message\nmessage = Nis::Struct::Message.new('Good luck!', type: :encrypted,\n  private_key: kp.private,\n  public_key: B_PUBLIC_KEY\n)\nmessage.encrypt!\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, message, {})\nputs \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n\n\n\nVersion2(sending mosaic)\n\n\nnis = Nis.new\n\n# sender\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\n# recipient\nB_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\n# fetch mosaic definition\nmo_dmdps = nis.namespace_mosaic_definition_page(namespace: 'kon')\nmo_def = mo_dmdps.first.mosaic\n\n# Or you can use built object if you already know mosaic definition.\n# mosaic_id = Nis::Struct::MosaicId.new(\n#   namespaceId: 'kon',\n#   name: 'heart'\n# )\n# properties = Nis::Struct::MosaicProperties.new(\n#   divisibility: 3,\n#   initialSupply: 100_000_000\n# )\n# mo_def = Nis::Struct::MosaicDefinition.new(\n#   id: mosaic_id,\n#   properties: properties,\n# )\n\n# sending 1xem as mosaic sample\n# mosaic_id = Nis::Struct::MosaicId.new(\n#   namespaceId: 'nem',\n#   name: 'xem'\n# )\n# properties = Nis::Struct::MosaicProperties.new(\n#   divisibility: 6,\n#   initialSupply: 8_999_999_999\n# )\n# mo_def = Nis::Struct::MosaicDefinition.new(\n#   id: mosaic_id,\n#   properties: properties,\n# )\n# mosaic_attachment = Nis::Struct::MosaicAttachment.new(mo_def, 1_000_000)\n\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')\ntx.mosaics << Nis::Struct::MosaicAttachment.new(mo_def, 1)\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n\n\n\nRemote node\n\n\nrequire 'nis'\nnis = Nis.new(host: '23.228.67.85')\n\n# sender\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\n# recipient\nB_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::Announce.new(tx, kp)\nres = nis.transaction_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n\n\n\n\nImportance Transfer\n\n\n# sender\nA_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'\n\n# remote\nB_PUBLIC_KEY = 'cc6c9485d15b992501e57fe3799487e99de272f79c5442de94eeb998b45e0144'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\ntx = Nis::Transaction::ImportanceTransfer.new(B_PUBLIC_KEY, :activate)\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n\n\n\nMultisig Signature\n\n\nnis = Nis.new\n\n# multisig\nM_PUBLIC_KEY = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'\nM_ADDRESS = 'TDJNDAQ7F7AQRXKP2YVTH67QYCWWKE6QLSJFWN64'\n\n# cosignatory1\n# A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n# A_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033'\n# A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\n# cosignatory2\nB_PRIVATE_KEY = '1d13af2c31ee6fb0c3c7aaaea818d9b305dcadba130ba663fc42d9f25b24ded1'\nB_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'\n\nkp = Nis::Keypair.new(B_PRIVATE_KEY)\n\nnis = Nis.new\ntxes = nis.account_unconfirmed_transactions(address: B_ADDRESS)\n\nunless txes.size > 0\n  puts 'There are no transactions to sign.'\n  exit\nend\n\nhash = txes.first.meta.data\np \"Unconfirmed Transaction Hash: #{hash}\"\n\ntx = Nis::Transaction::MultisigSignature.new(hash, M_ADDRESS, B_PUBLIC_KEY)\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n\n\n\nNamespace\n\n\nnis = Nis.new\n\n# namespace creator\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\ntx = Nis::Transaction::ProvisionNamespace.new('sushi')\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n\n\n\nMosaic\n\n\nCreation\n\n\n# mosaic creator\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\nmosaic_id = Nis::Struct::MosaicId.new(\n  namespaceId: 'sushi',\n  name: 'maguro'\n)\n\nproperties = Nis::Struct::MosaicProperties.new(\n  divisibility: 0,\n  initialSupply: 10_000,\n  supplyMutable: true,\n  transferable: true\n)\n\nlevy = Nis::Struct::MosaicLevy.new(\n  type: 1,\n  recipient: A_ADDRESS,\n  mosaicId: {\n    namespaceId: 'nem',\n    name: 'xem'\n  },\n  fee: 1_000\n)\n\ndefinition = Nis::Struct::MosaicDefinition.new(\n  creator: A_PUBLIC_KEY,\n  id: mosaic_id,\n  description: 'Japanese Soul food SHUSHI.',\n  properties: properties,\n  levy: levy\n)\n\ntx = Nis::Transaction::MosaicDefinitionCreation.new(definition)\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n\n\n\nSupply Change\n\n\nnis = Nis.new\n\n# mosaic owner\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\nmosaic_id = Nis::Struct::MosaicId.new(\n  namespaceId: 'sushi',\n  name: 'maguro'\n)\n\ntx = Nis::Transaction::MosaicSupplyChange.new(mosaic_id, :increase, 1_000)\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n\n\n\nMultisig Aggregate Modification\n\n\nnis = Nis.new\n\n# multisig\nM_PRIVATE_KEY = '00f077782658ae91b77f238ba5fcd7ef110564b5c189072e4d4590d9b17f9d76f3'\n\n# cosignatory\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\nA_PUBLIC_KEY  = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'\n\nkp = Nis::Keypair.new(M_PRIVATE_KEY)\n\nmcm = Nis::Struct::MultisigCosignatoryModification.new(\n  modificationType: 1,\n  cosignatoryAccount: A_PUBLIC_KEY\n)\nmin_cosigs = 1\n\ntx = Nis::Transaction::MultisigAggregateModification.new([mcm], min_cosigs)\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n\n\n\nAdd cosignatory\n\n\nnis = Nis.new\n\n# multisig\nM_PUBLIC_KEY  = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'\n\n# cosignatory1\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\n# cosignatory2\nB_PUBLIC_KEY  = '9e7ab2924cd1a3482df784db190614cfc8a33671f5d80a5b15a9c9e8b4d13933'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\nmcm = Nis::Struct::MultisigCosignatoryModification.new(\n  modificationType: 1,\n  cosignatoryAccount: B_PUBLIC_KEY\n)\nmin_cosigs = 1\n\nmtx = Nis::Transaction::MultisigAggregateModification.new([mcm], min_cosigs)\ntx = Nis::Transaction::Multisig.new(mtx, M_PUBLIC_KEY)\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Transactions"
+        },
+        {
+            "location": "/examples/transactions/#transfer",
             "text": "",
+            "title": "Transfer"
+        },
+        {
+            "location": "/examples/transactions/#version1",
+            "text": "nis = Nis.new\n\n# sender\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\n# recipient\nB_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'\nB_PUBLIC_KEY = '9e7ab2924cd1a3482df784db190614cfc8a33671f5d80a5b15a9c9e8b4d13933'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\n\n# with encrypted message\nmessage = Nis::Struct::Message.new('Good luck!', type: :encrypted,\n  private_key: kp.private,\n  public_key: B_PUBLIC_KEY\n)\nmessage.encrypt!\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, message, {})\nputs \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Version1"
+        },
+        {
+            "location": "/examples/transactions/#version2sending-mosaic",
+            "text": "nis = Nis.new\n\n# sender\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\n# recipient\nB_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\n# fetch mosaic definition\nmo_dmdps = nis.namespace_mosaic_definition_page(namespace: 'kon')\nmo_def = mo_dmdps.first.mosaic\n\n# Or you can use built object if you already know mosaic definition.\n# mosaic_id = Nis::Struct::MosaicId.new(\n#   namespaceId: 'kon',\n#   name: 'heart'\n# )\n# properties = Nis::Struct::MosaicProperties.new(\n#   divisibility: 3,\n#   initialSupply: 100_000_000\n# )\n# mo_def = Nis::Struct::MosaicDefinition.new(\n#   id: mosaic_id,\n#   properties: properties,\n# )\n\n# sending 1xem as mosaic sample\n# mosaic_id = Nis::Struct::MosaicId.new(\n#   namespaceId: 'nem',\n#   name: 'xem'\n# )\n# properties = Nis::Struct::MosaicProperties.new(\n#   divisibility: 6,\n#   initialSupply: 8_999_999_999\n# )\n# mo_def = Nis::Struct::MosaicDefinition.new(\n#   id: mosaic_id,\n#   properties: properties,\n# )\n# mosaic_attachment = Nis::Struct::MosaicAttachment.new(mo_def, 1_000_000)\n\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')\ntx.mosaics << Nis::Struct::MosaicAttachment.new(mo_def, 1)\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Version2(sending mosaic)"
+        },
+        {
+            "location": "/examples/transactions/#remote-node",
+            "text": "require 'nis'\nnis = Nis.new(host: '23.228.67.85')\n\n# sender\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\n# recipient\nB_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::Announce.new(tx, kp)\nres = nis.transaction_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Remote node"
+        },
+        {
+            "location": "/examples/transactions/#importance-transfer",
+            "text": "# sender\nA_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'\n\n# remote\nB_PUBLIC_KEY = 'cc6c9485d15b992501e57fe3799487e99de272f79c5442de94eeb998b45e0144'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\ntx = Nis::Transaction::ImportanceTransfer.new(B_PUBLIC_KEY, :activate)\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Importance Transfer"
+        },
+        {
+            "location": "/examples/transactions/#multisig-signature",
+            "text": "nis = Nis.new\n\n# multisig\nM_PUBLIC_KEY = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'\nM_ADDRESS = 'TDJNDAQ7F7AQRXKP2YVTH67QYCWWKE6QLSJFWN64'\n\n# cosignatory1\n# A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n# A_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033'\n# A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\n# cosignatory2\nB_PRIVATE_KEY = '1d13af2c31ee6fb0c3c7aaaea818d9b305dcadba130ba663fc42d9f25b24ded1'\nB_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'\n\nkp = Nis::Keypair.new(B_PRIVATE_KEY)\n\nnis = Nis.new\ntxes = nis.account_unconfirmed_transactions(address: B_ADDRESS)\n\nunless txes.size > 0\n  puts 'There are no transactions to sign.'\n  exit\nend\n\nhash = txes.first.meta.data\np \"Unconfirmed Transaction Hash: #{hash}\"\n\ntx = Nis::Transaction::MultisigSignature.new(hash, M_ADDRESS, B_PUBLIC_KEY)\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Multisig Signature"
+        },
+        {
+            "location": "/examples/transactions/#namespace",
+            "text": "nis = Nis.new\n\n# namespace creator\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\ntx = Nis::Transaction::ProvisionNamespace.new('sushi')\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Namespace"
+        },
+        {
+            "location": "/examples/transactions/#mosaic",
+            "text": "",
+            "title": "Mosaic"
+        },
+        {
+            "location": "/examples/transactions/#creation",
+            "text": "# mosaic creator\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\nA_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\nmosaic_id = Nis::Struct::MosaicId.new(\n  namespaceId: 'sushi',\n  name: 'maguro'\n)\n\nproperties = Nis::Struct::MosaicProperties.new(\n  divisibility: 0,\n  initialSupply: 10_000,\n  supplyMutable: true,\n  transferable: true\n)\n\nlevy = Nis::Struct::MosaicLevy.new(\n  type: 1,\n  recipient: A_ADDRESS,\n  mosaicId: {\n    namespaceId: 'nem',\n    name: 'xem'\n  },\n  fee: 1_000\n)\n\ndefinition = Nis::Struct::MosaicDefinition.new(\n  creator: A_PUBLIC_KEY,\n  id: mosaic_id,\n  description: 'Japanese Soul food SHUSHI.',\n  properties: properties,\n  levy: levy\n)\n\ntx = Nis::Transaction::MosaicDefinitionCreation.new(definition)\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Creation"
+        },
+        {
+            "location": "/examples/transactions/#supply-change",
+            "text": "nis = Nis.new\n\n# mosaic owner\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\nmosaic_id = Nis::Struct::MosaicId.new(\n  namespaceId: 'sushi',\n  name: 'maguro'\n)\n\ntx = Nis::Transaction::MosaicSupplyChange.new(mosaic_id, :increase, 1_000)\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Supply Change"
+        },
+        {
+            "location": "/examples/transactions/#multisig-aggregate-modification",
+            "text": "nis = Nis.new\n\n# multisig\nM_PRIVATE_KEY = '00f077782658ae91b77f238ba5fcd7ef110564b5c189072e4d4590d9b17f9d76f3'\n\n# cosignatory\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\nA_PUBLIC_KEY  = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'\n\nkp = Nis::Keypair.new(M_PRIVATE_KEY)\n\nmcm = Nis::Struct::MultisigCosignatoryModification.new(\n  modificationType: 1,\n  cosignatoryAccount: A_PUBLIC_KEY\n)\nmin_cosigs = 1\n\ntx = Nis::Transaction::MultisigAggregateModification.new([mcm], min_cosigs)\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Multisig Aggregate Modification"
+        },
+        {
+            "location": "/examples/transactions/#add-cosignatory",
+            "text": "nis = Nis.new\n\n# multisig\nM_PUBLIC_KEY  = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'\n\n# cosignatory1\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\n# cosignatory2\nB_PUBLIC_KEY  = '9e7ab2924cd1a3482df784db190614cfc8a33671f5d80a5b15a9c9e8b4d13933'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\nmcm = Nis::Struct::MultisigCosignatoryModification.new(\n  modificationType: 1,\n  cosignatoryAccount: B_PUBLIC_KEY\n)\nmin_cosigs = 1\n\nmtx = Nis::Transaction::MultisigAggregateModification.new([mcm], min_cosigs)\ntx = Nis::Transaction::Multisig.new(mtx, M_PUBLIC_KEY)\n\nreq = Nis::Request::PrepareAnnounce.new(tx, kp)\nres = nis.transaction_prepare_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"",
+            "title": "Add cosignatory"
+        },
+        {
+            "location": "/examples/util/",
+            "text": "Deserialize transaction\n\n\n# sender\nA_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'\n\n# receiver\nB_ADDRESS = 'TAWKJTUP4DWKLDKKS534TYP6G324CBNMXKBA4X7B'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')\nreq = Nis::Request::Announce.new(tx, kp)\n\np req.to_hash[:data]\np Nis::Util::Deserializer.deserialize_transaction(req.to_hash[:data])",
+            "title": "Util"
+        },
+        {
+            "location": "/examples/util/#deserialize-transaction",
+            "text": "# sender\nA_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'\n\n# receiver\nB_ADDRESS = 'TAWKJTUP4DWKLDKKS534TYP6G324CBNMXKBA4X7B'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')\nreq = Nis::Request::Announce.new(tx, kp)\n\np req.to_hash[:data]\np Nis::Util::Deserializer.deserialize_transaction(req.to_hash[:data])",
+            "title": "Deserialize transaction"
+        },
+        {
+            "location": "/about/",
+            "text": "Feedback and Contact\n\n\nFor further development of nem with ruby, feel free to send me your feedback, feature requests, bug reports!\n\n\n\n\n44uk/nis-ruby - gitter\n\n\n@44uk_i3 - Twitter\n\n\n\n\nand I would be glad if you could let me know any project using the gem!\n\n\nDonation\n\n\nThe project gratefully accepts donations via nem:xem.\n\n\nNCPBJTNKHODIGPDMPKPETJK6YLMUPAW7ISBIQGUP\n\n\n\n\nThanks\n\n\n\n\nNEM - Distributed Ledger Technology (Blockchain)\n\n\nNEM NIS API Documentation\n\n\nNEM Forum\n\n\n\n\nContributing\n\n\nBug reports and pull requests are welcome on GitHub at \n44uk/nis-ruby\n. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the \nContributor Covenant\n code of conduct.\n\n\nLicense\n\n\nThe gem is available as open source under the terms of the \nMIT License\n.",
             "title": "About"
         },
         {

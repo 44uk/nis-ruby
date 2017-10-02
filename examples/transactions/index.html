@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Transactions - nis-ruby</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../custom.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Transactions";
+    var mkdocs_page_input_path = "examples/transactions.md";
+    var mkdocs_page_url = "/examples/transactions/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> nis-ruby</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../usage/">Usage</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Examples</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../nis/">Nis</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../account/">Account</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../block/">Block</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../debug/">Debug</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../local/">Local</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../namespace/">Namespace</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../node/">Node</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../time_sync/">Time sync</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Transactions</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#transfer">Transfer</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#version1">Version1</a></li>
+        
+            <li><a class="toctree-l4" href="#version2sending-mosaic">Version2(sending mosaic)</a></li>
+        
+            <li><a class="toctree-l4" href="#remote-node">Remote node</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#importance-transfer">Importance Transfer</a></li>
+    
+
+    <li class="toctree-l3"><a href="#multisig-signature">Multisig Signature</a></li>
+    
+
+    <li class="toctree-l3"><a href="#namespace">Namespace</a></li>
+    
+
+    <li class="toctree-l3"><a href="#mosaic">Mosaic</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#creation">Creation</a></li>
+        
+            <li><a class="toctree-l4" href="#supply-change">Supply Change</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#multisig-aggregate-modification">Multisig Aggregate Modification</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#add-cosignatory">Add cosignatory</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../util/">Util</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">nis-ruby</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Examples &raquo;</li>
+        
+      
+    
+    <li>Transactions</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/44uk/nis-ruby/edit/master/docs/examples/transactions.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="transfer">Transfer</h2>
+<h3 id="version1">Version1</h3>
+<pre><code class="ruby">nis = Nis.new
+
+# sender
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+
+# recipient
+B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'
+B_PUBLIC_KEY = '9e7ab2924cd1a3482df784db190614cfc8a33671f5d80a5b15a9c9e8b4d13933'
+
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+tx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')
+p &quot;Fee: #{tx.fee.to_i}&quot;
+
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+
+# with encrypted message
+message = Nis::Struct::Message.new('Good luck!', type: :encrypted,
+  private_key: kp.private,
+  public_key: B_PUBLIC_KEY
+)
+message.encrypt!
+tx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, message, {})
+puts &quot;Fee: #{tx.fee.to_i}&quot;
+
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+</code></pre>
+
+<h3 id="version2sending-mosaic">Version2(sending mosaic)</h3>
+<pre><code class="ruby">nis = Nis.new
+
+# sender
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+
+# recipient
+B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'
+
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+
+# fetch mosaic definition
+mo_dmdps = nis.namespace_mosaic_definition_page(namespace: 'kon')
+mo_def = mo_dmdps.first.mosaic
+
+# Or you can use built object if you already know mosaic definition.
+# mosaic_id = Nis::Struct::MosaicId.new(
+#   namespaceId: 'kon',
+#   name: 'heart'
+# )
+# properties = Nis::Struct::MosaicProperties.new(
+#   divisibility: 3,
+#   initialSupply: 100_000_000
+# )
+# mo_def = Nis::Struct::MosaicDefinition.new(
+#   id: mosaic_id,
+#   properties: properties,
+# )
+
+# sending 1xem as mosaic sample
+# mosaic_id = Nis::Struct::MosaicId.new(
+#   namespaceId: 'nem',
+#   name: 'xem'
+# )
+# properties = Nis::Struct::MosaicProperties.new(
+#   divisibility: 6,
+#   initialSupply: 8_999_999_999
+# )
+# mo_def = Nis::Struct::MosaicDefinition.new(
+#   id: mosaic_id,
+#   properties: properties,
+# )
+# mosaic_attachment = Nis::Struct::MosaicAttachment.new(mo_def, 1_000_000)
+
+tx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')
+tx.mosaics &lt;&lt; Nis::Struct::MosaicAttachment.new(mo_def, 1)
+
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+</code></pre>
+
+<h3 id="remote-node">Remote node</h3>
+<pre><code class="ruby">require 'nis'
+nis = Nis.new(host: '23.228.67.85')
+
+# sender
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+
+# recipient
+B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'
+
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+
+tx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')
+p &quot;Fee: #{tx.fee.to_i}&quot;
+
+req = Nis::Request::Announce.new(tx, kp)
+res = nis.transaction_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+
+</code></pre>
+
+<h2 id="importance-transfer">Importance Transfer</h2>
+<pre><code class="ruby"># sender
+A_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'
+
+# remote
+B_PUBLIC_KEY = 'cc6c9485d15b992501e57fe3799487e99de272f79c5442de94eeb998b45e0144'
+
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+
+tx = Nis::Transaction::ImportanceTransfer.new(B_PUBLIC_KEY, :activate)
+p &quot;Fee: #{tx.fee.to_i}&quot;
+
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+</code></pre>
+
+<h2 id="multisig-signature">Multisig Signature</h2>
+<pre><code class="ruby">nis = Nis.new
+
+# multisig
+M_PUBLIC_KEY = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'
+M_ADDRESS = 'TDJNDAQ7F7AQRXKP2YVTH67QYCWWKE6QLSJFWN64'
+
+# cosignatory1
+# A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+# A_PUBLIC_KEY  = 'be2ba9cb15a547110d511a4d43c0482fbb584d78781abac01fb053d18f4a0033'
+# A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+# cosignatory2
+B_PRIVATE_KEY = '1d13af2c31ee6fb0c3c7aaaea818d9b305dcadba130ba663fc42d9f25b24ded1'
+B_ADDRESS = 'TA4TX6U5HG2MROAESH2JE5524T4ZOY2EQKQ6ELHF'
+
+kp = Nis::Keypair.new(B_PRIVATE_KEY)
+
+nis = Nis.new
+txes = nis.account_unconfirmed_transactions(address: B_ADDRESS)
+
+unless txes.size &gt; 0
+  puts 'There are no transactions to sign.'
+  exit
+end
+
+hash = txes.first.meta.data
+p &quot;Unconfirmed Transaction Hash: #{hash}&quot;
+
+tx = Nis::Transaction::MultisigSignature.new(hash, M_ADDRESS, B_PUBLIC_KEY)
+
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+</code></pre>
+
+<h2 id="namespace">Namespace</h2>
+<pre><code class="ruby">nis = Nis.new
+
+# namespace creator
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+
+tx = Nis::Transaction::ProvisionNamespace.new('sushi')
+p &quot;Fee: #{tx.fee.to_i}&quot;
+
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+</code></pre>
+
+<h2 id="mosaic">Mosaic</h2>
+<h3 id="creation">Creation</h3>
+<pre><code class="ruby"># mosaic creator
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
+
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+
+mosaic_id = Nis::Struct::MosaicId.new(
+  namespaceId: 'sushi',
+  name: 'maguro'
+)
+
+properties = Nis::Struct::MosaicProperties.new(
+  divisibility: 0,
+  initialSupply: 10_000,
+  supplyMutable: true,
+  transferable: true
+)
+
+levy = Nis::Struct::MosaicLevy.new(
+  type: 1,
+  recipient: A_ADDRESS,
+  mosaicId: {
+    namespaceId: 'nem',
+    name: 'xem'
+  },
+  fee: 1_000
+)
+
+definition = Nis::Struct::MosaicDefinition.new(
+  creator: A_PUBLIC_KEY,
+  id: mosaic_id,
+  description: 'Japanese Soul food SHUSHI.',
+  properties: properties,
+  levy: levy
+)
+
+tx = Nis::Transaction::MosaicDefinitionCreation.new(definition)
+p &quot;Fee: #{tx.fee.to_i}&quot;
+
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+</code></pre>
+
+<h3 id="supply-change">Supply Change</h3>
+<pre><code class="ruby">nis = Nis.new
+
+# mosaic owner
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+
+mosaic_id = Nis::Struct::MosaicId.new(
+  namespaceId: 'sushi',
+  name: 'maguro'
+)
+
+tx = Nis::Transaction::MosaicSupplyChange.new(mosaic_id, :increase, 1_000)
+p &quot;Fee: #{tx.fee.to_i}&quot;
+
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+</code></pre>
+
+<h2 id="multisig-aggregate-modification">Multisig Aggregate Modification</h2>
+<pre><code class="ruby">nis = Nis.new
+
+# multisig
+M_PRIVATE_KEY = '00f077782658ae91b77f238ba5fcd7ef110564b5c189072e4d4590d9b17f9d76f3'
+
+# cosignatory
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+A_PUBLIC_KEY  = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'
+
+kp = Nis::Keypair.new(M_PRIVATE_KEY)
+
+mcm = Nis::Struct::MultisigCosignatoryModification.new(
+  modificationType: 1,
+  cosignatoryAccount: A_PUBLIC_KEY
+)
+min_cosigs = 1
+
+tx = Nis::Transaction::MultisigAggregateModification.new([mcm], min_cosigs)
+p &quot;Fee: #{tx.fee.to_i}&quot;
+
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+</code></pre>
+
+<h3 id="add-cosignatory">Add cosignatory</h3>
+<pre><code class="ruby">nis = Nis.new
+
+# multisig
+M_PUBLIC_KEY  = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'
+
+# cosignatory1
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+
+# cosignatory2
+B_PUBLIC_KEY  = '9e7ab2924cd1a3482df784db190614cfc8a33671f5d80a5b15a9c9e8b4d13933'
+
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+
+mcm = Nis::Struct::MultisigCosignatoryModification.new(
+  modificationType: 1,
+  cosignatoryAccount: B_PUBLIC_KEY
+)
+min_cosigs = 1
+
+mtx = Nis::Transaction::MultisigAggregateModification.new([mcm], min_cosigs)
+tx = Nis::Transaction::Multisig.new(mtx, M_PUBLIC_KEY)
+
+req = Nis::Request::PrepareAnnounce.new(tx, kp)
+res = nis.transaction_prepare_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+</code></pre>
+
+<h2 id="_1"></h2>
+<pre><code class="ruby">
+</code></pre>
+
+<h2 id="_2"></h2>
+<pre><code class="ruby">
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../util/" class="btn btn-neutral float-right" title="Util">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../time_sync/" class="btn btn-neutral" title="Time sync"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2017, <a href="https://github.com/44uk">Yoshiyuki Ieyama</a>, <a href="https://twitter.com/44uk_i3">44uk_i3</a>.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/44uk/nis-ruby" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../time_sync/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../util/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Node - nis-ruby</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../custom.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Node";
+    var mkdocs_page_input_path = "examples/node.md";
+    var mkdocs_page_url = "/examples/node/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> nis-ruby</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../usage/">Usage</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Examples</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../nis/">Nis</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../account/">Account</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../block/">Block</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../debug/">Debug</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../local/">Local</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../namespace/">Namespace</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Node</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#info">Info</a></li>
+    
+
+    <li class="toctree-l3"><a href="#peerlist">Peerlist</a></li>
+    
+
+    <li class="toctree-l3"><a href="#active-peers-max-chain-height">Active peers max chain height</a></li>
+    
+
+    <li class="toctree-l3"><a href="#boot-node-request">Boot node request</a></li>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../time_sync/">Time sync</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../transactions/">Transactions</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../util/">Util</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">nis-ruby</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Examples &raquo;</li>
+        
+      
+    
+    <li>Node</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/44uk/nis-ruby/edit/master/docs/examples/node.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="info">Info</h2>
+<pre><code class="ruby">nis = Nis.new(host: '23.228.67.85')
+
+p nis.node_info
+p nis.node_extended_info
+p nis.node_experiences
+</code></pre>
+
+<h2 id="peerlist">Peerlist</h2>
+<pre><code class="ruby">nis = Nis.new(host: '23.228.67.85')
+
+# mapped methods
+p nis.node_peerlist_all
+p nis.node_peerlist_reachable
+p nis.node_peerlist_active
+
+# another way
+p nis.node_peerlist(:all)
+p nis.node_peerlist(:reachable)
+p nis.node_peerlist(:active)
+</code></pre>
+
+<h2 id="active-peers-max-chain-height">Active peers max chain height</h2>
+<pre><code class="ruby">nis = Nis.new(host: '23.228.67.85')
+
+p nis.node_active_peers_max_chain_height
+</code></pre>
+
+<h2 id="boot-node-request">Boot node request</h2>
+<pre><code class="ruby">nis = Nis.new
+
+bnr = Nis::Struct::BootNodeRequest.new(
+  metaData: {
+    application: 'NIS'
+  },
+  endpoint: {
+    protocol: 'http',
+    port: 7890,
+    host: 'localhost'
+  },
+  identity: {
+    'private-key': 'a6cbd01d04edecfaef51df9486c111abb6299c764a00206eb1d01f4587491b3f',
+    name: 'Alice'
+  }
+)
+
+begin
+  p nis.node_boot(boot_node_request: bnr)
+rescue =&gt; ex
+  p ex
+end
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../time_sync/" class="btn btn-neutral float-right" title="Time sync">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../namespace/" class="btn btn-neutral" title="Namespace"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2017, <a href="https://github.com/44uk">Yoshiyuki Ieyama</a>, <a href="https://twitter.com/44uk_i3">44uk_i3</a>.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/44uk/nis-ruby" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../namespace/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../time_sync/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>

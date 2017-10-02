@@ -7,21 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="shortcut icon" href="./img/favicon.ico">
-  <title>nis-ruby</title>
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Time sync - nis-ruby</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="./css/highlight.css">
-  <link href="./custom.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../custom.css" rel="stylesheet">
   
-  <script src="./js/jquery-2.1.1.min.js"></script>
-  <script src="./js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="./js/highlight.pack.js"></script>
-  <script>var base_url = '.';</script>
-  <script data-main="./mkdocs/js/search.js" src="./mkdocs/js/require.js"></script>
-
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Time sync";
+    var mkdocs_page_input_path = "examples/time_sync.md";
+    var mkdocs_page_url = "/examples/time_sync/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -32,9 +36,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="." class="icon icon-home"> nis-ruby</a>
+        <a href="../.." class="icon icon-home"> nis-ruby</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
   </form>
 </div>
@@ -46,12 +50,12 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href=".">Home</a>
+    <a class="" href="../..">Home</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="usage/">Usage</a>
+    <a class="" href="../../usage/">Usage</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -60,50 +64,56 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="examples/nis/">Nis</a>
+    <a class="" href="../nis/">Nis</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="examples/account/">Account</a>
+    <a class="" href="../account/">Account</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="examples/block/">Block</a>
+    <a class="" href="../block/">Block</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="examples/debug/">Debug</a>
+    <a class="" href="../debug/">Debug</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="examples/local/">Local</a>
+    <a class="" href="../local/">Local</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="examples/namespace/">Namespace</a>
+    <a class="" href="../namespace/">Namespace</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="examples/node/">Node</a>
+    <a class="" href="../node/">Node</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Time sync</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#network-time">Network time</a></li>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="examples/time_sync/">Time sync</a>
+    <a class="" href="../transactions/">Transactions</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="examples/transactions/">Transactions</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="examples/util/">Util</a>
+    <a class="" href="../util/">Util</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="about/">About</a>
+    <a class="" href="../../about/">About</a>
 	    </li>
           
         </ul>
@@ -116,7 +126,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href=".">nis-ruby</a>
+        <a href="../..">nis-ruby</a>
       </nav>
 
       
@@ -124,10 +134,19 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".">Docs</a> &raquo;</li>
+    <li><a href="../..">Docs</a> &raquo;</li>
     
+      
+        
+          <li>Examples &raquo;</li>
+        
+      
     
+    <li>Time sync</li>
     <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/44uk/nis-ruby/edit/master/docs/examples/time_sync.md"
+          class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
@@ -136,22 +155,24 @@
           <div role="main">
             <div class="section">
               
+                <h2 id="network-time">Network time</h2>
+<pre><code class="ruby">nis = Nis.new(host: '23.228.67.85')
 
-  <h1 id="search">Search Results</h1>
-
-  <form id="content_search" action="search.html">
-    <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-    <input name="q" id="mkdocs-search-query" type="text" class="search_input search-query ui-autocomplete-input" placeholder="Search the Docs" autocomplete="off" autofocus>
-  </form>
-
-  <div id="mkdocs-search-results" class="search-results">
-    Searching...
-  </div>
-
-
+p nis.time_sync_network_time
+</code></pre>
+              
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../transactions/" class="btn btn-neutral float-right" title="Transactions">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../node/" class="btn btn-neutral" title="Node"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -179,10 +200,14 @@
           <a href="https://github.com/44uk/nis-ruby" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
+        <span><a href="../node/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../transactions/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
-    <script src="./js/theme.js"></script>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>
