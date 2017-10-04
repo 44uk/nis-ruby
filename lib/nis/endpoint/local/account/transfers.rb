@@ -37,8 +37,8 @@ module Nis::Endpoint
 
         def local_account_transfers_direction(dir)
           case dir.to_s
-            when /\Ai/ then :incoming
-            when /\Ao/ then :outgoing
+          when /\Ai/ then :incoming
+          when /\Ao/ then :outgoing
             else :all
           end
         end

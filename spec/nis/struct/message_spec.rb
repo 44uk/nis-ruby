@@ -32,6 +32,22 @@ describe Nis::Struct::Message do
     it { expect(subject.to_s).to eq value }
   end
 
+  context 'with hex message' do
+    let(:value) { 'fedeadbeef' }
+
+    describe '#payload' do
+      it { expect(subject.payload).to eq 'fedeadbeef' }
+    end
+
+    describe '#to_hash' do
+      it { expect(subject.to_hash).to eq payload: 'fedeadbeef', type: 1 }
+    end
+
+    describe '#to_s' do
+      it { expect(subject.to_s).to eq value }
+    end
+  end
+
   context 'with message encryption' do
     let(:private_key) { '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214' }
     let(:public_key) { '9e7ab2924cd1a3482df784db190614cfc8a33671f5d80a5b15a9c9e8b4d13933' }

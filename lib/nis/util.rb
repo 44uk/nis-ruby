@@ -13,11 +13,6 @@ module Nis::Util
 
   NEM_EPOCH = Time.utc(2015, 3, 29, 0, 6, 25, 0)
 
-  APOSTILLE_SINK = {
-    testnet: 'TC7MCY5AGJQXZQ4BN3BOPNXUVIGDJCOHBPGUM2GE',
-    mainnet: 'NCZSJHLTIMESERVBVKOW6US64YDZG2PFGQCSV23J'
-  }
-
   def self.parse_version(network, version)
     parse_network(network) | version
   end
