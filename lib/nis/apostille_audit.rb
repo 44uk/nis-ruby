@@ -15,7 +15,7 @@ class Nis::ApostilleAudit
   end
 
   def valid?
-    raise "Not implemented private apostille" if private?
+    raise 'Not implemented private apostille' if private?
     raise "Invalid checksum: #{@checksum}" unless @checksum == CHECKSUM
     @hash == calc_hash
   end
@@ -35,11 +35,11 @@ class Nis::ApostilleAudit
 
   def calc_hash
     hashed = case @algo
-      when 0x01 then Digest::MD5.file(@file)
-      when 0x02 then Digest::SHA1.file(@file)
-      when 0x03 then Digest::SHA256.file(@file)
-      when 0x08 then Digest::SHA3.file(@file, 256)
-      when 0x09 then Digest::SHA3.file(@file, 512)
+             when 0x01 then Digest::MD5.file(@file)
+             when 0x02 then Digest::SHA1.file(@file)
+             when 0x03 then Digest::SHA256.file(@file)
+             when 0x08 then Digest::SHA3.file(@file, 256)
+             when 0x09 then Digest::SHA3.file(@file, 512)
       else raise "Undefined alog #{@algo}"
     end
     hashed.hexdigest

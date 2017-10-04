@@ -41,8 +41,8 @@ module Nis::Endpoint
 
     def debug_connections_direction(dir)
       case dir.to_s
-        when /\Ai/ then :incoming
-        when /\Ao/ then :outgoing
+      when /\Ai/ then :incoming
+      when /\Ao/ then :outgoing
         else raise "Undefined direction: #{dir}"
       end
     end

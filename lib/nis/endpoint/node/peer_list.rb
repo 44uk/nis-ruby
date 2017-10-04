@@ -36,8 +36,8 @@ module Nis::Endpoint
 
     def node_peerlist_state(state)
       case state.to_s
-        when 'active' then :active
-        when 'reachable' then :reachable
+      when 'active' then :active
+      when 'reachable' then :reachable
         else :all
       end
     end
