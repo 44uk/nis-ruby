@@ -296,6 +296,21 @@
             "title": "Add cosignatory"
         },
         {
+            "location": "/examples/apostille/",
+            "text": "Create\n\n\nNow, only support public Apostille.\n\n\nnis = Nis.new(host: '23.228.67.85')\n\n# sender\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\nfile = File.open('/path/to/file.txt')\nap = Nis::Apostille.new(kp, file, :sha1,\n  multisig: false,\n  private: false,\n  network: :testnet\n)\ntx = ap.transaction\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::Announce.new(tx, kp)\nres = nis.transaction_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\np \"ApostilleFormat: #{ap.apostille_format(res.transaction_hash)}\"\n\nFileUtils.cp(file.path, ap.apostille_format(res.transaction_hash))\n\n\n\n\nAudit\n\n\nNow, only support public Apostille.\n\n\nnis = Nis.new(host: '23.228.67.85')\n\nFIXTURES_PATH = File.expand_path('../../spec/fixtures', __FILE__)\n\ntx_hash = '3d7d8a88768ea35f35a4607252ea7bb71fd0951b92a12dfab41c98333b029c9f'\n\ntx = nis.transaction_get(hash: tx_hash)\napostille_hash = tx.transaction.message[:payload]\nfile = File.open('path/to/file -- Apostille TX 3d7d8a88768ea35f35a4607252ea7bb71fd0951b92a12dfab41c98333b029c9f -- Date 2017-10-04.txt')\n\napa = Nis::ApostilleAudit.new(file, apostille_hash)\np apa.valid?",
+            "title": "Apostille"
+        },
+        {
+            "location": "/examples/apostille/#create",
+            "text": "Now, only support public Apostille.  nis = Nis.new(host: '23.228.67.85')\n\n# sender\nA_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\n\nfile = File.open('/path/to/file.txt')\nap = Nis::Apostille.new(kp, file, :sha1,\n  multisig: false,\n  private: false,\n  network: :testnet\n)\ntx = ap.transaction\np \"Fee: #{tx.fee.to_i}\"\n\nreq = Nis::Request::Announce.new(tx, kp)\nres = nis.transaction_announce(req)\n\np \"Message: #{res.message}\"\np \"TransactionHash: #{res.transaction_hash}\"\np \"ApostilleFormat: #{ap.apostille_format(res.transaction_hash)}\"\n\nFileUtils.cp(file.path, ap.apostille_format(res.transaction_hash))",
+            "title": "Create"
+        },
+        {
+            "location": "/examples/apostille/#audit",
+            "text": "Now, only support public Apostille.  nis = Nis.new(host: '23.228.67.85')\n\nFIXTURES_PATH = File.expand_path('../../spec/fixtures', __FILE__)\n\ntx_hash = '3d7d8a88768ea35f35a4607252ea7bb71fd0951b92a12dfab41c98333b029c9f'\n\ntx = nis.transaction_get(hash: tx_hash)\napostille_hash = tx.transaction.message[:payload]\nfile = File.open('path/to/file -- Apostille TX 3d7d8a88768ea35f35a4607252ea7bb71fd0951b92a12dfab41c98333b029c9f -- Date 2017-10-04.txt')\n\napa = Nis::ApostilleAudit.new(file, apostille_hash)\np apa.valid?",
+            "title": "Audit"
+        },
+        {
             "location": "/examples/util/",
             "text": "Deserialize transaction\n\n\n# sender\nA_PRIVATE_KEY = '260206d683962350532408e8774fd14870a173b7fba17f6b504da3dbc5f1cc9f'\n\n# receiver\nB_ADDRESS = 'TAWKJTUP4DWKLDKKS534TYP6G324CBNMXKBA4X7B'\n\nkp = Nis::Keypair.new(A_PRIVATE_KEY)\ntx = Nis::Transaction::Transfer.new(B_ADDRESS, 1, 'Good luck!')\nreq = Nis::Request::Announce.new(tx, kp)\n\np req.to_hash[:data]\np Nis::Util::Deserializer.deserialize_transaction(req.to_hash[:data])",
             "title": "Util"

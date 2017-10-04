@@ -4,7 +4,7 @@
     
     <url>
      <loc>https://44uk.github.io/nis-ruby//</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +12,7 @@
     
     <url>
      <loc>https://44uk.github.io/nis-ruby//usage/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -21,61 +21,67 @@
         
     <url>
      <loc>https://44uk.github.io/nis-ruby//examples/nis/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>https://44uk.github.io/nis-ruby//examples/account/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>https://44uk.github.io/nis-ruby//examples/block/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>https://44uk.github.io/nis-ruby//examples/debug/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>https://44uk.github.io/nis-ruby//examples/local/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>https://44uk.github.io/nis-ruby//examples/namespace/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>https://44uk.github.io/nis-ruby//examples/node/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>https://44uk.github.io/nis-ruby//examples/time_sync/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>https://44uk.github.io/nis-ruby//examples/transactions/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://44uk.github.io/nis-ruby//examples/apostille/</loc>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>https://44uk.github.io/nis-ruby//examples/util/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -84,7 +90,7 @@
     
     <url>
      <loc>https://44uk.github.io/nis-ruby//about/</loc>
-     <lastmod>2017-10-02</lastmod>
+     <lastmod>2017-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
     

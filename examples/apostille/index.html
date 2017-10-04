@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Time sync - nis-ruby</title>
+  <title>Apostille - nis-ruby</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Time sync";
-    var mkdocs_page_input_path = "examples/time_sync.md";
-    var mkdocs_page_url = "/examples/time_sync/";
+    var mkdocs_page_name = "Apostille";
+    var mkdocs_page_input_path = "examples/apostille.md";
+    var mkdocs_page_url = "/examples/apostille/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -90,23 +90,26 @@
                     
     <a class="" href="../node/">Node</a>
                 </li>
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">Time sync</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#network-time">Network time</a></li>
-    
-
-    </ul>
+    <a class="" href="../time_sync/">Time sync</a>
                 </li>
                 <li class="">
                     
     <a class="" href="../transactions/">Transactions</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../apostille/">Apostille</a>
+    <a class="current" href="./">Apostille</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#create">Create</a></li>
+    
+
+    <li class="toctree-l3"><a href="#audit">Audit</a></li>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -146,10 +149,10 @@
         
       
     
-    <li>Time sync</li>
+    <li>Apostille</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/44uk/nis-ruby/edit/master/docs/examples/time_sync.md"
+        <a href="https://github.com/44uk/nis-ruby/edit/master/docs/examples/apostille.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -159,10 +162,48 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="network-time">Network time</h2>
+                <h2 id="create">Create</h2>
+<p><em>Now, only support public Apostille.</em></p>
 <pre><code class="ruby">nis = Nis.new(host: '23.228.67.85')
 
-p nis.time_sync_network_time
+# sender
+A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'
+
+kp = Nis::Keypair.new(A_PRIVATE_KEY)
+
+file = File.open('/path/to/file.txt')
+ap = Nis::Apostille.new(kp, file, :sha1,
+  multisig: false,
+  private: false,
+  network: :testnet
+)
+tx = ap.transaction
+p &quot;Fee: #{tx.fee.to_i}&quot;
+
+req = Nis::Request::Announce.new(tx, kp)
+res = nis.transaction_announce(req)
+
+p &quot;Message: #{res.message}&quot;
+p &quot;TransactionHash: #{res.transaction_hash}&quot;
+p &quot;ApostilleFormat: #{ap.apostille_format(res.transaction_hash)}&quot;
+
+FileUtils.cp(file.path, ap.apostille_format(res.transaction_hash))
+</code></pre>
+
+<h2 id="audit">Audit</h2>
+<p><em>Now, only support public Apostille.</em></p>
+<pre><code class="ruby">nis = Nis.new(host: '23.228.67.85')
+
+FIXTURES_PATH = File.expand_path('../../spec/fixtures', __FILE__)
+
+tx_hash = '3d7d8a88768ea35f35a4607252ea7bb71fd0951b92a12dfab41c98333b029c9f'
+
+tx = nis.transaction_get(hash: tx_hash)
+apostille_hash = tx.transaction.message[:payload]
+file = File.open('path/to/file -- Apostille TX 3d7d8a88768ea35f35a4607252ea7bb71fd0951b92a12dfab41c98333b029c9f -- Date 2017-10-04.txt')
+
+apa = Nis::ApostilleAudit.new(file, apostille_hash)
+p apa.valid?
 </code></pre>
               
             </div>
@@ -171,10 +212,10 @@ p nis.time_sync_network_time
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../transactions/" class="btn btn-neutral float-right" title="Transactions">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../util/" class="btn btn-neutral float-right" title="Util">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../node/" class="btn btn-neutral" title="Node"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../transactions/" class="btn btn-neutral" title="Transactions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -204,10 +245,10 @@ p nis.time_sync_network_time
           <a href="https://github.com/44uk/nis-ruby" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../node/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../transactions/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../transactions/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../util/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
