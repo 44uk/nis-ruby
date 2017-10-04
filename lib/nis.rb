@@ -11,6 +11,8 @@ require 'nis/struct'
 require 'nis/transaction'
 require 'nis/unit'
 require 'nis/error'
+require 'nis/apostille'
+require 'nis/apostille_audit'
 
 # API Ruby Wrapper for NEM Infrastructure Server
 class Nis
