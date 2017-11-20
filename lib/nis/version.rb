@@ -1,3 +1,3 @@
 class Nis
-  VERSION = '0.0.17'.freeze
+  VERSION = '0.0.18'.freeze
 end
