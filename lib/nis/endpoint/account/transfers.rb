@@ -3,13 +3,15 @@ module Nis::Endpoint
     # @param [String] address
     # @param [String] hash
     # @param [String] id
+    # @param [Integer] page_size
     # @return [Array <Nis::Struct::TransactionMetaDataPair>]
     # @see https://nemproject.github.io/#requesting-transaction-data-for-an-account
-    def account_transfers_incoming(address:, hash: nil, id: nil)
+    def account_transfers_incoming(address:, hash: nil, id: nil, page_size: nil)
       request!(:get, '/account/transfers/incoming',
         address: address,
         hash: hash,
-        id: id
+        id: id,
+        pageSize: page_size
       ) do |res|
         res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
       end
@@ -18,13 +20,15 @@ module Nis::Endpoint
     # @param [String] address
     # @param [String] hash
     # @param [String] id
+    # @param [Integer] page_size
     # @return [Array <Nis::Struct::TransactionMetaDataPair>]
     # @see https://nemproject.github.io/#requesting-transaction-data-for-an-account
-    def account_transfers_outgoing(address:, hash: nil, id: nil)
+    def account_transfers_outgoing(address:, hash: nil, id: nil, page_size: nil)
       request!(:get, '/account/transfers/outgoing',
         address: address,
         hash: hash,
-        id: id
+        id: id,
+        pageSize: page_size
       ) do |res|
         res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
       end
@@ -33,13 +37,15 @@ module Nis::Endpoint
     # @param [String] address
     # @param [String] hash
     # @param [String] id
+    # @param [Integer] page_size
     # @return [Array <Nis::Struct::TransactionMetaDataPair>]
     # @see https://nemproject.github.io/#requesting-transaction-data-for-an-account
-    def account_transfers_all(address:, hash: nil, id: nil)
+    def account_transfers_all(address:, hash: nil, id: nil, page_size: nil)
       request!(:get, '/account/transfers/all',
         address: address,
         hash: hash,
-        id: id
+        id: id,
+        pageSize: page_size
       ) do |res|
         res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
       end
@@ -49,13 +55,15 @@ module Nis::Endpoint
     # @param [String] address
     # @param [String] hash
     # @param [String] id
+    # @param [Integer] page_size
     # @return [Array <Nis::Struct::TransactionMetaDataPair>]
     # @see https://nemproject.github.io/#requesting-transaction-data-for-an-account
-    def account_transfers(dir = :all, address:, hash: nil, id: nil)
+    def account_transfers(dir = :all, address:, hash: nil, id: nil, page_size: nil)
       request!(:get, "/account/transfers/#{account_transfers_direction(dir)}",
         address: address,
         hash: hash,
-        id: id
+        id: id,
+        pageSize: page_size
       ) do |res|
         res[:data].map { |tmdp| Nis::Struct::TransactionMetaDataPair.build(tmdp) }
       end
