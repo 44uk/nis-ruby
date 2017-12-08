@@ -196,6 +196,12 @@ describe Nis do
     )).to be_a Array }
   end
 
+  describe '#mosaic_suply' do
+    it { expect(subject.mosaic_supply(
+      mosaic_id: 'nembar:vip'
+    )).to be_a Nis::Struct::MosaicSupply }
+  end
+
   describe '#node_info' do
     it { expect(subject.node_info).to be_a Nis::Struct::Node }
   end
