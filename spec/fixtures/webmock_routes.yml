@@ -148,6 +148,11 @@ local/chain/blocks-after:
   params:
     height: 2649
 
+mosaic/supply:
+  method: get
+  params:
+    mosaicId: nembar:vip
+
 node/info:
   method: get
 
