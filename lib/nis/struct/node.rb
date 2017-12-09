@@ -7,7 +7,7 @@ class Nis::Struct
     include Nis::Util::Assignable
     attr_accessor :metaData, :endpoint, :identity
 
-    alias :meta_data  :metaData
+    alias :meta_data :metaData
 
     def self.build(attrs)
       new(attrs)
