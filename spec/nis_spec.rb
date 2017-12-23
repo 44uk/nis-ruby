@@ -331,7 +331,7 @@ describe Nis do
 
     context '/account/unlock' do
       it { expect(subject.request(:post, '/account/unlock',
-        privateKey: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'
+        value: '00983bb01d05edecfaef55df9486c111abb6299c754a002069b1d0ef4537441bda'
       )).to eq nil }
     end
   end
