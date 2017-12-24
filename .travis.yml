@@ -1,12 +1,19 @@
 language: ruby
+cache: bundler
 
 rvm:
   - ruby-head
+  - 2.4.3
   - 2.4.0
+  - 2.3.6
   - 2.3.0
+  - 2.2.9
   - 2.2.6
 
 branches:
   only:
     - master
     - development
+
+before_install:
+  - gem install bundler
