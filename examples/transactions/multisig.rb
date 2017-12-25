@@ -4,7 +4,7 @@ Nis.logger.level = Logger::DEBUG
 nis = Nis.new
 
 # multisig
-M_PUBLIC_KEY  = '00f077782658ae91b77f238ba5fcd7ef110564b5c189072e4d4590d9b17f9d76f3'
+M_PUBLIC_KEY  = '6d72b57d2bc199d328e7ea3e24775f7f614760bc18f3f8501cd3daa9870cc40c'
 
 # cosignatory
 A_PRIVATE_KEY = '4ce5c8f9fce571db0d9ac1adf00b8d3ba0f078ed40835fd3d730a2f24b834214'

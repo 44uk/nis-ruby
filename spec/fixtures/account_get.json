@@ -6,11 +6,12 @@
         "importance": 0.010263666447108395,
         "publicKey": "a11a1a6c17a24252e674d151713cdf51991ad101751e4af02a20c61b59f1fe1a",
         "label": null,
-        "harvestedBlocks": 645
+        "harvestedBlocks": 645,
+        "multisigInfo": {}
     },
     "meta": {
-        "cosignatoryOf": [ ],
-        "cosignatories": [ ],
+        "cosignatoryOf": [],
+        "cosignatories": [],
         "status": "LOCKED",
         "remoteStatus": "ACTIVE"
     }

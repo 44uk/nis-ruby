@@ -1,25 +1,27 @@
 {
-    "node": {
-        "metaData": {
-            "application": "NIS",
-            "version": "0.4.33-BETA",
-            "platform": "Oracle Corporation (1.8.0_25) on Windows 8"
-        },
-        "endpoint": {
-            "protocol": "http",
-            "port": 7890,
-            "host": "81.224.224.156"
-        },
-        "identity": {
-            "name": "Alice",
-            "public-key": "a1aaca6c17a24252e674d155713cdf55996ad00175be4af02a20c67b59f9fe8a"
-        }
+  "node": {
+    "metaData": {
+      "features": 3,
+      "application": null,
+      "networkId": 104,
+      "version": "0.6.93-BETA",
+      "platform": "Oracle Corporation (1.8.0_131) on Linux"
     },
-    "nisInfo": {
-        "currentTime": 9288341,
-        "application": "NEM Infrastructure Server",
-        "startTime": 9238484,
-        "version": "0.4.33-BETA",
-        "signer": "CN=VeriSign Class 3 Code Signing 2010 CA,OU=Terms of use at https://www.verisign.com/rpa (c)10,OU=VeriSign Trust Network,O=VeriSign\\, Inc.,C=US"
+    "endpoint": {
+      "protocol": "http",
+      "port": 7890,
+      "host": "88.99.192.82"
+    },
+    "identity": {
+      "name": "Hi, I am Huge Alice",
+      "public-key": "35ee63ac6c4bbf1cb56eeaf5ce4edc591ab0c27e1598672d7915af2333224ece"
     }
+  },
+  "nisInfo": {
+    "currentTime": 84190656,
+    "application": "NEM Deploy",
+    "startTime": 73906117,
+    "version": "0.6.93-BETA",
+    "signer": null
+  }
 }

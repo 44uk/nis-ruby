@@ -26,4 +26,5 @@ describe Nis::Util::Convert do
   let(:utf8str) { 'いろはにほへとちりぬるをわかよたれそつねならむ' }
 
   it { expect(subject.utf8_to_hex(utf8str)).to eq hex_utf8str }
+  it { expect(subject.hex_to_utf8(hex_utf8str)).to eq utf8str }
 end
