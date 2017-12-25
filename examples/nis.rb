@@ -4,7 +4,7 @@ Nis.logger.level = Logger::DEBUG
 # Create NIS instance.
 # By default, connect to local NIS.
 # You also can connect to remote.
-nis = Nis.new(host: '23.228.67.85')
+nis = Nis.new(host: '104.128.226.60')
 
 # API path /heartbeat, /status are mapped into methods.
 # It returns Nis::Struct::NemRequestResult object.

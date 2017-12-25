@@ -1,6 +1,6 @@
 require 'nis'
 Nis.logger.level = Logger::DEBUG
 
-nis = Nis.new(host: '23.228.67.85')
+nis = Nis.new(host: '104.128.226.60')
 
 p nis.namespace_root_page

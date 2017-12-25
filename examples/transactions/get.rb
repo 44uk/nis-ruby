@@ -3,7 +3,7 @@ Nis.logger.level = Logger::DEBUG
 
 A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
 
-nis = Nis.new(host: '23.228.67.85')
+nis = Nis.new(host: '104.128.226.60')
 
 # transfer
 hash = 'a7131c0836da45e72f61ac6e76259d7200a85f0d2cf38f79f223b2c366673b08'
