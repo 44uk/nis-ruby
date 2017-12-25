@@ -12,7 +12,7 @@ describe Nis::Util::Deserializer do
           fee: 100_000,
           recipient: 'TAWKJTUP4DWKLDKKS534TYP6G324CBNMXKBA4X7B',
           amount: 100_000_000,
-          message: { type: 1, payload: '476f6f64206c75636b21' },
+          message: { type: 1, payload: 'Good luck!' },
           timeStamp: 76083262,
           deadline: 76086862,
           # version: -1744830463,
