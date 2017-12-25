@@ -54,7 +54,7 @@ class Nis::Struct
 
     # @return [Boolean]
     def valid?
-      bytesize <= 512
+      bytesize <= 1024
     end
 
     # @return [Hash]
