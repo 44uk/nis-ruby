@@ -1,3 +1,7 @@
+# /!\ Information /!\
+
+**Refactored and New gem for nem => [44uk/nem-ruby](https://github.com/44uk/nem-ruby/)**
+
 # nis-ruby
 
 [![Gem Version](https://badge.fury.io/rb/nis-ruby.svg)](https://badge.fury.io/rb/nis-ruby)
@@ -8,10 +12,6 @@
 <img src="https://cloud.githubusercontent.com/assets/370508/24320282/a332d238-1175-11e7-96dc-75bc30e562d2.png" width="280" height="280" alt="nem" align="right" />
 
 Ruby client library for the NEM Infrastructure Server(NIS) API.
-
-*The gem is under development. Incompatible changes can be made.*
-
-*Not recommended for production use because of lack of testing, needed more improvement.*
 
 For further development of nem with ruby, [feel free to send me your feedback!](#feedback-and-contact)
 
