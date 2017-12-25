@@ -1,7 +1,7 @@
 require 'nis'
 Nis.logger.level = Logger::DEBUG
 
-nis = Nis.new(host: '23.228.67.85')
+nis = Nis.new(host: '104.128.226.60')
 
 # mapped methods
 p nis.node_peerlist_all

@@ -4,7 +4,7 @@ Nis.logger.level = Logger::DEBUG
 A_ADDRESS = 'TDPP2C4XQLMESBMCYGWN4NRAJAKZEYRV75KGYSOB'
 A_PUBLIC_KEY = 'cc63b4dcdec745417043c3fa0992ec3a1695461a26d90264744648abbd5caa0d'
 
-nis = Nis.new(host: '23.228.67.85')
+nis = Nis.new(host: '104.128.226.60')
 
 # /account/get?address={address}
 #   -> account_get address: {address}
