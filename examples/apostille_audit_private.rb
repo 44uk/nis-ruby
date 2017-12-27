@@ -1,6 +1,8 @@
 require 'nis'
 Nis.logger.level = Logger::DEBUG
 
+# TODO: ----
+
 nis = Nis.new(host: '104.128.226.60')
 
 FIXTURES_PATH = File.expand_path('../../spec/fixtures', __FILE__)
