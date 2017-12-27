@@ -6,22 +6,28 @@ require 'digest/sha3'
 class Nis::Apostille
   CHECKSUM = 'fe4e5459'.freeze
 
+  attr_reader :dedicated_keypair
+
   # @param [Nis::Keypair] keypair
-  # @param [string] file - The file
-  # @param [symbol] hashing - An hashing type (md5, sha1, sha256, sha3-256, sha3-512)
-  # @param [boolean] multisig - true if transaction is multisig, false otherwise
-  # @param [boolean] private - true if apostille is private / transferable / updateable, false if public
-  def initialize(keypair, file, hashing = :sha256, multisig: false, private: false, network: :testnet)
+  # @param [String] file - The file
+  # @param [Symbol] hashing - An hashing type (md5, sha1, sha256, sha3-256, sha3-512)
+  # @param [Boolean] multisig - true if transaction is multisig, false otherwise
+  # @param [Symbol] type - true if apostille is private / transferable / updateable, false if public
+  def initialize(keypair, file, hashing = :sha256, multisig: false, type: :public, network: :testnet)
     @keypair = keypair
     @file = file
     @hashing = hashing
     @multisig = multisig
-    @private = private
+    @type = type
     @network = network
   end
 
   def private?
-    @private
+    @type == :private
+  end
+
+  def public?
+    @type == :public
   end
 
   def multisig?
@@ -30,10 +36,12 @@ class Nis::Apostille
 
   def transaction
     if private?
-      raise 'Not implemented private apostille.'
+      @dedicated_keypair = generate_keypair
+      apostille_hash = header << @dedicated_keypair.sign(calc_hash)
+      dedicated_address = Nis::Unit::Address.from_public_key(@dedicated_keypair.public, @network)
     else
+      apostille_hash = header << calc_hash
       dedicated_address = apostille[:sink]
-      apostille_hash = calc_hash
     end
 
     Nis::Transaction::Transfer.new(dedicated_address, 0, apostille_hash)
@@ -53,8 +61,18 @@ class Nis::Apostille
 
   private
 
+  def generate_keypair
+    filename = File.basename(@file.path)
+    signed_filename = @keypair.sign(Digest::SHA256.hexdigest(filename))
+    signed_filename = "#{'0' * 64}#{signed_filename.sub(/^00/i, '')}"[-64, 64]
+    Nis::Keypair.new(signed_filename)
+  end
+
+  def header
+    "#{CHECKSUM}#{hex_type}"
+  end
+
   def calc_hash
-    checksum = "#{CHECKSUM}#{hex_type}"
     hashed = case @hashing
              when /\Amd5\z/      then Digest::MD5.file(@file)
              when /\Asha1\z/     then Digest::SHA1.file(@file)
@@ -62,7 +80,7 @@ class Nis::Apostille
              when /\Asha3-256\z/ then Digest::SHA3.file(@file, 256)
       else Digest::SHA3.file(@file, 512)
     end
-    checksum << hashed.hexdigest
+    hashed.hexdigest
   end
 
   def algo

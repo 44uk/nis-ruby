@@ -13,7 +13,7 @@ kp = Nis::Keypair.new(A_PRIVATE_KEY)
 file = File.open("#{FIXTURES_PATH}/nemLogoV2.png")
 ap = Nis::Apostille.new(kp, file, :sha1,
   multisig: false,
-  type: :public,
+  type: :private,
   network: :testnet
 )
 tx = ap.transaction
@@ -25,5 +25,7 @@ res = nis.transaction_announce(req)
 p "Message: #{res.message}"
 p "TransactionHash: #{res.transaction_hash}"
 p "ApostilleFormat: #{ap.apostille_format(res.transaction_hash)}"
+p "DedicatedPrivateKey: #{ap.dedicated_keypair.private}"
 
+File.write('dedicaded_private_key.txt', ap.dedicated_keypair.private)
 FileUtils.cp(file.path, ap.apostille_format(res.transaction_hash))
