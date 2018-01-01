@@ -2,6 +2,8 @@
 
 **Refactored and New gem for nem => [44uk/nem-ruby](https://github.com/44uk/nem-ruby/)**
 
+**Please use [nem-ruby](https://github.com/44uk/nem-ruby/). Discontinue the development of this gem.**
+
 # nis-ruby
 
 [![Gem Version](https://badge.fury.io/rb/nis-ruby.svg)](https://badge.fury.io/rb/nis-ruby)
